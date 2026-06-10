@@ -505,7 +505,7 @@
       color: #777;
       margin-top: 1rem;
     }
-    /* ----- Premium Modal (same as index.html) ----- */
+    /* Modal */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -599,7 +599,6 @@
       margin-right: 8px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    /* ----- end modal ----- */
     .floating-cta {
       position: fixed;
       bottom: 30px;
@@ -639,6 +638,13 @@
     .fade-up.appear {
       opacity: 1;
       transform: translateY(0);
+    }
+    .fallback-message {
+      text-align: center;
+      background: rgba(255,215,0,0.1);
+      padding: 2rem;
+      border-radius: 28px;
+      margin: 2rem 0;
     }
   </style>
 </head>
@@ -682,7 +688,7 @@
 
   <div class="container">
     <h2 class="section-title">Gym Membership</h2>
-    <div class="membership-cards">
+    <div class="membership-cards" id="membershipContainer">
       <!-- Dynamic content -->
     </div>
   </div>
@@ -735,7 +741,7 @@
   </div>
 </footer>
 
-<!-- Premium Modal for Free Trial -->
+<!-- Modal for Free Trial -->
 <div id="modalOverlay" class="modal-overlay">
   <div class="modal-content">
     <span class="close-modal">&times;</span>
@@ -755,6 +761,10 @@
 </div>
 
 <script>
+  // ========== CONFIGURATION ==========
+  // Use relative API path (assumes backend on same domain)
+  const API_BASE = '/api';
+
   // ========== GLOBAL STATE ==========
   let siteSettings = {};
   let stats = {};
@@ -768,35 +778,40 @@
   let currentSearch = '';
   let currentDisplayLimit = 10;
 
-  const API_BASE = window.location.hostname === 'localhost' 
-    ? '/api' 
-    : 'https://ultrafit-gym-unnao.onrender.com/api';
-
-  async function fetchJSON(url) {
+  // ========== HELPER: FETCH WITH ERROR HANDLING ==========
+  async function fetchJSON(url, fallbackData = null) {
     try {
       const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (!res.ok) {
+        console.warn(`HTTP ${res.status} for ${url}`);
+        return fallbackData;
+      }
       return await res.json();
     } catch (err) {
       console.error(`Fetch error ${url}:`, err);
-      return null;
+      return fallbackData;
     }
   }
 
+  // ========== LOAD DATA FROM API ==========
   async function loadData() {
     const [settings, statsData, membershipsData, membersData] = await Promise.all([
-      fetchJSON(`${API_BASE}/sitesettings`),
-      fetchJSON(`${API_BASE}/stats`),
-      fetchJSON(`${API_BASE}/memberships`),
-      fetchJSON(`${API_BASE}/members`)
+      fetchJSON(`${API_BASE}/sitesettings`, null),
+      fetchJSON(`${API_BASE}/stats`, null),
+      fetchJSON(`${API_BASE}/memberships`, []),
+      fetchJSON(`${API_BASE}/members`, [])
     ]);
     if (settings) siteSettings = settings;
     if (statsData) stats = statsData;
     if (membershipsData) memberships = membershipsData;
     if (membersData) allMembers = membersData;
     featuredMembers = allMembers.filter(m => m.featured === true);
+
+    // Fallback for empty data – show a friendly message later
+    if (allMembers.length === 0) console.warn('No members loaded from API');
   }
 
+  // ========== RENDER FUNCTIONS ==========
   function renderHero() {
     const heroTitle = document.querySelector('.members-hero .hero-content h1');
     const heroSub = document.querySelector('.members-hero .hero-sub');
@@ -808,25 +823,25 @@
 
   function renderStats() {
     const statNumbers = document.querySelectorAll('.stats-section .stat-card h2');
-    if (statNumbers.length >= 3 && stats) {
-      statNumbers[0].innerText = stats.totalMembers ? stats.totalMembers.toLocaleString() + '+' : '2,340+';
-      statNumbers[1].innerText = stats.activeMembers ? stats.activeMembers.toLocaleString() : '1,892';
-      statNumbers[2].innerText = stats.membersTransformations ? stats.membersTransformations.toLocaleString() + '+' : '1,250+';
+    if (statNumbers.length >= 3) {
+      if (stats && stats.totalMembers) statNumbers[0].innerText = stats.totalMembers.toLocaleString() + '+';
+      if (stats && stats.activeMembers) statNumbers[1].innerText = stats.activeMembers.toLocaleString();
+      if (stats && stats.membersTransformations) statNumbers[2].innerText = stats.membersTransformations.toLocaleString() + '+';
     }
   }
 
   function renderMemberships() {
-    const container = document.querySelector('.membership-cards');
+    const container = document.getElementById('membershipContainer');
     if (!container) return;
     if (!memberships.length) {
-      container.innerHTML = '<p style="color:white;">No membership plans available.</p>';
+      container.innerHTML = '<p class="fallback-message">Membership plans will appear soon. Contact us for details!</p>';
       return;
     }
     container.innerHTML = memberships.map(m => `
       <div class="membership-card" data-id="${m._id}">
-        <h3>${m.planName}</h3>
+        <h3>${escapeHtml(m.planName)}</h3>
         <div class="price">₹${m.price}<span style="font-size:1rem;">/${m.duration}</span></div>
-        <p>${m.description}</p>
+        <p>${escapeHtml(m.description)}</p>
         <button class="btn-join">Join Now</button>
       </div>
     `).join('');
@@ -839,13 +854,13 @@
     const container = document.getElementById('featuredScroll');
     if (!container) return;
     if (!featuredMembers.length) {
-      container.innerHTML = '<p>No featured members yet.</p>';
+      container.innerHTML = '<p class="fallback-message">No featured members yet. Check back soon!</p>';
       return;
     }
     container.innerHTML = featuredMembers.map(m => `
       <div class="featured-card">
-        <img src="${m.photoUrl}" alt="${m.name}">
-        <h4>${m.name}</h4>
+        <img src="${m.photoUrl || 'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3407.jpg'}" alt="${m.name}">
+        <h4>${escapeHtml(m.name)}</h4>
         <div><span class="member-tag">${m.featuredTag || 'Featured'}</span></div>
         <div><span class="member-tag">${m.goal === 'fatloss' ? 'Fat Loss' : 'Muscle Gain'}</span></div>
       </div>
@@ -879,6 +894,10 @@
   function renderCardView(members) {
     const container = document.getElementById('membersContainer');
     container.innerHTML = '';
+    if (members.length === 0) {
+      container.innerHTML = '<div class="fallback-message">No members match your criteria. Be the first to join our community!</div>';
+      return;
+    }
     const grid = document.createElement('div');
     grid.className = 'members-grid';
     members.forEach(m => {
@@ -889,8 +908,8 @@
       const card = document.createElement('div');
       card.className = 'member-card fade-up';
       card.innerHTML = `
-        <img class="member-avatar" src="${m.photoUrl}" alt="${m.name}">
-        <div class="member-name">${m.name}</div>
+        <img class="member-avatar" src="${m.photoUrl || 'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3407.jpg'}" alt="${m.name}">
+        <div class="member-name">${escapeHtml(m.name)}</div>
         <div class="member-details">${m.age} years · Member since ${m.since}</div>
         <div class="tag-group">
           <span class="member-tag">${goalLabel}</span>
@@ -911,6 +930,10 @@
   function renderListView(members) {
     const container = document.getElementById('membersContainer');
     container.innerHTML = '';
+    if (members.length === 0) {
+      container.innerHTML = '<div class="fallback-message">No members match your criteria. Be the first to join our community!</div>';
+      return;
+    }
     const list = document.createElement('div');
     list.className = 'members-list';
     members.forEach(m => {
@@ -919,9 +942,9 @@
       const item = document.createElement('div');
       item.className = 'member-list-item fade-up';
       item.innerHTML = `
-        <img class="list-avatar" src="${m.photoUrl}" alt="${m.name}">
+        <img class="list-avatar" src="${m.photoUrl || 'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3407.jpg'}" alt="${m.name}">
         <div class="list-info">
-          <span class="list-name">${m.name}</span>
+          <span class="list-name">${escapeHtml(m.name)}</span>
           <span class="status-badge ${statusClass} list-status">${statusText}</span>
         </div>
       `;
@@ -1023,7 +1046,7 @@
     });
   }
 
-  // ----- MODAL AND TRIAL SUBMISSION -----
+  // ========== TRIAL MODAL ==========
   const modalOverlay = document.getElementById('modalOverlay');
   function openTrialModal() {
     document.getElementById('trialForm').reset();
@@ -1085,12 +1108,17 @@
     }, 5000);
   }
 
-  // attach modal close events
-  document.querySelectorAll('.close-modal').forEach(btn => btn.addEventListener('click', () => modalOverlay.style.display = 'none'));
-  modalOverlay?.addEventListener('click', (e) => { if (e.target === modalOverlay) modalOverlay.style.display = 'none'; });
-  document.getElementById('trialForm')?.addEventListener('submit', submitTrialForm);
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, (m) => {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
 
-  // ----- INITIALIZE PAGE -----
+  // ========== INITIALIZE PAGE ==========
   (async function init() {
     await loadData();
     renderHero();
@@ -1103,7 +1131,7 @@
     document.getElementById('loadMoreBtn')?.addEventListener('click', loadMore);
   })();
 
-  // ----- NAVBAR SCROLL & HAMBURGER -----
+  // ========== NAVBAR SCROLL & HAMBURGER ==========
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) navbar.classList.add('scrolled');
@@ -1113,10 +1141,13 @@
   const navLinks = document.getElementById('navLinks');
   if (hamburger) hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
 
-  // ----- FLOATING BUTTON OPENS MODAL (instead of alert) -----
+  // ========== MODAL EVENT LISTENERS ==========
+  document.querySelectorAll('.close-modal').forEach(btn => btn.addEventListener('click', () => modalOverlay.style.display = 'none'));
+  modalOverlay?.addEventListener('click', (e) => { if (e.target === modalOverlay) modalOverlay.style.display = 'none'; });
+  document.getElementById('trialForm')?.addEventListener('submit', submitTrialForm);
   document.getElementById('floatingTrialBtn')?.addEventListener('click', openTrialModal);
 
-  // ----- FADE-IN ANIMATIONS (unchanged) -----
+  // ========== FADE-IN ANIMATIONS ==========
   const fadeElements = document.querySelectorAll('.stat-card, .membership-card, .filter-bar, .section-title');
   const fadeObs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('appear'); });
