@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#121212" />
+  <title>UltraFit Gym | Elite Workout Plans</title>
+  <!-- Google Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- html2pdf bundle -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Global stylesheet (shared across all pages) -->
+  <link rel="stylesheet" href="index.css" />
+  <style>
+    /* ===== WORKOUT PAGE SPECIFIC ENHANCEMENTS (LUXURY, MATCHES DIET PAGE) ===== */
+    :root {
+      --gold: #FFD700;
+      --gold-glow: 0 0 12px rgba(255,215,0,0.4);
+      --card-bg: rgba(28,28,32,0.88);
+      --glass-edge: 1px solid rgba(255,215,0,0.2);
+    }
+
+    /* Hero Premium – fixed background opacity (same as diet.html) */
+    .workout-hero {
+      position: relative;
+      min-height: 65vh;
+      background: linear-gradient(115deg, #000000d0 0%, #0a0a0a 100%), url('https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=1600');
+      background-size: cover;
+      background-position: center 35%;
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: 0;
+      border-bottom: 2px solid rgba(255,215,0,0.3);
+    }
+    .hero-content-center {
+      position: relative;
+      z-index: 2;
+      animation: heroZoomFade 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    @keyframes heroZoomFade {
+      0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .hero-content-center h1 {
+      font-size: 4.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFD700 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 15px rgba(0,0,0,0.3);
+    }
+    .hero-sub {
+      font-size: 1.2rem;
+      color: #e0e0e0;
+      max-width: 650px;
+      margin: 1rem auto 0;
+      font-weight: 500;
+    }
+
+    /* Category Headers */
+    .category-luxury {
+      text-align: center;
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin: 3rem 0 1rem;
+      color: #fff;
+      position: relative;
+      width: 100%;
+    }
+    .category-luxury span {
+      background: linear-gradient(120deg, #FFD700, #FFE55C);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+    }
+    .category-luxury::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 3px;
+      background: #FFD700;
+      margin: 0.8rem auto 0;
+      border-radius: 4px;
+      box-shadow: 0 0 8px #FFD700;
+    }
+    .category-sub {
+      text-align: center;
+      font-size: 1rem;
+      color: #FFD700;
+      letter-spacing: 1px;
+      margin-top: 0.2rem;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    /* Premium Workout Cards Grid - centered like diet.html */
+    .workout-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 2rem;
+      margin: 2rem auto;
+      justify-items: center;
+    }
+
+    .workout-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      border-radius: 32px;
+      border: 1px solid rgba(255,215,0,0.25);
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      box-shadow: 0 12px 30px -8px rgba(0,0,0,0.4);
+      width: 100%;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+    .workout-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,215,0,0.5);
+      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.2);
+    }
+
+    .card-header {
+      padding: 1.2rem 1.5rem 0.5rem;
+      border-bottom: 1px solid rgba(255,215,0,0.2);
+    }
+    .card-header h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #FFD700;
+      margin-bottom: 0.2rem;
+    }
+
+    /* Exercise list inside card */
+    .exercise-list {
+      padding: 1rem 1.5rem;
+      background: rgba(0,0,0,0.3);
+    }
+    .exercise-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px dashed rgba(255,215,0,0.15);
+      color: #eaeaea;
+    }
+    .exercise-name {
+      font-weight: 500;
+    }
+    .exercise-reps {
+      color: #FFD700;
+      font-weight: 600;
+    }
+
+    /* Carousel inside card */
+    .card-carousel-container {
+      padding: 1rem 1rem 0.5rem;
+    }
+    .workout-carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background: #0a0a0a;
+      touch-action: pan-y pinch-zoom;
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.4, 1);
+      cursor: grab;
+    }
+    .carousel-track:active {
+      cursor: grabbing;
+    }
+    .carousel-slide {
+      flex: 0 0 100%;
+      position: relative;
+    }
+    .carousel-slide img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .image-label {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #FFD700;
+      border-left: 2px solid #FFD700;
+      letter-spacing: 0.5px;
+    }
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 0.6rem 0 0.4rem;
+    }
+    .carousel-btn {
+      background: #1e1e1e;
+      border: 1px solid #FFD700;
+      color: #FFD700;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .carousel-btn:hover {
+      background: #FFD700;
+      color: #000;
+      transform: scale(1.05);
+    }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin: 8px 0 10px;
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: #555;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .dot.active {
+      background: #FFD700;
+      transform: scale(1.4);
+      box-shadow: 0 0 6px gold;
+    }
+
+    /* PDF Button Group */
+    .pdf-group {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+    }
+    .btn-pdf {
+      background: transparent;
+      border: 1px solid #FFD700;
+      padding: 0.5rem 1.4rem;
+      border-radius: 60px;
+      color: #FFD700;
+      font-weight: 600;
+      transition: all 0.25s;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .btn-pdf:hover {
+      background: #FFD700;
+      color: #121212;
+      box-shadow: 0 0 12px gold;
+    }
+
+    /* Body Mass Calculator */
+    .calculator-luxury {
+      background: rgba(20,20,28,0.85);
+      backdrop-filter: blur(12px);
+      border-radius: 48px;
+      padding: 2rem;
+      max-width: 750px;
+      margin: 2rem auto 4rem;
+      border: 1px solid rgba(255,215,0,0.3);
+      transition: all 0.3s;
+    }
+    .input-group-custom {
+      margin-bottom: 1.2rem;
+    }
+    .input-group-custom label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+      color: #ccc;
+    }
+    .input-group-custom input, .input-group-custom select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 40px;
+      color: white;
+      transition: 0.2s;
+    }
+    .input-group-custom input:focus {
+      border-color: #FFD700;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255,215,0,0.3);
+    }
+    .calc-result {
+      background: #00000066;
+      border-radius: 40px;
+      padding: 1rem;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    .hidden {
+      display: none;
+    }
+
+    /* Mobile & responsive */
+    @media (max-width: 768px) {
+      .hero-content-center h1 { font-size: 2.5rem; }
+      .category-luxury { font-size: 2rem; }
+      .workout-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        justify-items: center;
+      }
+      .workout-card {
+        max-width: 100%;
+        width: 100%;
+      }
+      .card-header h3 { font-size: 1.3rem; }
+      .container {
+        padding: 0 1rem;
+        width: 100%;
+        overflow-x: hidden;
+      }
+      body {
+        overflow-x: hidden;
+      }
+      .card-carousel-container {
+        padding: 0.5rem;
+      }
+      .carousel-slide img {
+        aspect-ratio: 4/3;
+        width: 100%;
+      }
+      .carousel-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+      }
+      .dot {
+        width: 6px;
+        height: 6px;
+      }
+      .pdf-group {
+        justify-content: center;
+        margin: 0.5rem 0 1rem;
+      }
+      .btn-pdf {
+        font-size: 0.75rem;
+        padding: 0.4rem 1rem;
+      }
+      .calculator-luxury {
+        padding: 1.2rem;
+        margin: 1rem auto 2rem;
+      }
+      .input-group-custom input, .input-group-custom select {
+        padding: 0.6rem 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content-center h1 { font-size: 2rem; }
+      .category-luxury { font-size: 1.6rem; }
+      .card-header h3 { font-size: 1.2rem; }
+      .exercise-item {
+        font-size: 0.75rem;
+        padding: 0.3rem 0;
+      }
+      .btn-pdf {
+        font-size: 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <div class="container nav-container">
+    <div class="logo-wrapper">
+      <img src="UltraFit logo.png" alt="UltraFit Logo" class="nav-logo-img" width="38" height="38" />
+      <div class="logo"><span class="logo-ultra">ULTRA</span><span class="logo-fit">FIT</span></div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="nav-link join-now-nav">Join Now</a></li>
+      <li><a href="index.html#contact-section" class="nav-link">Contact Us</a></li>
+      <li><a href="diet.html" class="nav-link">Diet Plan</a></li>
+      <li><a href="workout.html" class="nav-link">Workout Plan</a></li>
+      <li><a href="members.html" class="nav-link">Gym Members</a></li>
+      <li><a href="shop.html" class="nav-link">Shop</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+  </div>
+</header>
+
+<main>
+  <div class="workout-hero">
+    <div class="hero-content-center">
+      <h1>Weekly Workout Plan</h1>
+      <p class="hero-sub">Periodized programming · Elite coaching · Unlock your athletic ceiling</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="workoutRoot"></div>
+
+    <!-- Body Mass Calculator (no download button) -->
+    <div class="category-luxury" style="margin-top: 2rem;"><span>⚖️ Body Mass Index</span></div>
+    <div class="calculator-luxury" id="bmiCalculatorCard">
+      <div class="input-group-custom"><label>Height (cm)</label><input type="number" id="bmiHeight" value="175" placeholder="cm"></div>
+      <div class="input-group-custom"><label>Weight (kg)</label><input type="number" id="bmiWeight" value="72" placeholder="kg"></div>
+      <button id="calculateBmiBtn" class="btn-pdf" style="width:100%; background:#FFD700; color:#000; font-weight:800;">Calculate Body Mass Index</button>
+      <div id="bmiOutput" class="calc-result hidden">
+        <div><span id="bmiValue" style="font-size:2rem; font-weight:800; color:#FFD700;">0</span> <span style="color:#FFD700;">BMI</span></div>
+        <p id="bmiCategoryText" style="color:#ccc; margin:0.5rem 0;">—</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div class="footer-links">
+      <h4>UltraFit Gym</h4>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="refund.html">Refund Policy</a></li>
+        <li><a href="terms.html">Terms & Conditions</a></li>
+      </ul>
+      <p class="credit">Designed by Brand Bazaar</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ========== FIXED API_BASE – uses relative path for both local and Render ==========
+  const API_BASE = '/api';
+
+  let siteSettings = {};
+  let categories = [];
+  let allDays = [];
+
+  async function fetchJSON(url) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (err) {
+      console.error(`Fetch error ${url}:`, err);
+      return null;
+    }
+  }
+
+  async function loadData() {
+    const [settings, cats, days] = await Promise.all([
+      fetchJSON(`${API_BASE}/sitesettings`),
+      fetchJSON(`${API_BASE}/workoutcategories`),
+      fetchJSON(`${API_BASE}/workoutdays`)
+    ]);
+    if (settings) siteSettings = settings;
+    if (cats) categories = cats;
+    if (days) allDays = days;
+  }
+
+  function renderHero() {
+    const heroTitle = document.querySelector('.workout-hero .hero-content-center h1');
+    const heroSub = document.querySelector('.workout-hero .hero-sub');
+    const heroBg = document.querySelector('.workout-hero');
+    if (heroTitle && siteSettings.workoutHeroHeading) heroTitle.innerText = siteSettings.workoutHeroHeading;
+    if (heroSub && siteSettings.workoutHeroSubheading) heroSub.innerText = siteSettings.workoutHeroSubheading;
+    if (heroBg && siteSettings.workoutHeroImage) {
+      heroBg.style.backgroundImage = `linear-gradient(115deg, #000000d0 0%, #0a0a0a 100%), url('${siteSettings.workoutHeroImage}')`;
+    }
+    const bmiHeading = document.querySelector('.category-luxury:last-of-type span');
+    if (bmiHeading && siteSettings.bmiCalculatorHeading) bmiHeading.innerText = siteSettings.bmiCalculatorHeading;
+  }
+
+  function createCarousel(cardElement, imagesArray) {
+    if (!imagesArray.length) return;
+    const carouselDiv = document.createElement('div');
+    carouselDiv.className = 'workout-carousel';
+    const track = document.createElement('div');
+    track.className = 'carousel-track';
+    imagesArray.forEach(img => {
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide';
+      slide.innerHTML = `<img src="${img.url}" alt="exercise" loading="lazy"><div class="image-label">${escapeHtml(img.label)}</div>`;
+      track.appendChild(slide);
+    });
+    carouselDiv.appendChild(track);
+    const controls = document.createElement('div');
+    controls.className = 'carousel-controls';
+    const prevBtn = document.createElement('button'); prevBtn.className = 'carousel-btn'; prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    const nextBtn = document.createElement('button'); nextBtn.className = 'carousel-btn'; nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    controls.append(prevBtn, nextBtn);
+    const dotsDiv = document.createElement('div'); dotsDiv.className = 'carousel-dots';
+    carouselDiv.append(controls, dotsDiv);
+    cardElement.querySelector('.card-carousel-container')?.appendChild(carouselDiv);
+
+    let current = 0, autoTimer, pauseTimer;
+    const update = () => {
+      track.style.transform = `translateX(-${current * 100}%)`;
+      Array.from(dotsDiv.children).forEach((dot, i) => dot.classList.toggle('active', i === current));
+    };
+    for (let i = 0; i < imagesArray.length; i++) {
+      const dot = document.createElement('div'); dot.classList.add('dot');
+      dot.addEventListener('click', () => { current = i; update(); resetAutoTimer(); });
+      dotsDiv.appendChild(dot);
+    }
+    prevBtn.addEventListener('click', () => { current = (current - 1 + imagesArray.length) % imagesArray.length; update(); resetAutoTimer(); });
+    nextBtn.addEventListener('click', () => { current = (current + 1) % imagesArray.length; update(); resetAutoTimer(); });
+    function startAuto() { if (autoTimer) clearInterval(autoTimer); autoTimer = setInterval(() => { current = (current + 1) % imagesArray.length; update(); }, 3000); }
+    function resetAutoTimer() { if (pauseTimer) clearTimeout(pauseTimer); if (autoTimer) clearInterval(autoTimer); pauseTimer = setTimeout(startAuto, 6000); }
+    startAuto();
+    update();
+
+    let startX = 0, isDragging = false;
+    track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; isDragging = true; });
+    track.addEventListener('touchmove', (e) => { if (!isDragging) return; const diff = e.touches[0].clientX - startX; if (Math.abs(diff) > 40) { if (diff > 0) prevBtn.click(); else nextBtn.click(); isDragging = false; } });
+    track.addEventListener('touchend', () => isDragging = false);
+  }
+
+  function renderWorkoutSections() {
+    const root = document.getElementById('workoutRoot');
+    root.innerHTML = '';
+    categories.forEach(cat => {
+      const catDays = allDays.filter(d => d.categoryKey === cat.key).sort((a,b) => a.order - b.order);
+      if (!catDays.length) return;
+      const sectionDiv = document.createElement('div');
+      sectionDiv.innerHTML = `
+        <div class="category-luxury"><span>${escapeHtml(cat.displayName)}</span></div>
+        <div class="category-sub">${escapeHtml(cat.subheading || '')}</div>
+        <div class="pdf-group"><button class="btn-pdf" data-pdf-category="${cat.key}">📄 Download Plan PDF</button></div>
+        <div class="workout-cards-grid" id="grid-${cat.key}"></div>
+      `;
+      root.appendChild(sectionDiv);
+      const grid = document.getElementById(`grid-${cat.key}`);
+      catDays.forEach(day => {
+        const card = document.createElement('div');
+        card.className = 'workout-card';
+        const exercisesHtml = day.exercises.map(ex => `<div class="exercise-item"><span class="exercise-name">${escapeHtml(ex.name)}</span><span class="exercise-reps">${escapeHtml(ex.reps)}</span></div>`).join('');
+        card.innerHTML = `
+          <div class="card-header"><h3>${escapeHtml(day.dayTitle)}</h3></div>
+          <div class="exercise-list">${exercisesHtml}</div>
+          <div class="card-carousel-container"></div>
+        `;
+        grid.appendChild(card);
+        createCarousel(card, day.images);
+      });
+    });
+
+    document.querySelectorAll('[data-pdf-category]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const catKey = btn.getAttribute('data-pdf-category');
+        window.open(`pdf-workout.html?category=${catKey}`, '_blank');
+      });
+    });
+  }
+
+  // BMI Calculator
+  document.getElementById('calculateBmiBtn').addEventListener('click', () => {
+    const heightCm = parseFloat(document.getElementById('bmiHeight').value);
+    const weightKg = parseFloat(document.getElementById('bmiWeight').value);
+    if (isNaN(heightCm) || isNaN(weightKg) || heightCm <= 0) { alert('Enter valid height and weight'); return; }
+    const heightM = heightCm / 100;
+    const bmi = (weightKg / (heightM * heightM)).toFixed(1);
+    let category = '';
+    if (bmi < 18.5) category = 'Underweight';
+    else if (bmi < 25) category = 'Normal weight';
+    else if (bmi < 30) category = 'Overweight';
+    else category = 'Obese';
+    document.getElementById('bmiValue').innerText = bmi;
+    document.getElementById('bmiCategoryText').innerHTML = `<strong>${category}</strong> · BMI ${bmi}`;
+    document.getElementById('bmiOutput').classList.remove('hidden');
+  });
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, (m) => {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  (async function init() {
+    await loadData();
+    renderHero();
+    renderWorkoutSections();
+  })();
+
+  const hamburger = document.getElementById('hamburger');
+  const navLinksEl = document.getElementById('navLinks');
+  if(hamburger) hamburger.addEventListener('click', () => navLinksEl.classList.toggle('active'));
+  window.addEventListener('scroll', () => { const nav = document.getElementById('navbar'); if(window.scrollY>50) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
+  const fadeElements = document.querySelectorAll('.workout-card, .category-luxury, .calculator-luxury');
+  const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('appear'); }); }, { threshold: 0.15 });
+  fadeElements.forEach(el => { el.classList.add('fade-up'); observer.observe(el); });
+</script>
+</body>
+</html>

@@ -19,6 +19,20 @@
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <!-- FIX: Icon alignment for download button -->
+  <style>
+    #installAppBtn i {
+      vertical-align: middle !important;
+      line-height: 1 !important;
+      display: inline-block !important;
+    }
+    #installAppBtn {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -58,8 +72,8 @@
       <h1 class="hero-title" id="heroTitle">The Standard of Strength</h1>
       <!-- PWA install button (no trial modal) -->
       <button class="btn-primary btn-vip" id="installAppBtn">
-  <i class="fas fa-mobile-alt" style="margin-right: 8px;"></i> Download UltraFit App
-</button>
+        <i class="fas fa-mobile-alt" style="margin-right: 8px;"></i> Download UltraFit App
+      </button>
       <div class="live-status">
         <span class="pulse-dot"></span>
         <span id="statusText">Open Now – Closing at 10 PM</span>

@@ -32,6 +32,52 @@
       align-items: center !important;
       gap: 8px !important;
     }
+
+    /* ===== UNDER DEVELOPMENT STYLES (for Shop, Diet, Workout) ===== */
+    .under-dev-card {
+      background: rgba(20,20,25,0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 48px;
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid rgba(255,215,0,0.3);
+      max-width: 600px;
+      margin: 1rem auto;
+    }
+    .under-dev-card i {
+      font-size: 3.5rem;
+      color: #FFD700;
+      margin-bottom: 1rem;
+    }
+    .under-dev-card h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #fff, #FFD700);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    .under-dev-card p {
+      color: #ccc;
+      margin-bottom: 1.5rem;
+    }
+    .btn-outline-gold {
+      background: transparent;
+      border: 1px solid #FFD700;
+      color: #FFD700;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-outline-gold:hover {
+      background: #FFD700;
+      color: #121212;
+      transform: scale(1.02);
+    }
   </style>
 </head>
 <body>
@@ -70,7 +116,6 @@
       </div>
       <div class="hero-brand">ULTRAFIT</div>
       <h1 class="hero-title" id="heroTitle">The Standard of Strength</h1>
-      <!-- PWA install button (no trial modal) -->
       <button class="btn-primary btn-vip" id="installAppBtn">
         <i class="fas fa-mobile-alt" style="margin-right: 8px;"></i> Download UltraFit App
       </button>
@@ -138,19 +183,29 @@
     </div>
   </section>
 
-  <!-- DIET PLANS -->
+  <!-- ===== DIET PLANS – UNDER DEVELOPMENT ===== -->
   <section class="diet-plans-section">
     <div class="container">
       <h2 class="section-title" id="dietHeading">Diet Plans</h2>
-      <div class="diet-plans-grid" id="dietGrid"></div>
+      <div class="under-dev-card">
+        <i class="fas fa-leaf"></i>
+        <h3>Coming Soon</h3>
+        <p>Our expert nutritionists are crafting personalised diet plans tailored to your goals – weight loss, muscle gain, or balanced living.</p>
+        <a href="diet.html" class="btn-outline-gold">Get Notified →</a>
+      </div>
     </div>
   </section>
 
-  <!-- WORKOUT PLANS -->
+  <!-- ===== WORKOUT PLANS – UNDER DEVELOPMENT ===== -->
   <section class="workout-plan-section" id="workout-plan">
     <div class="container">
       <h2 class="section-title" id="workoutHeading">Workout Plan</h2>
-      <div class="workout-plans-grid" id="workoutGrid"></div>
+      <div class="under-dev-card">
+        <i class="fas fa-dumbbell"></i>
+        <h3>Coming Soon</h3>
+        <p>Periodized training programs designed by elite coaches – from beginner to advanced, at home or in the gym.</p>
+        <a href="workout.html" class="btn-outline-gold">Get Notified →</a>
+      </div>
     </div>
   </section>
 
@@ -163,12 +218,19 @@
     </div>
   </section>
 
-  <!-- SHOP PREVIEW -->
+  <!-- ===== SHOP – UNDER DEVELOPMENT ===== -->
   <section class="proshop-preview" id="proshop-preview">
     <div class="container">
       <h2 class="section-title" id="shopHeading"><span class="ultra-white">ULTRA</span><span class="fit-gold">FIT</span> Shop</h2>
-      <div class="product-grid" id="productGrid"></div>
-      <div class="shop-cta-wrapper"><a href="shop.html" class="btn-outline-gold visit-shop-btn">Visit Shop</a></div>
+      <div class="under-dev-card">
+        <i class="fas fa-store"></i>
+        <h3>Under Development</h3>
+        <p>Our premium store is coming soon with authentic supplements, gym wear, and accessories. Get ready to fuel your gains.</p>
+        <a href="shop.html" class="btn-outline-gold">View Launch Details →</a>
+      </div>
+      <div class="shop-cta-wrapper" style="margin-top: 1rem;">
+        <a href="shop.html" class="btn-outline-gold visit-shop-btn">Visit Shop</a>
+      </div>
     </div>
   </section>
 
@@ -205,7 +267,7 @@
     </div>
   </section>
 
-  <!-- CONTACT + MAP (with updated WhatsApp message) -->
+  <!-- CONTACT + MAP -->
   <section class="contact-visit-section" id="contact-section">
     <div class="container">
       <div class="contact-visit-grid">
@@ -257,7 +319,7 @@
   </div>
 </footer>
 
-<!-- MODAL FOR FREE TRIAL – "Phone Number" changed to "WhatsApp Number" -->
+<!-- MODAL FOR FREE TRIAL -->
 <div id="modalOverlay" class="modal-overlay">
   <div class="modal-content">
     <span class="close-modal">&times;</span>
@@ -295,7 +357,65 @@
 
 <div class="floating-cta"><button class="floating-trial-btn" id="floatingTrialBtn">Book 3-Day Free Trial</button></div>
 
-<!-- External JavaScript -->
+<!-- External JavaScript (unchanged) -->
 <script src="index.js"></script>
+
+<!-- Override: Replace any dynamic content from index.js for diet/workout/shop with our placeholders -->
+<script>
+  (function() {
+    // Wait for the page to be fully loaded and the JS to run
+    window.addEventListener('load', function() {
+      // Find and replace the diet grid content if it was overwritten by JS
+      const dietGrid = document.getElementById('dietGrid');
+      if (dietGrid) {
+        // If the original grid still exists (the JS might have removed it), we replace it.
+        // But we already replaced the whole section; ensure that the placeholder is visible.
+        // If the JS reinserted a grid, we hide it.
+        const parent = dietGrid.parentNode;
+        const existingPlaceholder = parent.querySelector('.under-dev-card');
+        if (!existingPlaceholder && dietGrid) {
+          dietGrid.style.display = 'none';
+          // Add placeholder after the heading
+          const heading = parent.querySelector('.section-title');
+          if (heading && !parent.querySelector('.under-dev-card')) {
+            const newPlaceholder = document.createElement('div');
+            newPlaceholder.className = 'under-dev-card';
+            newPlaceholder.innerHTML = `
+              <i class="fas fa-leaf"></i>
+              <h3>Coming Soon</h3>
+              <p>Our expert nutritionists are crafting personalised diet plans tailored to your goals – weight loss, muscle gain, or balanced living.</p>
+              <a href="diet.html" class="btn-outline-gold">Get Notified →</a>
+            `;
+            parent.insertBefore(newPlaceholder, dietGrid.nextSibling);
+          }
+        }
+      }
+
+      const workoutGrid = document.getElementById('workoutGrid');
+      if (workoutGrid) {
+        const parent = workoutGrid.parentNode;
+        const existingPlaceholder = parent.querySelector('.under-dev-card');
+        if (!existingPlaceholder && workoutGrid) {
+          workoutGrid.style.display = 'none';
+          const heading = parent.querySelector('.section-title');
+          if (heading && !parent.querySelector('.under-dev-card')) {
+            const newPlaceholder = document.createElement('div');
+            newPlaceholder.className = 'under-dev-card';
+            newPlaceholder.innerHTML = `
+              <i class="fas fa-dumbbell"></i>
+              <h3>Coming Soon</h3>
+              <p>Periodized training programs designed by elite coaches – from beginner to advanced, at home or in the gym.</p>
+              <a href="workout.html" class="btn-outline-gold">Get Notified →</a>
+            `;
+            parent.insertBefore(newPlaceholder, workoutGrid.nextSibling);
+          }
+        }
+      }
+
+      const productGrid = document.querySelector('.product-grid');
+      if (productGrid) productGrid.style.display = 'none';
+    });
+  })();
+</script>
 </body>
 </html>
