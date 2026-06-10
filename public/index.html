@@ -20,7 +20,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
-  <!-- FIX: Icon alignment for download button -->
   <style>
     #installAppBtn i {
       vertical-align: middle !important;
@@ -70,7 +69,6 @@
       </div>
       <div class="hero-brand">ULTRAFIT</div>
       <h1 class="hero-title" id="heroTitle">The Standard of Strength</h1>
-      <!-- PWA install button (no trial modal) -->
       <button class="btn-primary btn-vip" id="installAppBtn">
         <i class="fas fa-mobile-alt" style="margin-right: 8px;"></i> Download UltraFit App
       </button>
@@ -205,7 +203,7 @@
     </div>
   </section>
 
-  <!-- CONTACT + MAP (with updated WhatsApp message) -->
+  <!-- CONTACT + MAP -->
   <section class="contact-visit-section" id="contact-section">
     <div class="container">
       <div class="contact-visit-grid">
@@ -257,7 +255,7 @@
   </div>
 </footer>
 
-<!-- MODAL FOR FREE TRIAL – "Phone Number" changed to "WhatsApp Number" -->
+<!-- MODAL FOR FREE TRIAL -->
 <div id="modalOverlay" class="modal-overlay">
   <div class="modal-content">
     <span class="close-modal">&times;</span>
@@ -295,7 +293,582 @@
 
 <div class="floating-cta"><button class="floating-trial-btn" id="floatingTrialBtn">Book 3-Day Free Trial</button></div>
 
-<!-- External JavaScript -->
-<script src="index.js"></script>
+<script>
+  // ========== COMPLETE FIXED index.js (embedded) ==========
+  // All public endpoints now use /api/members-list instead of /api/members
+
+  const API_BASE = '/api';
+
+  // Helper fetch with error handling
+  async function fetchJSON(url, fallbackData = null) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        console.warn(`HTTP ${res.status} for ${url}`);
+        return fallbackData;
+      }
+      return await res.json();
+    } catch (err) {
+      console.error(`Fetch error ${url}:`, err);
+      return fallbackData;
+    }
+  }
+
+  // Global state
+  let siteSettings = {};
+  let trainers = [];
+  let transformations = [];
+  let members = [];
+  let products = [];
+  let galleryItems = [];
+  let reelsItems = [];
+  let reviews = [];
+  let dietPlans = [];
+  let workoutPlans = [];
+  let memberships = [];
+
+  // Carousel indices
+  let memberCarouselIndex = 0;
+  let galleryIndex = 0;
+  let reelsIndex = 0;
+  let reviewIndex = 0;
+
+  // Load all data from public endpoints
+  async function loadAllData() {
+    const [settings, trainersData, transformationsData, membersData, productsData, galleryData, reelsData, reviewsData, dietData, workoutData, membershipData] = await Promise.all([
+      fetchJSON(`${API_BASE}/sitesettings`, {}),
+      fetchJSON(`${API_BASE}/trainers`, []),
+      fetchJSON(`${API_BASE}/transformations`, []),
+      fetchJSON(`${API_BASE}/members-list`, []),     // ✅ FIXED: public endpoint
+      fetchJSON(`${API_BASE}/products`, []),
+      fetchJSON(`${API_BASE}/gallery`, []),
+      fetchJSON(`${API_BASE}/reels`, []),
+      fetchJSON(`${API_BASE}/reviews`, []),
+      fetchJSON(`${API_BASE}/dietplans`, []),
+      fetchJSON(`${API_BASE}/workoutplans`, []),
+      fetchJSON(`${API_BASE}/memberships`, [])
+    ]);
+    if (settings) siteSettings = settings;
+    if (trainersData) trainers = trainersData;
+    if (transformationsData) transformations = transformationsData;
+    if (membersData) members = membersData;
+    if (productsData) products = productsData;
+    if (galleryData) galleryItems = galleryData;
+    if (reelsData) reelsItems = reelsData;
+    if (reviewsData) reviews = reviewsData;
+    if (dietData) dietPlans = dietData;
+    if (workoutData) workoutPlans = workoutData;
+    if (membershipData) memberships = membershipData;
+  }
+
+  // Render functions (same as your original index.js)
+  function renderHero() {
+    const heroTitle = document.getElementById('heroTitle');
+    if (heroTitle && siteSettings.homeHeroTitle) heroTitle.innerText = siteSettings.homeHeroTitle;
+    const statusSpan = document.getElementById('statusText');
+    if (statusSpan && siteSettings.homeStatusText) statusSpan.innerText = siteSettings.homeStatusText;
+    const logoImg = document.getElementById('navLogo');
+    if (logoImg && siteSettings.gymLogoUrl) logoImg.src = siteSettings.gymLogoUrl;
+    const heroLogo = document.getElementById('heroLogo');
+    if (heroLogo && siteSettings.gymLogoUrl) heroLogo.src = siteSettings.gymLogoUrl;
+  }
+
+  function renderStats() {
+    // Animated counters already handled in original script – kept as is
+    const statNumbers = document.querySelectorAll('.stat-num');
+    if (statNumbers.length >= 3 && siteSettings) {
+      const targets = [
+        siteSettings.homeStatsMembers || 1500,
+        siteSettings.homeStatsTrainers || 20,
+        siteSettings.homeStatsTransformations || 500
+      ];
+      statNumbers.forEach((el, idx) => {
+        if (idx < targets.length) {
+          const target = targets[idx];
+          let current = 0;
+          const increment = target / 50;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              clearInterval(timer);
+              el.innerText = Math.floor(target).toLocaleString();
+            } else {
+              el.innerText = Math.floor(current).toLocaleString();
+            }
+          }, 30);
+        }
+      });
+    }
+  }
+
+  function renderTrainers() {
+    const container = document.getElementById('trainersContainer');
+    if (!container) return;
+    if (!trainers.length) {
+      container.innerHTML = '<p class="fallback-message">Trainer profiles coming soon.</p>';
+      return;
+    }
+    container.innerHTML = trainers.slice(0, 4).map(t => `
+      <div class="leadership-card">
+        <img src="${t.imageUrl || 'https://via.placeholder.com/300'}" alt="${t.name}">
+        <h3>${escapeHtml(t.name)}</h3>
+        <p>${escapeHtml(t.position)}</p>
+        <div class="social-links">
+          ${t.instagramUrl ? `<a href="${t.instagramUrl}" target="_blank"><i class="fab fa-instagram"></i></a>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderTransformations() {
+    const container = document.getElementById('transformationsContainer');
+    if (!container) return;
+    if (!transformations.length) {
+      container.innerHTML = '<p class="fallback-message">Success stories loading soon.</p>';
+      return;
+    }
+    container.innerHTML = transformations.slice(0, 3).map(t => `
+      <div class="transform-card">
+        <img src="${t.beforeImage || ''}" alt="Before">
+        <img src="${t.afterImage || ''}" alt="After">
+        <p>${escapeHtml(t.description || '')}</p>
+      </div>
+    `).join('');
+  }
+
+  function renderMembersCarousel() {
+    const container = document.getElementById('membersCarouselItems');
+    const dotsContainer = document.getElementById('membersDots');
+    if (!container) return;
+    if (!members.length) {
+      container.innerHTML = '<div class="fallback-message">No members yet. Be the first!</div>';
+      return;
+    }
+    const itemsPerView = 3;
+    const totalSlides = Math.ceil(members.length / itemsPerView);
+    let slides = '';
+    for (let i = 0; i < totalSlides; i++) {
+      const start = i * itemsPerView;
+      const chunk = members.slice(start, start + itemsPerView);
+      slides += `<div class="carousel-slide">${chunk.map(m => `
+        <div class="member-card-carousel">
+          <img src="${m.photoUrl || 'https://via.placeholder.com/150'}" alt="${m.name}">
+          <h4>${escapeHtml(m.name)}</h4>
+          <p>${m.goal === 'fatloss' ? '🔥 Fat Loss' : '💪 Muscle Gain'}</p>
+        </div>
+      `).join('')}</div>`;
+    }
+    container.innerHTML = slides;
+    // Dots
+    dotsContainer.innerHTML = Array.from({ length: totalSlides }, (_, idx) =>
+      `<span class="carousel-dot ${idx === memberCarouselIndex ? 'active' : ''}" data-index="${idx}"></span>`
+    ).join('');
+    document.querySelectorAll('#membersDots .carousel-dot').forEach(dot => {
+      dot.addEventListener('click', (e) => {
+        memberCarouselIndex = parseInt(e.target.getAttribute('data-index'));
+        updateMemberCarousel();
+      });
+    });
+    updateMemberCarousel();
+  }
+
+  function updateMemberCarousel() {
+    const container = document.getElementById('membersCarouselItems');
+    if (!container) return;
+    const slideWidth = container.querySelector('.carousel-slide')?.offsetWidth || 0;
+    container.style.transform = `translateX(-${memberCarouselIndex * slideWidth}px)`;
+    const dots = document.querySelectorAll('#membersDots .carousel-dot');
+    dots.forEach((dot, idx) => {
+      if (idx === memberCarouselIndex) dot.classList.add('active');
+      else dot.classList.remove('active');
+    });
+  }
+
+  function renderDietPlans() {
+    const container = document.getElementById('dietGrid');
+    if (!container) return;
+    if (!dietPlans.length) {
+      container.innerHTML = '<p class="fallback-message">Diet plans coming soon.</p>';
+      return;
+    }
+    container.innerHTML = dietPlans.slice(0, 3).map(d => `
+      <div class="diet-card">
+        <h3>${escapeHtml(d.title)}</h3>
+        <p>${escapeHtml(d.shortDescription)}</p>
+        <a href="diet.html" class="btn-outline-gold">View Plan</a>
+      </div>
+    `).join('');
+  }
+
+  function renderWorkoutPlans() {
+    const container = document.getElementById('workoutGrid');
+    if (!container) return;
+    if (!workoutPlans.length) {
+      container.innerHTML = '<p class="fallback-message">Workout plans coming soon.</p>';
+      return;
+    }
+    container.innerHTML = workoutPlans.slice(0, 3).map(w => `
+      <div class="workout-card">
+        <h3>${escapeHtml(w.title)}</h3>
+        <p>${escapeHtml(w.shortDescription)}</p>
+        <a href="workout.html" class="btn-outline-gold">View Plan</a>
+      </div>
+    `).join('');
+  }
+
+  function renderMembership() {
+    const container = document.getElementById('membershipCards');
+    if (!container) return;
+    if (!memberships.length) {
+      container.innerHTML = '<p class="fallback-message">Membership plans available soon.</p>';
+      return;
+    }
+    container.innerHTML = memberships.slice(0, 3).map(m => `
+      <div class="membership-card">
+        <h3>${escapeHtml(m.planName)}</h3>
+        <div class="price">₹${m.price}<span>/${m.duration}</span></div>
+        <p>${escapeHtml(m.description)}</p>
+        <button class="btn-join">Join Now</button>
+      </div>
+    `).join('');
+    document.querySelectorAll('.btn-join').forEach(btn => {
+      btn.addEventListener('click', () => alert('Visit our front desk or contact us for membership.'));
+    });
+  }
+
+  function renderProducts() {
+    const container = document.getElementById('productGrid');
+    if (!container) return;
+    if (!products.length) {
+      container.innerHTML = '<p class="fallback-message">Shop products loading soon.</p>';
+      return;
+    }
+    container.innerHTML = products.slice(0, 4).map(p => `
+      <div class="product-card">
+        <img src="${p.imageUrl || 'https://via.placeholder.com/200'}" alt="${p.name}">
+        <h3>${escapeHtml(p.name)}</h3>
+        <p class="price">₹${p.price}</p>
+        <button class="btn-outline-gold shop-now-btn" data-id="${p._id}">Shop Now</button>
+      </div>
+    `).join('');
+  }
+
+  function renderGalleryCarousel() {
+    const container = document.getElementById('galleryItemsContainer');
+    const dotsContainer = document.getElementById('galleryDots');
+    if (!container) return;
+    if (!galleryItems.length) {
+      container.innerHTML = '<div class="fallback-message">Gallery images coming soon.</div>';
+      return;
+    }
+    container.innerHTML = galleryItems.map(item => `
+      <div class="carousel-item">
+        <img src="${item.imageUrl}" alt="Gallery">
+      </div>
+    `).join('');
+    dotsContainer.innerHTML = Array.from({ length: galleryItems.length }, (_, idx) =>
+      `<span class="carousel-dot ${idx === galleryIndex ? 'active' : ''}" data-index="${idx}"></span>`
+    ).join('');
+    attachGalleryEvents();
+    updateGalleryCarousel();
+  }
+
+  function updateGalleryCarousel() {
+    const container = document.getElementById('galleryItemsContainer');
+    if (!container) return;
+    const slideWidth = container.querySelector('.carousel-item')?.offsetWidth || 0;
+    container.style.transform = `translateX(-${galleryIndex * slideWidth}px)`;
+    const dots = document.querySelectorAll('#galleryDots .carousel-dot');
+    dots.forEach((dot, idx) => {
+      if (idx === galleryIndex) dot.classList.add('active');
+      else dot.classList.remove('active');
+    });
+  }
+
+  function attachGalleryEvents() {
+    const prevBtn = document.getElementById('galleryPrevBtn');
+    const nextBtn = document.getElementById('galleryNextBtn');
+    if (prevBtn) prevBtn.onclick = () => { if (galleryIndex > 0) galleryIndex--; updateGalleryCarousel(); };
+    if (nextBtn) nextBtn.onclick = () => { if (galleryIndex < galleryItems.length - 1) galleryIndex++; updateGalleryCarousel(); };
+    document.querySelectorAll('#galleryDots .carousel-dot').forEach(dot => {
+      dot.addEventListener('click', (e) => {
+        galleryIndex = parseInt(e.target.getAttribute('data-index'));
+        updateGalleryCarousel();
+      });
+    });
+  }
+
+  function renderReelsCarousel() {
+    const container = document.getElementById('reelsItemsContainer');
+    const dotsContainer = document.getElementById('reelsDots');
+    if (!container) return;
+    if (!reelsItems.length) {
+      container.innerHTML = '<div class="fallback-message">Reels coming soon.</div>';
+      return;
+    }
+    container.innerHTML = reelsItems.map(reel => `
+      <div class="carousel-item">
+        <video src="${reel.videoUrl}" controls poster="${reel.thumbnail || ''}"></video>
+      </div>
+    `).join('');
+    dotsContainer.innerHTML = Array.from({ length: reelsItems.length }, (_, idx) =>
+      `<span class="carousel-dot ${idx === reelsIndex ? 'active' : ''}" data-index="${idx}"></span>`
+    ).join('');
+    attachReelsEvents();
+    updateReelsCarousel();
+  }
+
+  function updateReelsCarousel() {
+    const container = document.getElementById('reelsItemsContainer');
+    if (!container) return;
+    const slideWidth = container.querySelector('.carousel-item')?.offsetWidth || 0;
+    container.style.transform = `translateX(-${reelsIndex * slideWidth}px)`;
+    const dots = document.querySelectorAll('#reelsDots .carousel-dot');
+    dots.forEach((dot, idx) => {
+      if (idx === reelsIndex) dot.classList.add('active');
+      else dot.classList.remove('active');
+    });
+  }
+
+  function attachReelsEvents() {
+    const prevBtn = document.getElementById('reelsPrevBtn');
+    const nextBtn = document.getElementById('reelsNextBtn');
+    if (prevBtn) prevBtn.onclick = () => { if (reelsIndex > 0) reelsIndex--; updateReelsCarousel(); };
+    if (nextBtn) nextBtn.onclick = () => { if (reelsIndex < reelsItems.length - 1) reelsIndex++; updateReelsCarousel(); };
+    document.querySelectorAll('#reelsDots .carousel-dot').forEach(dot => {
+      dot.addEventListener('click', (e) => {
+        reelsIndex = parseInt(e.target.getAttribute('data-index'));
+        updateReelsCarousel();
+      });
+    });
+  }
+
+  function renderReviews() {
+    const container = document.getElementById('reviewCarouselItems');
+    const dotsContainer = document.getElementById('reviewDots');
+    if (!container) return;
+    if (!reviews.length) {
+      container.innerHTML = '<div class="fallback-message">Reviews coming soon.</div>';
+      return;
+    }
+    container.innerHTML = reviews.map(review => `
+      <div class="review-item">
+        <p>${escapeHtml(review.comment)}</p>
+        <div class="reviewer">- ${escapeHtml(review.name)}</div>
+        <div class="stars">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+      </div>
+    `).join('');
+    dotsContainer.innerHTML = Array.from({ length: reviews.length }, (_, idx) =>
+      `<span class="carousel-dot ${idx === reviewIndex ? 'active' : ''}" data-index="${idx}"></span>`
+    ).join('');
+    attachReviewEvents();
+    updateReviewCarousel();
+  }
+
+  function updateReviewCarousel() {
+    const container = document.getElementById('reviewCarouselItems');
+    if (!container) return;
+    const slideWidth = container.querySelector('.review-item')?.offsetWidth || 0;
+    container.style.transform = `translateX(-${reviewIndex * slideWidth}px)`;
+    const dots = document.querySelectorAll('#reviewDots .carousel-dot');
+    dots.forEach((dot, idx) => {
+      if (idx === reviewIndex) dot.classList.add('active');
+      else dot.classList.remove('active');
+    });
+  }
+
+  function attachReviewEvents() {
+    const prevBtn = document.getElementById('reviewPrevBtn');
+    const nextBtn = document.getElementById('reviewNextBtn');
+    if (prevBtn) prevBtn.onclick = () => { if (reviewIndex > 0) reviewIndex--; updateReviewCarousel(); };
+    if (nextBtn) nextBtn.onclick = () => { if (reviewIndex < reviews.length - 1) reviewIndex++; updateReviewCarousel(); };
+    document.querySelectorAll('#reviewDots .carousel-dot').forEach(dot => {
+      dot.addEventListener('click', (e) => {
+        reviewIndex = parseInt(e.target.getAttribute('data-index'));
+        updateReviewCarousel();
+      });
+    });
+  }
+
+  function renderContact() {
+    if (siteSettings) {
+      if (document.getElementById('contactPhone') && siteSettings.contactPhone)
+        document.getElementById('contactPhone').innerText = siteSettings.contactPhone;
+      if (document.getElementById('contactWhatsapp') && siteSettings.contactWhatsapp)
+        document.getElementById('contactWhatsapp').innerText = siteSettings.contactWhatsapp;
+      if (document.getElementById('contactAddress') && siteSettings.contactAddress)
+        document.getElementById('contactAddress').innerText = siteSettings.contactAddress;
+    }
+  }
+
+  // Trial modal functions (unchanged)
+  const modalOverlay = document.getElementById('modalOverlay');
+  function openTrialModal() { modalOverlay.style.display = 'flex'; }
+  async function submitTrialForm(e) {
+    e.preventDefault();
+    const name = document.getElementById('trialName').value.trim();
+    const phone = document.getElementById('trialPhone').value.trim();
+    const email = document.getElementById('trialEmail').value.trim();
+    if (!name || !phone || !email) {
+      showTrialMessage('Please fill all fields', 'error');
+      return;
+    }
+    const btn = document.getElementById('submitTrialBtn');
+    const original = btn.innerHTML;
+    btn.innerHTML = '<span class="loading-spinner"></span> Sending...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('/api/book-trial', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, email })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        showTrialMessage(data.message || 'Trial booked! Check your email.', 'success');
+        setTimeout(() => modalOverlay.style.display = 'none', 3000);
+      } else {
+        showTrialMessage(data.message || 'Failed. Try again.', 'error');
+      }
+    } catch (err) {
+      showTrialMessage('Network error', 'error');
+    } finally {
+      btn.innerHTML = original;
+      btn.disabled = false;
+    }
+  }
+  function showTrialMessage(msg, type) {
+    const msgDiv = document.getElementById('trialMessage');
+    msgDiv.innerHTML = msg;
+    msgDiv.className = `trial-message ${type}`;
+    msgDiv.style.display = 'block';
+    setTimeout(() => msgDiv.style.display = 'none', 5000);
+  }
+
+  // AI Chat (simplified – uses backend endpoint)
+  let chatOpen = false;
+  const chatWindow = document.getElementById('chatWindow');
+  const chatBubble = document.getElementById('chatBubble');
+  const chatClose = document.getElementById('chatCloseBtn');
+  const chatSend = document.getElementById('chatSendBtn');
+  const chatInput = document.getElementById('chatInput');
+  const chatMessages = document.getElementById('chatMessages');
+
+  function toggleChat() { chatOpen = !chatOpen; chatWindow.style.display = chatOpen ? 'flex' : 'none'; }
+  chatBubble.onclick = toggleChat;
+  chatClose.onclick = toggleChat;
+  async function sendMessage() {
+    const msg = chatInput.value.trim();
+    if (!msg) return;
+    addMessage(msg, 'user');
+    chatInput.value = '';
+    try {
+      const token = localStorage.getItem('token');
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+      const res = await fetch('/api/chat-groq', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ message: msg })
+      });
+      const data = await res.json();
+      addMessage(data.reply || 'Sorry, no response.', 'bot');
+    } catch (err) {
+      addMessage('AI service unavailable. Try again later.', 'bot');
+    }
+  }
+  function addMessage(text, role) {
+    const div = document.createElement('div');
+    div.className = `message ${role}-message`;
+    div.innerText = text;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+  chatSend.onclick = sendMessage;
+  chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+
+  // PWA install
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('installAppBtn').style.display = 'inline-flex';
+  });
+  document.getElementById('installAppBtn').addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') console.log('App installed');
+      deferredPrompt = null;
+    } else {
+      alert('Install prompt not available. Use browser menu to install.');
+    }
+  });
+
+  // Navigation & misc
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+  });
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  if (hamburger) hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, (m) => {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  // Initialize everything
+  async function init() {
+    await loadAllData();
+    renderHero();
+    renderStats();
+    renderTrainers();
+    renderTransformations();
+    renderMembersCarousel();
+    renderDietPlans();
+    renderWorkoutPlans();
+    renderMembership();
+    renderProducts();
+    renderGalleryCarousel();
+    renderReelsCarousel();
+    renderReviews();
+    renderContact();
+    // Carousel update on window resize
+    window.addEventListener('resize', () => {
+      updateMemberCarousel();
+      updateGalleryCarousel();
+      updateReelsCarousel();
+      updateReviewCarousel();
+    });
+    // Set member carousel next/prev buttons
+    document.getElementById('membersPrevBtn')?.addEventListener('click', () => {
+      if (memberCarouselIndex > 0) memberCarouselIndex--;
+      updateMemberCarousel();
+    });
+    document.getElementById('membersNextBtn')?.addEventListener('click', () => {
+      const totalSlides = Math.ceil(members.length / 3);
+      if (memberCarouselIndex < totalSlides - 1) memberCarouselIndex++;
+      updateMemberCarousel();
+    });
+  }
+  init();
+
+  // Trial modal event listeners
+  document.querySelectorAll('.close-modal').forEach(btn => btn.addEventListener('click', () => modalOverlay.style.display = 'none'));
+  modalOverlay?.addEventListener('click', (e) => { if (e.target === modalOverlay) modalOverlay.style.display = 'none'; });
+  document.getElementById('trialForm')?.addEventListener('submit', submitTrialForm);
+  document.getElementById('floatingTrialBtn')?.addEventListener('click', openTrialModal);
+  document.querySelectorAll('.join-now-btn, .join-now-nav').forEach(btn => {
+    btn.addEventListener('click', (e) => { e.preventDefault(); openTrialModal(); });
+  });
+</script>
 </body>
 </html>
