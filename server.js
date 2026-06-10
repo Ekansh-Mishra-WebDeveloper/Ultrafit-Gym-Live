@@ -58,6 +58,9 @@ const adminPanelRoutes = require('./routes/adminPanel');
 const memberAuthRoutes = require('./routes/memberAuthRoutes');
 const memberSelfRoutes = require('./routes/memberRoutes');
 
+// ✅ NEW: Public members list (no authentication)
+const publicMemberRoutes = require('./routes/publicMember');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -419,7 +422,7 @@ mongoose.connect(MONGODB_URI)
 
 // ========== API ROUTES ==========
 app.use('/api/trainers', trainerRoutes);
-app.use('/api/members', memberRoutes);
+app.use('/api/members', memberRoutes);            // Protected member routes (profile, attendance, etc.)
 app.use('/api/products', productRoutes);
 app.use('/api/sitesettings', siteSettingsRoutes);
 app.use('/api/stats', statsRoutes);
@@ -452,9 +455,10 @@ app.use('/api/admin', adminPanelRoutes);
 // Member self-service routes (protected)
 app.use('/api/member', memberSelfRoutes);
 
-// ========== STATIC FILES & FALLBACK (duplicate removed – already served above) ==========
-// The line below would duplicate static serving – we already have app.use(express.static('public'))
-// So we keep only the fallback for SPA routing.
+// ✅ NEW: Public members list – no authentication required
+app.use('/api/members-list', publicMemberRoutes);
+
+// ========== STATIC FILES & FALLBACK ==========
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });

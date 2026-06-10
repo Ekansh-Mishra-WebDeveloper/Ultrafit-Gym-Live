@@ -645,6 +645,7 @@
       padding: 2rem;
       border-radius: 28px;
       margin: 2rem 0;
+      color: #eaeaea;
     }
   </style>
 </head>
@@ -688,9 +689,7 @@
 
   <div class="container">
     <h2 class="section-title">Gym Membership</h2>
-    <div class="membership-cards" id="membershipContainer">
-      <!-- Dynamic content -->
-    </div>
+    <div class="membership-cards" id="membershipContainer"></div>
   </div>
 
   <div class="container">
@@ -762,7 +761,7 @@
 
 <script>
   // ========== CONFIGURATION ==========
-  // Use relative API path (assumes backend on same domain)
+  // Use relative API path – works when backend is on same domain (Hostinger)
   const API_BASE = '/api';
 
   // ========== GLOBAL STATE ==========
@@ -799,16 +798,13 @@
       fetchJSON(`${API_BASE}/sitesettings`, null),
       fetchJSON(`${API_BASE}/stats`, null),
       fetchJSON(`${API_BASE}/memberships`, []),
-      fetchJSON(`${API_BASE}/members`, [])
+      fetchJSON(`${API_BASE}/members-list`, [])   // ← NEW public endpoint
     ]);
     if (settings) siteSettings = settings;
     if (statsData) stats = statsData;
     if (membershipsData) memberships = membershipsData;
     if (membersData) allMembers = membersData;
     featuredMembers = allMembers.filter(m => m.featured === true);
-
-    // Fallback for empty data – show a friendly message later
-    if (allMembers.length === 0) console.warn('No members loaded from API');
   }
 
   // ========== RENDER FUNCTIONS ==========
@@ -823,10 +819,10 @@
 
   function renderStats() {
     const statNumbers = document.querySelectorAll('.stats-section .stat-card h2');
-    if (statNumbers.length >= 3) {
-      if (stats && stats.totalMembers) statNumbers[0].innerText = stats.totalMembers.toLocaleString() + '+';
-      if (stats && stats.activeMembers) statNumbers[1].innerText = stats.activeMembers.toLocaleString();
-      if (stats && stats.membersTransformations) statNumbers[2].innerText = stats.membersTransformations.toLocaleString() + '+';
+    if (statNumbers.length >= 3 && stats) {
+      statNumbers[0].innerText = stats.totalMembers ? stats.totalMembers.toLocaleString() + '+' : '2,340+';
+      statNumbers[1].innerText = stats.activeMembers ? stats.activeMembers.toLocaleString() : '1,892';
+      statNumbers[2].innerText = stats.membersTransformations ? stats.membersTransformations.toLocaleString() + '+' : '1,250+';
     }
   }
 
