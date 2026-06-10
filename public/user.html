@@ -309,7 +309,7 @@
     footer { background: #000; padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255,215,0,0.3); }
     .credit a { color: #FFD700; text-decoration: none; }
 
-    /* ========== GRAPH POPUP MODAL ========== */
+    /* ========== GRAPH POPUP MODAL (with responsive landscape) ========== */
     .graph-popup-modal .premium-modal-card {
       max-width: 95vw;
       width: 95%;
@@ -328,6 +328,31 @@
       max-height: 55vh;
       background: rgba(0,0,0,0.3);
       border-radius: 20px;
+    }
+    /* Mobile landscape: make graph fill the screen */
+    @media (max-width: 900px) and (orientation: landscape) {
+      .graph-popup-modal .premium-modal-card {
+        width: 98vw;
+        height: 92vh;
+        max-width: 98vw;
+        padding: 0.8rem;
+      }
+      .graph-popup-modal .canvas-wrapper {
+        overflow-x: hidden;
+        height: calc(100% - 140px);
+      }
+      .graph-popup-modal canvas {
+        min-width: auto;
+        width: 100%;
+        height: 100%;
+        max-height: none;
+        object-fit: contain;
+      }
+      .graph-controls-bottom {
+        flex-direction: row;
+        justify-content: center;
+        gap: 0.5rem;
+      }
     }
     .graph-controls-bottom {
       display: flex;
@@ -654,6 +679,7 @@
   let popupLabels = [], popupData = [], prevData = [];
   let popupDataRange = '1month';
   let popupChartType = 'line';
+  let isGraphPopupOpen = false;
 
   // ========== TOKEN MANAGEMENT ==========
   function getStoredToken() { return localStorage.getItem('memberToken') || sessionStorage.getItem('memberToken') || null; }
@@ -797,6 +823,7 @@
       <div class="canvas-wrapper"><canvas id="popupCanvas"></canvas></div>
     `;
     modal.style.display = 'flex';
+    isGraphPopupOpen = true;
     const canvas = document.getElementById('popupCanvas');
     if (popupChart) popupChart.destroy();
     const ctx = canvas.getContext('2d');
@@ -822,8 +849,19 @@
     };
     renderWorkoutGraph('line');
     document.getElementById('popupGraphType').addEventListener('change', (e) => renderWorkoutGraph(e.target.value));
-    document.getElementById('graphPopupCloseBtn').onclick = () => modal.style.display = 'none';
-    modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+    function closePopup() {
+      modal.style.display = 'none';
+      isGraphPopupOpen = false;
+      window.removeEventListener('orientationchange', orientationHandler);
+    }
+    document.getElementById('graphPopupCloseBtn').onclick = closePopup;
+    modal.onclick = (e) => { if (e.target === modal) closePopup(); };
+    const orientationHandler = () => {
+      if (isGraphPopupOpen && modal.style.display === 'flex') {
+        setTimeout(() => renderWorkoutGraph(document.getElementById('popupGraphType').value), 100);
+      }
+    };
+    window.addEventListener('orientationchange', orientationHandler);
   }
 
   function checkMembershipExpiry() {
@@ -1074,7 +1112,7 @@
     modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
   }
 
-  // ========== GRAPH POPUP ==========
+  // ========== GRAPH POPUP (with orientation support) ==========
   async function openGraphPopup(type, exercise = null) {
     if (!memberToken) { showAuthChoice(); return; }
     currentGraphType = type;
@@ -1083,6 +1121,7 @@
     const content = document.getElementById('graphPopupContent');
     content.innerHTML = `<div class="modal-title-center">Loading...</div>`;
     modal.style.display = 'flex';
+    isGraphPopupOpen = true;
     await populateGraphData();
     renderGraphPopup();
     let categorySelectHtml = '';
@@ -1131,8 +1170,19 @@
       popupChartType = e.target.value;
       renderGraphPopup();
     });
-    document.getElementById('graphPopupCloseBtn').onclick = () => modal.style.display = 'none';
-    modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+    function closePopup() {
+      modal.style.display = 'none';
+      isGraphPopupOpen = false;
+      window.removeEventListener('orientationchange', orientationHandler);
+    }
+    document.getElementById('graphPopupCloseBtn').onclick = closePopup;
+    modal.onclick = (e) => { if (e.target === modal) closePopup(); };
+    const orientationHandler = () => {
+      if (isGraphPopupOpen && modal.style.display === 'flex') {
+        setTimeout(() => renderGraphPopup(), 100);
+      }
+    };
+    window.addEventListener('orientationchange', orientationHandler);
   }
 
   async function populateGraphData() {
@@ -1512,9 +1562,7 @@
   function checkUrlForSignup() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('signup') === 'true') {
-      // Remove parameter from URL to avoid reopening on refresh
       history.replaceState({}, document.title, window.location.pathname);
-      // Small delay to ensure page is fully loaded and modals are ready
       setTimeout(() => {
         showSignupModal();
       }, 100);
@@ -1587,7 +1635,6 @@
 
   // INIT
   if (memberToken) loadDashboard(); else resetToGuest();
-  // Auto‑open signup modal if URL parameter is present
   checkUrlForSignup();
 </script>
 </body>
