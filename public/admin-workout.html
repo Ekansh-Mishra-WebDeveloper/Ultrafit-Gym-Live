@@ -219,7 +219,7 @@
       margin-bottom: 2rem;
       font-weight: 500;
     }
-    .edit-category-btn {
+    .edit-category-btn, .add-day-btn {
       background: rgba(255,215,0,0.1);
       border: 1px solid rgba(255,215,0,0.4);
       border-radius: 40px;
@@ -232,11 +232,10 @@
       align-items: center;
       gap: 6px;
     }
-    .edit-category-btn:hover {
+    .edit-category-btn:hover, .add-day-btn:hover {
       background: #FFD700;
       color: #121212;
     }
-    /* PDF group removed – button deleted */
     .workout-cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
@@ -651,7 +650,6 @@
       <div class="logo"><span class="logo-ultra">ULTRA</span><span class="logo-fit">FIT</span></div>
     </div>
     <ul class="nav-links" id="navLinks">
-      <!-- Home button removed -->
       <li><a href="admin.html" class="nav-link join-now-nav">Join Now</a></li>
       <li><a href="admin-diet.html" class="nav-link">Diet Plan</a></li>
       <li><a href="admin-workout.html" class="nav-link">Workout Plan</a></li>
@@ -696,7 +694,7 @@
 <div id="adminToast" class="admin-toast"></div>
 
 <script>
-  // ========== WORKOUT ADMIN WITH AUTHENTICATION & PROPER IMAGE UPLOAD ==========
+  // ========== WORKOUT ADMIN WITH AUTHENTICATION & ADD BUTTON ==========
   const API_BASE = '/api';
   const DEFAULT_IMAGE = 'https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&w=400';
   
@@ -865,11 +863,6 @@
         <h3><i class="fas fa-tag"></i> Edit Category: ${escapeHtml(category.displayName)}</h3>
         <div class="field-group"><label>Category Name</label><input type="text" id="catDisplayName" value="${escapeHtml(category.displayName)}"></div>
         <div class="field-group"><label>Subheading</label><input type="text" id="catSubheading" value="${escapeHtml(category.subheading || '')}"></div>
-        <div class="field-group"><label>PDF Management</label><div style="display:flex; gap:1rem; align-items:center; margin-top:0.5rem;">
-          ${category.pdfUrl ? `<a href="${category.pdfUrl}" target="_blank" style="color:#FFD700;">View PDF</a>
-          <button id="deletePdfBtn" style="background:#e74c3c20; border:1px solid #e74c3c; color:#e74c3c; padding:0.3rem 1rem; border-radius:40px;">Delete PDF</button>` : '<span>No PDF uploaded</span>'}
-        </div></div>
-        <div class="image-upload-area" id="uploadPdfArea"><i class="fas fa-cloud-upload-alt"></i> Upload New PDF</div>
         <div class="modal-buttons">
           <button class="modal-btn-cancel" id="cancelEditCat">Cancel</button>
           <button class="modal-btn-save" id="saveEditCat">Save Changes</button>
@@ -878,52 +871,6 @@
     `;
     modal.style.display = 'flex';
 
-    document.getElementById('uploadPdfArea').onclick = async () => {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'application/pdf';
-      input.onchange = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const formData = new FormData();
-        formData.append('pdf', file);
-        try {
-          const res = await fetch(`${API_BASE}/upload/pdf`, { 
-            method: 'POST',
-            headers: getAuthHeaders(),
-            body: formData 
-          });
-          const data = await res.json();
-          if (data.url) {
-            const updated = await fetchJSON(`${API_BASE}/workoutcategories/${category._id}`, {
-              method: 'PUT',
-              body: JSON.stringify({ pdfUrl: data.url })
-            });
-            if (updated) {
-              showToast('PDF uploaded');
-              modal.style.display = 'none';
-              loadAllData();
-            } else showToast('Update failed', true);
-          }
-        } catch (err) { showToast('Upload failed', true); }
-      };
-      input.click();
-    };
-    if (category.pdfUrl) {
-      document.getElementById('deletePdfBtn')?.addEventListener('click', async () => {
-        if (await confirmAction('Remove this PDF?')) {
-          const updated = await fetchJSON(`${API_BASE}/workoutcategories/${category._id}`, {
-            method: 'PUT',
-            body: JSON.stringify({ pdfUrl: '' })
-          });
-          if (updated) {
-            modal.style.display = 'none';
-            await showSuccessModal('PDF deleted');
-            loadAllData();
-          }
-        }
-      });
-    }
     document.getElementById('cancelEditCat').onclick = () => modal.style.display = 'none';
     document.getElementById('saveEditCat').onclick = async () => {
       const newDisplayName = document.getElementById('catDisplayName').value;
@@ -938,54 +885,207 @@
     };
   }
 
-  function renderWorkoutSections() {
-    const root = document.getElementById('workoutRoot');
-    root.innerHTML = '';
-    workoutCategories.forEach(cat => {
-      const catDays = workoutDays.filter(d => d.categoryKey === cat.key).sort((a,b) => a.order - b.order);
-      if (!catDays.length) return;
-      const sectionDiv = document.createElement('div');
-      // PDF group removed – no button
-      sectionDiv.innerHTML = `
-        <div class="category-header">
-          <div class="category-luxury"><span>${escapeHtml(cat.displayName)}</span></div>
-          <button class="edit-category-btn" data-cat-id="${cat._id}"><i class="fas fa-edit"></i> Edit Category</button>
-        </div>
-        <div class="category-sub">${escapeHtml(cat.subheading || '')}</div>
-        <div class="workout-cards-grid" id="grid-${cat.key}"></div>
-      `;
-      root.appendChild(sectionDiv);
-      const grid = document.getElementById(`grid-${cat.key}`);
-      catDays.forEach(day => {
-        const card = document.createElement('div');
-        card.className = 'workout-card';
-        const exercisesHtml = day.exercises.map(ex => `<div class="exercise-item"><span class="exercise-name">${escapeHtml(ex.name)}</span><span class="exercise-reps">${escapeHtml(ex.reps)}</span></div>`).join('');
-        card.innerHTML = `
-          <div class="card-header">
-            <h3>${escapeHtml(day.dayTitle)}</h3>
-            <button class="admin-edit-btn" data-day-id="${day._id}"><i class="fas fa-edit"></i> Edit</button>
+  // Add new day for a category
+  async function addNewDay(categoryKey) {
+    const modal = document.getElementById('modalContainer');
+    // Determine next order: max order + 1 for this category
+    const daysInCat = workoutDays.filter(d => d.categoryKey === categoryKey);
+    const nextOrder = daysInCat.length > 0 ? Math.max(...daysInCat.map(d => d.order)) + 1 : 1;
+    const defaultDayTitle = `Day ${nextOrder}`;
+    // Default 4 exercises
+    const defaultExercises = [
+      { name: 'Warm-up', reps: '10 min cardio' },
+      { name: 'Main exercise 1', reps: '3x10' },
+      { name: 'Main exercise 2', reps: '3x12' },
+      { name: 'Cool-down', reps: '5 min stretching' }
+    ];
+    // Default one image
+    const defaultImages = [{ url: DEFAULT_IMAGE, label: 'Workout' }];
+
+    // Build form
+    let exercisesHtml = '';
+    defaultExercises.forEach((ex, idx) => {
+      exercisesHtml += `
+        <div class="exercise-variant-card" data-exercise-index="${idx}">
+          <div class="variant-header">
+            <h4>Exercise ${idx+1}</h4>
+            <button class="btn-remove-variant" data-exercise-idx="${idx}">Remove</button>
           </div>
-          <div class="exercise-list">${exercisesHtml}</div>
-          <div class="card-carousel-container"></div>
-        `;
-        grid.appendChild(card);
-        const carouselContainer = card.querySelector('.card-carousel-container');
-        if (day.images && day.images.length) {
-          createCarousel(carouselContainer, day.images);
-        }
+          <div class="field-group"><label>Exercise Name</label><input type="text" id="exName${idx}" value="${escapeHtml(ex.name)}"></div>
+          <div class="field-group"><label>Reps / Duration</label><input type="text" id="exReps${idx}" value="${escapeHtml(ex.reps)}"></div>
+        </div>
+      `;
+    });
+    let imagesHtml = '';
+    defaultImages.forEach((img, idx) => {
+      imagesHtml += `
+        <div class="image-variant-card" data-image-index="${idx}">
+          <div class="variant-header">
+            <h4>Image ${idx+1}</h4>
+            <button class="btn-remove-variant" data-image-idx="${idx}">Remove</button>
+          </div>
+          <div class="field-group"><label>Image URL</label><input type="text" id="imgUrl${idx}" value="${escapeHtml(img.url)}"><img class="image-preview" src="${img.url}" onerror="this.src='${DEFAULT_IMAGE}'"></div>
+          <div class="field-group"><label>Label</label><input type="text" id="imgLabel${idx}" value="${escapeHtml(img.label)}"></div>
+          <div class="image-upload-area" data-img-idx="${idx}">Upload New Image</div>
+        </div>
+      `;
+    });
+
+    modal.innerHTML = `
+      <div class="premium-modal-card">
+        <h3><i class="fas fa-plus-circle"></i> Add Workout Day for ${categoryKey === 'beginner' ? 'Beginner' : categoryKey === 'intermediate' ? 'Intermediate' : 'Expert'}</h3>
+        <div class="field-group"><label>Day Title</label><input type="text" id="dayTitleInput" value="${defaultDayTitle}"></div>
+        <div class="field-group"><label>Order</label><input type="number" id="dayOrderInput" value="${nextOrder}" min="1" max="20"></div>
+        <h4>Exercises</h4>
+        <div id="exercisesContainer">${exercisesHtml}</div>
+        <button class="btn-add-variant" id="addExerciseBtn">+ Add Exercise</button>
+        <h4 style="margin-top: 1rem;">Carousel Images</h4>
+        <div id="imagesContainer">${imagesHtml}</div>
+        <button class="btn-add-variant" id="addImageBtn">+ Add Image</button>
+        <div class="modal-buttons">
+          <button class="modal-btn-cancel" id="cancelBtn">Cancel</button>
+          <button class="modal-btn-save" id="saveBtn">Create Day</button>
+        </div>
+      </div>
+    `;
+    modal.style.display = 'flex';
+
+    // Attach image upload functionality
+    function attachImageUploads() {
+      document.querySelectorAll('.image-upload-area').forEach(area => {
+        area.onclick = async () => {
+          const imgIdx = area.getAttribute('data-img-idx');
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.accept = 'image/*';
+          input.onchange = async (ev) => {
+            const file = ev.target.files[0];
+            if (!file) return;
+            const originalText = area.innerText;
+            area.style.opacity = '0.6';
+            area.style.cursor = 'wait';
+            area.innerText = 'Uploading...';
+            const formData = new FormData();
+            formData.append('image', file);
+            try {
+              const res = await fetch('/api/upload', {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: formData
+              });
+              if (res.status === 401) {
+                localStorage.removeItem('adminToken');
+                adminToken = null;
+                alert('Session expired. Please login again.');
+                window.location.href = 'admin.html';
+                return;
+              }
+              const data = await res.json();
+              if (data.url) {
+                document.getElementById(`imgUrl${imgIdx}`).value = data.url;
+                const preview = document.querySelector(`#imgUrl${imgIdx}`)?.closest('.image-variant-card')?.querySelector('.image-preview');
+                if (preview) preview.src = data.url;
+                showToast('Image uploaded successfully');
+              } else {
+                showToast('Upload failed – no URL returned', true);
+              }
+            } catch (err) {
+              console.error(err);
+              showToast('Upload error: ' + err.message, true);
+            } finally {
+              area.style.opacity = '1';
+              area.style.cursor = 'pointer';
+              area.innerText = originalText;
+            }
+          };
+          input.click();
+        };
       });
+    }
+    attachImageUploads();
+
+    // Remove exercise/image buttons
+    document.querySelectorAll('.btn-remove-variant[data-exercise-idx]').forEach(btn => {
+      btn.onclick = () => btn.closest('.exercise-variant-card').remove();
     });
-    document.querySelectorAll('.edit-category-btn').forEach(btn => {
-      const catId = btn.getAttribute('data-cat-id');
-      const category = workoutCategories.find(c => c._id === catId);
-      btn.addEventListener('click', () => editCategory(category));
+    document.querySelectorAll('.btn-remove-variant[data-image-idx]').forEach(btn => {
+      btn.onclick = () => btn.closest('.image-variant-card').remove();
     });
-    document.querySelectorAll('.admin-edit-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const dayId = btn.getAttribute('data-day-id');
-        openDayEditor(dayId);
+
+    document.getElementById('addExerciseBtn').onclick = () => {
+      const newIdx = document.querySelectorAll('.exercise-variant-card').length;
+      const newHtml = `
+        <div class="exercise-variant-card" data-exercise-index="${newIdx}">
+          <div class="variant-header">
+            <h4>Exercise ${newIdx+1}</h4>
+            <button class="btn-remove-variant" data-exercise-idx="${newIdx}">Remove</button>
+          </div>
+          <div class="field-group"><label>Exercise Name</label><input type="text" id="exName${newIdx}" value="New Exercise"></div>
+          <div class="field-group"><label>Reps / Duration</label><input type="text" id="exReps${newIdx}" value="3x12"></div>
+        </div>
+      `;
+      document.getElementById('exercisesContainer').insertAdjacentHTML('beforeend', newHtml);
+      document.querySelectorAll('.btn-remove-variant[data-exercise-idx]').forEach(btn => {
+        btn.onclick = () => btn.closest('.exercise-variant-card').remove();
       });
-    });
+    };
+
+    document.getElementById('addImageBtn').onclick = () => {
+      const newIdx = document.querySelectorAll('.image-variant-card').length;
+      const newHtml = `
+        <div class="image-variant-card" data-image-index="${newIdx}">
+          <div class="variant-header">
+            <h4>Image ${newIdx+1}</h4>
+            <button class="btn-remove-variant" data-image-idx="${newIdx}">Remove</button>
+          </div>
+          <div class="field-group"><label>Image URL</label><input type="text" id="imgUrl${newIdx}" value="${DEFAULT_IMAGE}"><img class="image-preview" src="${DEFAULT_IMAGE}"></div>
+          <div class="field-group"><label>Label</label><input type="text" id="imgLabel${newIdx}" value="Workout"></div>
+          <div class="image-upload-area" data-img-idx="${newIdx}">Upload New Image</div>
+        </div>
+      `;
+      document.getElementById('imagesContainer').insertAdjacentHTML('beforeend', newHtml);
+      attachImageUploads();
+      document.querySelectorAll('.btn-remove-variant[data-image-idx]').forEach(btn => {
+        btn.onclick = () => btn.closest('.image-variant-card').remove();
+      });
+    };
+
+    document.getElementById('cancelBtn').onclick = async () => {
+      if (await confirmAction('Discard changes?')) modal.style.display = 'none';
+    };
+
+    document.getElementById('saveBtn').onclick = async () => {
+      if (!await confirmAction('Create this workout day?')) return;
+      const dayTitle = document.getElementById('dayTitleInput').value;
+      const order = parseInt(document.getElementById('dayOrderInput').value);
+      const exerciseCards = document.querySelectorAll('.exercise-variant-card');
+      const exercises = [];
+      exerciseCards.forEach((card, idx) => {
+        const name = document.getElementById(`exName${idx}`)?.value || '';
+        const reps = document.getElementById(`exReps${idx}`)?.value || '';
+        if (name) exercises.push({ name, reps });
+      });
+      const imageCards = document.querySelectorAll('.image-variant-card');
+      const images = [];
+      imageCards.forEach((card, idx) => {
+        const url = document.getElementById(`imgUrl${idx}`)?.value || '';
+        const label = document.getElementById(`imgLabel${idx}`)?.value || '';
+        if (url) images.push({ url, label });
+      });
+      const payload = {
+        dayTitle,
+        order,
+        exercises,
+        images,
+        categoryKey
+      };
+      const res = await fetchJSON(`${API_BASE}/workoutdays`, { method: 'POST', body: JSON.stringify(payload) });
+      if (res) {
+        modal.style.display = 'none';
+        await showSuccessModal('Workout day created');
+        loadAllData();
+      } else showToast('Creation failed', true);
+    };
   }
 
   async function openDayEditor(dayId) {
@@ -1023,7 +1123,7 @@
       <div class="premium-modal-card">
         <h3><i class="fas fa-dumbbell"></i> Edit Workout Day: ${escapeHtml(day.dayTitle)}</h3>
         <div class="field-group"><label>Day Title</label><input type="text" id="dayTitleInput" value="${escapeHtml(day.dayTitle)}"></div>
-        <div class="field-group"><label>Order (1-6)</label><input type="number" id="dayOrderInput" value="${day.order}" min="1" max="6"></div>
+        <div class="field-group"><label>Order (1-6)</label><input type="number" id="dayOrderInput" value="${day.order}" min="1" max="20"></div>
         <h4>Exercises</h4>
         <div id="exercisesContainer">${exercisesHtml}</div>
         <button class="btn-add-variant" id="addExerciseBtn">+ Add Exercise</button>
@@ -1039,7 +1139,6 @@
     `;
     modal.style.display = 'flex';
 
-    // ========== FIXED IMAGE UPLOAD WITH AUTH (no base64) ==========
     function attachImageUploads() {
       document.querySelectorAll('.image-upload-area').forEach(area => {
         area.onclick = async () => {
@@ -1187,7 +1286,6 @@
     };
   }
 
-  // ========== EDIT SECTION MODAL (with auth) ==========
   async function editHero() {
     const modal = document.getElementById('modalContainer');
     const currentImageUrl = siteSettings.workoutHeroImage || '';
@@ -1298,6 +1396,63 @@
         showToast('Update failed', true);
       }
     };
+  }
+
+  function renderWorkoutSections() {
+    const root = document.getElementById('workoutRoot');
+    root.innerHTML = '';
+    workoutCategories.forEach(cat => {
+      const catDays = workoutDays.filter(d => d.categoryKey === cat.key).sort((a,b) => a.order - b.order);
+      if (!catDays.length) return;
+      const sectionDiv = document.createElement('div');
+      sectionDiv.innerHTML = `
+        <div class="category-header">
+          <div class="category-luxury"><span>${escapeHtml(cat.displayName)}</span></div>
+          <div style="display: flex; gap: 0.8rem;">
+            <button class="add-day-btn" data-cat-key="${cat.key}"><i class="fas fa-plus"></i> Add</button>
+            <button class="edit-category-btn" data-cat-id="${cat._id}"><i class="fas fa-edit"></i> Edit Category</button>
+          </div>
+        </div>
+        <div class="category-sub">${escapeHtml(cat.subheading || '')}</div>
+        <div class="workout-cards-grid" id="grid-${cat.key}"></div>
+      `;
+      root.appendChild(sectionDiv);
+      const grid = document.getElementById(`grid-${cat.key}`);
+      catDays.forEach(day => {
+        const card = document.createElement('div');
+        card.className = 'workout-card';
+        const exercisesHtml = day.exercises.map(ex => `<div class="exercise-item"><span class="exercise-name">${escapeHtml(ex.name)}</span><span class="exercise-reps">${escapeHtml(ex.reps)}</span></div>`).join('');
+        card.innerHTML = `
+          <div class="card-header">
+            <h3>${escapeHtml(day.dayTitle)}</h3>
+            <button class="admin-edit-btn" data-day-id="${day._id}"><i class="fas fa-edit"></i> Edit</button>
+          </div>
+          <div class="exercise-list">${exercisesHtml}</div>
+          <div class="card-carousel-container"></div>
+        `;
+        grid.appendChild(card);
+        const carouselContainer = card.querySelector('.card-carousel-container');
+        if (day.images && day.images.length) {
+          createCarousel(carouselContainer, day.images);
+        }
+      });
+    });
+    // Attach event listeners for category edit and add day
+    document.querySelectorAll('.edit-category-btn').forEach(btn => {
+      const catId = btn.getAttribute('data-cat-id');
+      const category = workoutCategories.find(c => c._id === catId);
+      btn.addEventListener('click', () => editCategory(category));
+    });
+    document.querySelectorAll('.add-day-btn').forEach(btn => {
+      const catKey = btn.getAttribute('data-cat-key');
+      btn.addEventListener('click', () => addNewDay(catKey));
+    });
+    document.querySelectorAll('.admin-edit-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const dayId = btn.getAttribute('data-day-id');
+        openDayEditor(dayId);
+      });
+    });
   }
 
   function escapeHtml(str) {
