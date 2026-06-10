@@ -6,8 +6,8 @@ const path = require('path');
 const mailjet = require('node-mailjet');
 const Groq = require('groq-sdk');
 const jwt = require('jsonwebtoken');
-const multer = require('multer'); // ✅ ADDED FOR SIGNUP UPLOAD
-const fs = require('fs');          // ✅ ADDED FOR SIGNUP UPLOAD
+const multer = require('multer');
+const fs = require('fs');
 
 // Import models
 const Trainer = require('./models/Trainer');
@@ -58,13 +58,13 @@ const adminPanelRoutes = require('./routes/adminPanel');
 const memberAuthRoutes = require('./routes/memberAuthRoutes');
 const memberSelfRoutes = require('./routes/memberRoutes');
 
-// ✅ NEW: Public members list (no authentication)
+// ✅ Public members list (no authentication)
 const publicMemberRoutes = require('./routes/publicMember');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// CORS
+// ========== CORS & JSON ==========
 const corsOptions = {
   origin: true,
   credentials: true,
@@ -73,18 +73,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// ========== STATIC FILES FOR UPLOADS (MUST COME BEFORE app.use(express.static('public'))) ==========
-// ✅ ADDED: ensure uploads directory exists
+// ========== STATIC FILES & UPLOADS ==========
 const uploadDir = path.join(__dirname, 'public/uploads');
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
-// Serve uploaded files statically
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
-
-// Regular static files (HTML, CSS, JS)
 app.use(express.static('public'));
 
-// ========== PUBLIC UPLOAD FOR SIGNUP (no authentication required) ==========
-// ✅ ADDED: multer configuration
+// ========== PUBLIC UPLOAD FOR SIGNUP ==========
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
@@ -92,7 +87,7 @@ const storage = multer.diskStorage({
     cb(null, unique + path.extname(file.originalname));
   }
 });
-const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } }); // 5MB limit
+const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
 
 app.post('/api/upload-signup', upload.single('image'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
@@ -100,10 +95,17 @@ app.post('/api/upload-signup', upload.single('image'), (req, res) => {
   res.json({ url });
 });
 
-// ========== MAILJET ==========
+// ========== PUBLIC ROUTES (NO AUTHENTICATION REQUIRED) ==========
+// These must be placed BEFORE any protected routes or auth middleware
+app.use('/api/sitesettings', siteSettingsRoutes);
+app.use('/api/stats', statsRoutes);
+app.use('/api/memberships', membershipRoutes);
+app.use('/api/members-list', publicMemberRoutes);
+
+// ========== FREE TRIAL BOOKING (also public) ==========
 const sendEmail = async (toEmail, toName, subject, htmlContent) => {
   try {
-    const request = await mailjet
+    await mailjet
       .apiConnect(process.env.MJ_APIKEY_PUBLIC, process.env.MJ_APIKEY_PRIVATE)
       .post("send", { version: 'v3.1' })
       .request({
@@ -127,7 +129,6 @@ const sendEmail = async (toEmail, toName, subject, htmlContent) => {
   }
 };
 
-// ========== FREE TRIAL BOOKING ==========
 app.post('/api/book-trial', async (req, res) => {
   const { name, phone, email } = req.body;
   if (!name || !phone || !email) {
@@ -231,12 +232,10 @@ async function getWebsiteDataForAI() {
   };
 }
 
-// Role‑aware chat endpoint
 app.post('/api/chat-groq', async (req, res) => {
   const { message } = req.body;
   if (!message) return res.status(400).json({ error: 'No message provided' });
 
-  // 1. Extract and verify token
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ error: 'Missing or invalid token' });
@@ -244,7 +243,7 @@ app.post('/api/chat-groq', async (req, res) => {
   const token = authHeader.split(' ')[1];
 
   let userId = null;
-  let role = null; // 'admin', 'trainer', or 'member'
+  let role = null;
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -259,27 +258,21 @@ app.post('/api/chat-groq', async (req, res) => {
         role = 'trainer';
       } else {
         const member = await Member.findById(userId);
-        if (member) {
-          role = 'member';
-        }
+        if (member) role = 'member';
       }
     }
-    if (!role) {
-      return res.status(401).json({ error: 'User not found' });
-    }
+    if (!role) return res.status(401).json({ error: 'User not found' });
   } catch (err) {
     console.error('Token verification failed:', err);
     return res.status(401).json({ error: 'Invalid or expired token' });
   }
 
-  // 2. Fetch role‑specific data
   let systemPrompt = '';
   const today = new Date();
   const todayStr = today.toISOString().split('T')[0];
   const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
   try {
-    // ----- PUBLIC GYM INFO (same for all roles) -----
     const publicData = await getWebsiteDataForAI();
     const publicInfo = `
 === GYM INFORMATION ===
@@ -296,7 +289,6 @@ Terms: ${publicData.termsSummary} (see terms.html)
 `;
 
     if (role === 'admin') {
-      // Admin gets aggregated dashboard + member contact details (admin needs to call them)
       const totalMembers = await Member.countDocuments();
       const activeMembers = await Member.countDocuments({ status: 'active' });
       const unpaidMembers = await Member.countDocuments({ feeStatus: 'unpaid' });
@@ -308,7 +300,6 @@ Terms: ${publicData.termsSummary} (see terms.html)
       const presentToday = await Attendance.countDocuments({ type: 'member', date: todayStr, status: 'present' });
       const totalStaff = await StaffTrainer.countDocuments();
 
-      // Member list with contact details (admin can see everything)
       const allMembers = await Member.find({}, 'name phone email feeStatus status').lean();
       const attendanceTodayMap = new Map();
       const todayAttendances = await Attendance.find({ type: 'member', date: todayStr }).lean();
@@ -337,7 +328,6 @@ ${membersList || 'No members found.'}
 If asked about attendance history or other specific details, politely direct the admin to use the admin panel for comprehensive reports.`;
     } 
     else if (role === 'trainer') {
-      // Trainer sees all members with contact details (for contacting them)
       const members = await Member.find({}, 'name phone email feeStatus status').lean();
       const attendanceToday = await Attendance.find({ type: 'member', date: todayStr }).lean();
       const attendanceMap = new Map();
@@ -359,7 +349,6 @@ ${membersList || 'No members found.'}
 If asked about member attendance history, you can say "I can only see today's attendance. For detailed logs, please use the trainer panel or ask the admin."`;
     } 
     else if (role === 'member') {
-      // Member sees only their own data
       const member = await Member.findById(userId).lean();
       if (!member) throw new Error('Member not found');
 
@@ -392,7 +381,6 @@ Weight history (last 5): ${weightStr || 'No entries'}
 You may also give fitness advice, diet tips, and answer gym policy questions.`;
     }
 
-    // 3. Call Groq
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
       messages: [
@@ -420,16 +408,14 @@ mongoose.connect(MONGODB_URI)
   })
   .catch(err => console.error('❌ MongoDB connection error:', err));
 
-// ========== API ROUTES ==========
+// ========== PROTECTED API ROUTES (require authentication) ==========
+// These are placed after public routes – they may use their own auth middleware
 app.use('/api/trainers', trainerRoutes);
-app.use('/api/members', memberRoutes);            // Protected member routes (profile, attendance, etc.)
+app.use('/api/members', memberRoutes);            // Protected (profile, attendance, etc.)
 app.use('/api/products', productRoutes);
-app.use('/api/sitesettings', siteSettingsRoutes);
-app.use('/api/stats', statsRoutes);
 app.use('/api/transformations', transformationRoutes);
 app.use('/api/dietplans', dietPlanRoutes);
 app.use('/api/workoutplans', workoutPlanRoutes);
-app.use('/api/memberships', membershipRoutes);
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/reels', reelRoutes);
 app.use('/api/reviews', reviewRoutes);
@@ -442,23 +428,20 @@ app.use('/api/legal', legalRoutes);
 app.use('/api/upload', uploadRoutes);
 
 // Authentication routes (admin, trainer, member)
-app.use('/api/auth', authRoutes);                 // existing admin login
+app.use('/api/auth', authRoutes);                 // admin login
 app.use('/api/auth', trainerAuthRoutes);          // trainer login
 app.use('/api/auth', memberAuthRoutes);           // member register/login
 
-// Trainer panel routes
+// Trainer panel routes (protected)
 app.use('/api/trainer', trainerPanelRoutes);
 
-// Admin panel routes
+// Admin panel routes (protected)
 app.use('/api/admin', adminPanelRoutes);
 
 // Member self-service routes (protected)
 app.use('/api/member', memberSelfRoutes);
 
-// ✅ NEW: Public members list – no authentication required
-app.use('/api/members-list', publicMemberRoutes);
-
-// ========== STATIC FILES & FALLBACK ==========
+// ========== FALLBACK FOR SPA ==========
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
