@@ -35,10 +35,7 @@ if (installBtn) {
   });
 }
 
-// ===== YOUR ORIGINAL MAIN SCRIPT (everything below is unchanged) =====
-// ... paste your entire original (function() { ... })(); here ...
-
-// ===== YOUR ORIGINAL MAIN SCRIPT (unchanged) =====
+// ===== YOUR ORIGINAL MAIN SCRIPT (with one fix: members endpoint) =====
 (function() {
   const API_BASE = '/api';
 
@@ -76,7 +73,7 @@ if (installBtn) {
       fetchJSON(`${API_BASE}/sitesettings`),
       fetchJSON(`${API_BASE}/stats`),
       fetchJSON(`${API_BASE}/trainers`),
-      fetchJSON(`${API_BASE}/members`),
+      fetchJSON(`${API_BASE}/members-list`),   // ✅ FIXED: was '/members' now public endpoint
       fetchJSON(`${API_BASE}/products`),
       fetchJSON(`${API_BASE}/transformations`),
       fetchJSON(`${API_BASE}/dietplans`),
