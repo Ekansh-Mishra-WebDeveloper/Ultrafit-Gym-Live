@@ -134,7 +134,7 @@
     .chart-container:active { cursor: grabbing; }
     canvas { max-height: 300px; width: 100%; }
 
-    /* Graph popup modal – enhanced for mobile landscape */
+    /* Graph popup modal – force landscape on mobile (no orientation detection needed) */
     .graph-popup-modal .premium-modal-card {
       max-width: 95vw;
       width: 95%;
@@ -154,13 +154,13 @@
       background: rgba(0,0,0,0.3);
       border-radius: 20px;
     }
-    /* Mobile landscape: make canvas fill the screen and remove horizontal scroll */
-    @media (max-width: 900px) and (orientation: landscape) {
+    /* On mobile, force a landscape‑like fixed layout (no orientation dependency) */
+    @media (max-width: 900px) {
       .graph-popup-modal .premium-modal-card {
         width: 98vw;
-        height: 92vh;
         max-width: 98vw;
         padding: 0.8rem;
+        height: 92vh;
       }
       .graph-popup-modal .canvas-wrapper {
         overflow-x: hidden;
@@ -933,11 +933,49 @@
       .floating-btn:hover { padding: 0.5rem 1rem 0.5rem 0.8rem; }
       .floating-btn:hover .btn-text { font-size: 0.85rem; }
     }
-    footer { background: #000; padding: 3rem 0; text-align: center; border-top: 1px solid rgba(255,215,0,0.3); }
-    .footer-links ul { display: flex; justify-content: center; gap: 3rem; list-style: none; margin: 1rem 0; flex-wrap: wrap; }
-    .footer-links a { color: #ccc; text-decoration: none; }
-    .footer-links a:hover { color: #FFD700; }
-    .credit a { color: #FFD700; text-decoration: none; }
+
+    /* ========== FOOTER with PWA support ========== */
+    footer {
+      background: #000;
+      padding: 3rem 0;
+      text-align: center;
+      border-top: 1px solid rgba(255,215,0,0.3);
+    }
+    .footer-links ul {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      list-style: none;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+    }
+    .footer-links a:hover {
+      color: #FFD700;
+    }
+    .credit a {
+      color: #FFD700;
+      text-decoration: none;
+    }
+    /* PWA mode: hide all footer links and heading, keep only credit line */
+    @media all and (display-mode: standalone) {
+      .footer-links ul {
+        display: none;
+      }
+      .footer-links h4 {
+        display: none;
+      }
+      .footer-links .credit {
+        display: block;
+        margin-top: 0;
+      }
+      footer {
+        padding: 1rem 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1446,7 +1484,7 @@
     container.style.cursor = 'grab';
   }
 
-  // ========== GRAPH POPUP (with orientation handling) ==========
+  // ========== GRAPH POPUP (with forced landscape on mobile) ==========
   let currentGraphPopupType = null, popupChart = null, popupLabels = [], popupData = [], prevData = [], popupDataRange = '1month', popupChartType = 'line', selectedStaffId = 'all';
   let isPopupOpen = false;
 
@@ -1468,14 +1506,7 @@
     if (graphType === 'hours') { const staffSelect = document.getElementById('popupStaffSelect'); if (staffSelect) staffSelect.addEventListener('change', async (e) => { selectedStaffId = e.target.value; await populatePopupData(); renderPopupChart(); }); }
     document.getElementById('graphPopupCloseBtn').onclick = () => { closeModalWithLock(modal); isPopupOpen = false; };
     modal.onclick = (e) => { if (e.target === modal) { closeModalWithLock(modal); isPopupOpen = false; } };
-    // Listen to orientation change to redraw chart
-    window.addEventListener('orientationchange', handleOrientationChange);
-  }
-
-  function handleOrientationChange() {
-    if (isPopupOpen && currentGraphPopupType) {
-      setTimeout(() => { renderPopupChart(); }, 100);
-    }
+    // No orientation listener needed – CSS already forces landscape‑like layout
   }
 
   async function populatePopupData() {

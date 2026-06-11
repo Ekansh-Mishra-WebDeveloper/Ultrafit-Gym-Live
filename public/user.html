@@ -309,7 +309,7 @@
     footer { background: #000; padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255,215,0,0.3); }
     .credit a { color: #FFD700; text-decoration: none; }
 
-    /* ========== GRAPH POPUP MODAL (with responsive landscape) ========== */
+    /* ========== GRAPH POPUP MODAL (with landscape fix for mobile) ========== */
     .graph-popup-modal .premium-modal-card {
       max-width: 95vw;
       width: 95%;
@@ -329,13 +329,13 @@
       background: rgba(0,0,0,0.3);
       border-radius: 20px;
     }
-    /* Mobile landscape: make graph fill the screen */
-    @media (max-width: 900px) and (orientation: landscape) {
+    /* Mobile landscape: force graph to fill the screen (same as admin-panel) */
+    @media (max-width: 900px) {
       .graph-popup-modal .premium-modal-card {
         width: 98vw;
-        height: 92vh;
         max-width: 98vw;
         padding: 0.8rem;
+        height: 92vh;
       }
       .graph-popup-modal .canvas-wrapper {
         overflow-x: hidden;
@@ -548,6 +548,55 @@
       .status-badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; }
       .check-btn, .btn-yellow-small { padding: 0.3rem 0.8rem; font-size: 0.75rem; }
     }
+
+    /* ========== HOME SCREEN GRAPH STYLES ========== */
+    .progress-graph-container {
+      background: rgba(26,26,26,0.5);
+      border-radius: 28px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .graph-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .graph-header h3 {
+      color: #FFD700;
+      font-size: 1.2rem;
+    }
+    .graph-controls-row {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .dropdown-select {
+      background: #1e1e1e;
+      border: 1px solid #FFD700;
+      border-radius: 40px;
+      padding: 0.4rem 1rem;
+      color: white;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .small-btn {
+      background: transparent;
+      border: 1px solid #FFD700;
+      border-radius: 40px;
+      padding: 0.4rem 1rem;
+      color: #FFD700;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: 0.2s;
+    }
+    .small-btn:hover {
+      background: #FFD700;
+      color: #121212;
+    }
   </style>
 </head>
 <body>
@@ -614,6 +663,28 @@
         </div>
         <div class="stat-card" id="weightChangeStat"><div class="stat-number" id="weightDiff">0</div><div id="weightChangeLabel">Change vs last</div></div>
       </div>
+
+      <!-- ========== HOME SCREEN GRAPH ========== -->
+      <div class="progress-graph-container">
+        <div class="graph-header">
+          <h3>Progress (Last 7 Days)</h3>
+        </div>
+        <canvas id="homeProgressChart" width="400" height="200" style="max-height: 200px; width: 100%;"></canvas>
+        <div class="graph-controls-row">
+          <select id="exerciseDropdown" class="dropdown-select">
+            <option value="weight">Weight</option>
+            <option value="chest">Chest</option>
+            <option value="back">Back</option>
+            <option value="shoulders">Shoulders</option>
+            <option value="biceps">Biceps</option>
+            <option value="triceps">Triceps</option>
+            <option value="legs">Legs</option>
+            <option value="deadlift">Deadlift</option>
+          </select>
+          <button class="small-btn" id="graphBtn">Graph</button>
+        </div>
+      </div>
+
       <h3 style="text-align:center; margin:1rem 0;" class="gold-text">Weight Lifts</h3>
       <div class="stats-row" id="maxLiftsGrid"></div>
       <div class="button-group-center"><button class="btn-outline-gold" id="updateLiftsBtn">Weight Lifts</button></div>
@@ -753,7 +824,90 @@
       computeAverageWorkoutHours();
       checkMembershipExpiry();
       checkAbsenceNudge();
+      renderHomeProgressGraph('weight');
     } catch(e) { console.error(e); resetToGuest(); }
+  }
+
+  let homeChart = null;
+  function renderHomeProgressGraph(exerciseKey) {
+    const canvas = document.getElementById('homeProgressChart');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (homeChart) homeChart.destroy();
+
+    const today = new Date();
+    const labels = [];
+    const dataPoints = [];
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(today.getDate() - i);
+      if (date.getDay() === 0) continue;
+      const dateStr = date.toISOString().split('T')[0];
+      const formatted = `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`;
+      labels.push(formatted);
+      let value = null;
+      if (exerciseKey === 'weight') {
+        const entry = weightHistory.find(w => {
+          const entryDate = w.date.split('T')[0];
+          return entryDate === dateStr;
+        });
+        value = entry ? entry.weight : null;
+      } else {
+        const history = exerciseHistories[exerciseKey] || [];
+        const entry = history.find(e => {
+          const entryDate = e.date.split('T')[0];
+          return entryDate === dateStr;
+        });
+        value = entry ? entry.weight : null;
+      }
+      dataPoints.push(value);
+    }
+
+    let stepSize = (exerciseKey === 'weight') ? 10 : 5;
+    const validData = dataPoints.filter(v => v !== null);
+    let yMax = stepSize;
+    if (validData.length > 0) {
+      const maxVal = Math.max(...validData);
+      yMax = Math.ceil(maxVal / stepSize) * stepSize;
+      if (yMax === 0) yMax = stepSize;
+    }
+
+    homeChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: dataPoints,
+          borderColor: '#FFD700',
+          backgroundColor: 'rgba(255,215,0,0.1)',
+          tension: 0.3,
+          fill: true,
+          pointRadius: 4,
+          pointBackgroundColor: '#FFD700',
+          pointBorderColor: '#121212',
+          pointBorderWidth: 1,
+          spanGaps: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: yMax,
+            ticks: { stepSize: stepSize, color: '#aaa' },
+            title: { display: true, text: 'kg', color: '#aaa' },
+            grid: { color: 'rgba(255,215,0,0.2)' }
+          },
+          x: {
+            ticks: { color: '#aaa', maxRotation: 45 },
+            grid: { display: false }
+          }
+        },
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => `${ctx.raw} kg` } } }
+      }
+    });
   }
 
   function computeAverageWorkoutHours() {
@@ -852,16 +1006,9 @@
     function closePopup() {
       modal.style.display = 'none';
       isGraphPopupOpen = false;
-      window.removeEventListener('orientationchange', orientationHandler);
     }
     document.getElementById('graphPopupCloseBtn').onclick = closePopup;
     modal.onclick = (e) => { if (e.target === modal) closePopup(); };
-    const orientationHandler = () => {
-      if (isGraphPopupOpen && modal.style.display === 'flex') {
-        setTimeout(() => renderWorkoutGraph(document.getElementById('popupGraphType').value), 100);
-      }
-    };
-    window.addEventListener('orientationchange', orientationHandler);
   }
 
   function checkMembershipExpiry() {
@@ -1024,9 +1171,15 @@
     computeAverageWorkoutHours();
   }
 
-  function updateProfileButton() { document.getElementById('profileBtn').innerText = (memberToken && currentMember && currentMember.name !== 'Guest') ? 'Profile' : 'Sign Up'; }
+  function updateProfileButton() { 
+    const btn = document.getElementById('profileBtn');
+    if (memberToken && currentMember && currentMember.name !== 'Guest') {
+      btn.innerText = 'Profile';
+    } else {
+      btn.innerText = 'Sign Up';
+    }
+  }
 
-  // ========== EXERCISE HISTORY MODAL ==========
   async function openExerciseHistoryModal(exercise) {
     if (!memberToken) { showAuthChoice(); return; }
     const modal = document.getElementById('exerciseHistoryModal');
@@ -1064,7 +1217,6 @@
     render();
   }
 
-  // ========== WEIGHT MODAL ==========
   async function openWeightModal() {
     if(!memberToken){ showAuthChoice(); return; }
     const modal = document.getElementById('weightModal');
@@ -1083,7 +1235,14 @@
         const w = parseFloat(document.getElementById('newWeightValue').value);
         if (isNaN(w)) return;
         const res = await fetchJSON(`${API_BASE}/member/weight`, { method: 'POST', body: JSON.stringify({ weight: w }) });
-        if (res) { await loadDashboard(); openWeightModal(); showPopup('Weight added'); }
+        if (res) { 
+          await loadDashboard();
+          // Force refresh graph after adding weight
+          const currentExercise = document.getElementById('exerciseDropdown').value;
+          renderHomeProgressGraph(currentExercise);
+          openWeightModal(); 
+          showPopup('Weight added'); 
+        }
         else showPopup('Failed', false);
       };
       document.getElementById('viewWeightGraphBtn').onclick = () => { modal.style.display = 'none'; openGraphPopup('weight'); };
@@ -1091,7 +1250,6 @@
     render();
   }
 
-  // ========== MEMBERSHIP MODAL ==========
   async function openMembershipModal() {
     if (!memberToken) { showAuthChoice(); return; }
     const modal = document.getElementById('membershipModal');
@@ -1112,7 +1270,6 @@
     modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
   }
 
-  // ========== GRAPH POPUP (with orientation support) ==========
   async function openGraphPopup(type, exercise = null) {
     if (!memberToken) { showAuthChoice(); return; }
     currentGraphType = type;
@@ -1173,16 +1330,9 @@
     function closePopup() {
       modal.style.display = 'none';
       isGraphPopupOpen = false;
-      window.removeEventListener('orientationchange', orientationHandler);
     }
     document.getElementById('graphPopupCloseBtn').onclick = closePopup;
     modal.onclick = (e) => { if (e.target === modal) closePopup(); };
-    const orientationHandler = () => {
-      if (isGraphPopupOpen && modal.style.display === 'flex') {
-        setTimeout(() => renderGraphPopup(), 100);
-      }
-    };
-    window.addEventListener('orientationchange', orientationHandler);
   }
 
   async function populateGraphData() {
@@ -1256,7 +1406,7 @@
     }
   }
 
-  // ========== AUTH & PROFILE ==========
+  // ========== AUTH & PROFILE (unchanged except profile button) ==========
   async function uploadSignupImage(file) {
     const fd = new FormData(); fd.append('image', file);
     const res = await fetch('/api/upload-signup', { method:'POST', body:fd });
@@ -1425,7 +1575,6 @@
     updateDisplay();
   }
 
-  // ========== LIFTS MODAL ==========
   async function openLiftsModal() {
     if(!memberToken){ showAuthChoice(); return; }
     const modal=document.getElementById('liftsModal');
@@ -1558,7 +1707,6 @@
   updateHeroButton();
   window.matchMedia('(display-mode: standalone)').addListener(updateHeroButton);
 
-  // ========== URL SIGNUP TRIGGER ==========
   function checkUrlForSignup() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('signup') === 'true') {
@@ -1569,8 +1717,7 @@
     }
   }
 
-  // ========== EVENT LISTENERS & CHAT ==========
-  document.getElementById('profileBtn').onclick = (e) => { e.preventDefault(); if (memberToken) openProfileModal(); else showAuthChoice(); };
+  document.getElementById('profileBtn').onclick = (e) => { e.preventDefault(); if (memberToken && currentMember && currentMember.name !== 'Guest') openProfileModal(); else showAuthChoice(); };
   document.getElementById('attendanceModalBtn').onclick = openAttendanceModal;
   document.getElementById('checkAttendanceBtn').onclick = openHeatmapModal;
   document.getElementById('weightStatCard').onclick = openWeightModal;
@@ -1587,7 +1734,7 @@
 
   function escapeHtml(str) { return String(str).replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m] || m)); }
 
-  // CHAT BOT FUNCTIONALITY
+  // CHAT BOT
   const chatBubble = document.getElementById('chatBubble');
   const chatWindow = document.getElementById('chatWindow');
   const chatClose = document.getElementById('chatCloseBtn');
@@ -1633,7 +1780,23 @@
   chatSendBtn.addEventListener('click', sendChatMessage);
   chatInputField.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendChatMessage(); });
 
-  // INIT
+  // Graph button for home screen
+  const graphBtn = document.getElementById('graphBtn');
+  const exerciseDropdownSelect = document.getElementById('exerciseDropdown');
+  
+  exerciseDropdownSelect.addEventListener('change', (e) => {
+    renderHomeProgressGraph(e.target.value);
+  });
+  
+  graphBtn.addEventListener('click', () => {
+    const selected = exerciseDropdownSelect.value;
+    if (selected === 'weight') {
+      openGraphPopup('weight');
+    } else {
+      openGraphPopup('exercise', selected);
+    }
+  });
+
   if (memberToken) loadDashboard(); else resetToGuest();
   checkUrlForSignup();
 </script>
