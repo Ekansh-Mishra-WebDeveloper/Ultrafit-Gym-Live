@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "6a1e4834f385c5ccc4c114a9"
+  },
+  "name": "Sahil",
+  "position": "Founder",
+  "photoUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781102302/ultrafit_gym/qzkbhyvceinwruldlqla.jpg",
+  "bio": "20+ years in fitness industry, former athlete and Fitness Coach.",
+  "whatsappNumber": "9125197786",
+  "instagramUrl": "https://www.instagram.com/ultrafitby_sahil?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1e4834f385c5ccc4c114aa"
+  },
+  "name": "Naitik",
+  "position": "Trainer",
+  "photoUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781102318/ultrafit_gym/mwnntc5rcstz3ozocgv1.jpg",
+  "bio": "Fitness Trainer.",
+  "whatsappNumber": "9125197786",
+  "instagramUrl": "https://www.instagram.com/fit_with_naitik_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1e4834f385c5ccc4c114ab"
+  },
+  "name": "Raja",
+  "position": "Trainer",
+  "photoUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781102402/ultrafit_gym/oxiffveypucs0opzpr0f.jpg",
+  "bio": "Fitness coach",
+  "whatsappNumber": "9125197786",
+  "instagramUrl": "https://www.instagram.com/shredded_raja?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+  "__v": 0
+}]

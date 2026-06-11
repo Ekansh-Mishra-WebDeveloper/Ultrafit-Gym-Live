@@ -1,0 +1,39 @@
+[{
+  "_id": {
+    "$oid": "6a1e4835f385c5ccc4c114d3"
+  },
+  "title": "Veg",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781147695/ultrafit_gym/nng0creri5qbxtgnbnmh.jpg",
+  "shortDescription": "Plant-based nutrition for sustained energy.",
+  "targets": [
+    "Weight Loss",
+    "Balanced"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1e4835f385c5ccc4c114d4"
+  },
+  "title": "Egg",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781102689/ultrafit_gym/ygomlstwwjzb9f2zrsbm.jpg",
+  "shortDescription": "High-quality protein for muscle repair.",
+  "targets": [
+    "Muscle Gain",
+    "Performance"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1e4835f385c5ccc4c114d5"
+  },
+  "title": "Non-Veg",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781102616/ultrafit_gym/fejkh2yc4rpnqxowrdqw.jpg",
+  "shortDescription": "Complete protein for strength development.",
+  "targets": [
+    "Mass Building",
+    "Strength"
+  ],
+  "__v": 0
+}]

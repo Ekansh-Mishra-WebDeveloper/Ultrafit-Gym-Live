@@ -1,0 +1,1038 @@
+[{
+  "_id": {
+    "$oid": "6a28da85849f1a6909cc1c59"
+  },
+  "categoryKey": "veg",
+  "type": "gain",
+  "mealTime": "breakfast",
+  "name": "Paneer Poha",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781157724/ultrafit_gym/sh9o5tg41khox9lhrs2s.jpg",
+  "ingredients": "Rice, Paneer, Peanuts, Onion, Tomato",
+  "quantity": "250g",
+  "calories": 520,
+  "protein": 28,
+  "tags": [
+    "High Calorie",
+    "Muscle Gain"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28da85849f1a6909cc1c5b"
+  },
+  "categoryKey": "veg",
+  "type": "gain",
+  "mealTime": "breakfast",
+  "name": "Banana Daliya",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781157728/ultrafit_gym/hppbs5idu5qvcyslhhgl.jpg",
+  "ingredients": "Daliya, Milk, Banana, Peanut Butter",
+  "quantity": "350g",
+  "calories": 720,
+  "protein": 24,
+  "tags": [
+    "Bulking Meal"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28da85849f1a6909cc1c5d"
+  },
+  "categoryKey": "veg",
+  "type": "gain",
+  "mealTime": "breakfast",
+  "name": "Moong Chilla",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781157733/ultrafit_gym/ae9f1rptm23wkhy1x3wt.jpg",
+  "ingredients": "Moong dal, Paneer, Curd",
+  "quantity": "350g",
+  "calories": 610,
+  "protein": 35,
+  "tags": [
+    "Protein Rich"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28da93849f1a6909cc1c62"
+  },
+  "categoryKey": "veg",
+  "type": "gain",
+  "mealTime": "lunch",
+  "name": "Rajma Rice",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781158070/ultrafit_gym/givxru2ypnrul0o4biyg.jpg",
+  "ingredients": "Rice, Rajma, Paneer Salad, Curd",
+  "quantity": "350g",
+  "calories": 850,
+  "protein": 36,
+  "tags": [
+    "Heavy Lunch"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28da93849f1a6909cc1c64"
+  },
+  "categoryKey": "veg",
+  "type": "gain",
+  "mealTime": "lunch",
+  "name": "Dal Roti",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781158075/ultrafit_gym/vzvejev3hidnawnggkru.jpg",
+  "ingredients": "Wheat Roti, Mixed dal, Salad",
+  "quantity": "4 pcs",
+  "calories": 800,
+  "protein": 40,
+  "tags": [
+    "Muscle Builder"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28da93849f1a6909cc1c66"
+  },
+  "categoryKey": "veg",
+  "type": "gain",
+  "mealTime": "lunch",
+  "name": "Soya Pulao",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781158082/ultrafit_gym/gfxguz0nggrf4b6m7yrt.jpg",
+  "ingredients": "Rice, Soya chunks, Mixed vegetables, Raita",
+  "quantity": "350g",
+  "calories": 780,
+  "protein": 42,
+  "tags": [
+    "High Protein Gain"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28da9a849f1a6909cc1c6b"
+  },
+  "categoryKey": "veg",
+  "type": "gain",
+  "mealTime": "dinner",
+  "name": "Paneer Roti",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781158689/ultrafit_gym/epmxxxqmlvh4sz3yquyi.jpg",
+  "ingredients": "Paneer, Rotis, Tomato gravy, Salad",
+  "quantity": "3 pcs",
+  "calories": 760,
+  "protein": 40,
+  "tags": [
+    "High Protein"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28da9b849f1a6909cc1c6d"
+  },
+  "categoryKey": "veg",
+  "type": "gain",
+  "mealTime": "dinner",
+  "name": "Khichdi",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781158860/ultrafit_gym/hzskf9sdi87vru072rkr.jpg",
+  "ingredients": "Rice, Moong dal, Ghee, Curd",
+  "quantity": "350g",
+  "calories": 690,
+  "protein": 24,
+  "tags": [
+    "Muscle Builder"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28da9b849f1a6909cc1c6f"
+  },
+  "categoryKey": "veg",
+  "type": "gain",
+  "mealTime": "dinner",
+  "name": "Chole Rice",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781158866/ultrafit_gym/xn1wfeahp5h8sigifpwt.jpg",
+  "ingredients": "Chole, Rice, Onion salad",
+  "quantity": "350g",
+  "calories": 740,
+  "protein": 28,
+  "tags": [
+    "Healthy & Lite"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28daaf849f1a6909cc1c74"
+  },
+  "categoryKey": "veg",
+  "type": "loss",
+  "mealTime": "breakfast",
+  "name": "Oats Veg",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781159130/ultrafit_gym/nush9duxqk76wrum3yeq.jpg",
+  "ingredients": "Oats, Carrot, Beans, Milk",
+  "quantity": "250g",
+  "calories": 320,
+  "protein": 16,
+  "tags": [
+    "Fat Loss"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28daaf849f1a6909cc1c76"
+  },
+  "categoryKey": "veg",
+  "type": "loss",
+  "mealTime": "breakfast",
+  "name": "Sprouts Salad",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781159109/ultrafit_gym/uakifkcwoft2btanubhi.jpg",
+  "ingredients": "Moong sprouts, Cucumber, Tomato, Onion",
+  "quantity": "150g",
+  "calories": 280,
+  "protein": 18,
+  "tags": [
+    "Lean Protein"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28daaf849f1a6909cc1c78"
+  },
+  "categoryKey": "veg",
+  "type": "loss",
+  "mealTime": "breakfast",
+  "name": "Besan Chilla",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781159123/ultrafit_gym/uurwj0tejtau8fywpzp7.jpg",
+  "ingredients": "Besan, Onion, Tomato",
+  "quantity": "2 pcs",
+  "calories": 310,
+  "protein": 17,
+  "tags": [
+    "Low Calorie"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28daff849f1a6909cc1ca6"
+  },
+  "categoryKey": "veg",
+  "type": "loss",
+  "mealTime": "lunch",
+  "name": "Dal Roti",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781159482/ultrafit_gym/abzn9fu4uthqocvs7bfk.jpg",
+  "ingredients": "Rotis, Dal, Salad",
+  "quantity": "2 pcs",
+  "calories": 420,
+  "protein": 20,
+  "tags": [
+    "Fat Loss"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28daff849f1a6909cc1ca8"
+  },
+  "categoryKey": "veg",
+  "type": "loss",
+  "mealTime": "lunch",
+  "name": "Paneer Salad",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781159492/ultrafit_gym/kwfgmhwbrrsspbh6wzdk.jpg",
+  "ingredients": "Grilled paneer, Onion, Cucumber, Tomato",
+  "quantity": "100g",
+  "calories": 390,
+  "protein": 24,
+  "tags": [
+    "Lean Protein"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28daff849f1a6909cc1caa"
+  },
+  "categoryKey": "veg",
+  "type": "loss",
+  "mealTime": "lunch",
+  "name": "Soya Veg",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781159498/ultrafit_gym/aptdkvzp50obpsxz2uxh.jpg",
+  "ingredients": "Soya chunks, Mixed vegetables, Rice",
+  "quantity": "150g",
+  "calories": 410,
+  "protein": 30,
+  "tags": [
+    "Lean Protein"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db05849f1a6909cc1caf"
+  },
+  "categoryKey": "veg",
+  "type": "loss",
+  "mealTime": "dinner",
+  "name": "Lauki Dal Soup",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781159774/ultrafit_gym/q6y2dqamptjmbieci7ug.jpg",
+  "ingredients": "Lauki, Moong dal, 2 Roti",
+  "quantity": "100g",
+  "calories": 300,
+  "protein": 15,
+  "tags": [
+    "Fat Loss"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db05849f1a6909cc1cb1"
+  },
+  "categoryKey": "veg",
+  "type": "loss",
+  "mealTime": "dinner",
+  "name": "Paneer Bhurji",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781159779/ultrafit_gym/e7zegicfqr8pdsmmtjzj.jpg",
+  "ingredients": "Paneer, Onion, Tomato, 2 Roti",
+  "quantity": "150g",
+  "calories": 350,
+  "protein": 26,
+  "tags": [
+    "Lean Protein"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db05849f1a6909cc1cb3"
+  },
+  "categoryKey": "veg",
+  "type": "loss",
+  "mealTime": "dinner",
+  "name": "Daliya",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781159979/ultrafit_gym/rktrafck4fkbb97ulamu.jpg",
+  "ingredients": "Daliya, Beans, Carrot, Peas",
+  "quantity": "100g",
+  "calories": 300,
+  "protein": 14,
+  "tags": [
+    "Lean Protein"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db0e849f1a6909cc1cb8"
+  },
+  "categoryKey": "egg",
+  "type": "gain",
+  "mealTime": "breakfast",
+  "name": "Egg Bhurji Poha",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781160363/ultrafit_gym/pxqlmfx04zfvhshfpodn.jpg",
+  "ingredients": "Eggs, Poha, Onion, Tomato, Peanuts",
+  "quantity": "500g",
+  "calories": 620,
+  "protein": 34,
+  "tags": [
+    "High Protein",
+    "Muscle Gain"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db0e849f1a6909cc1cba"
+  },
+  "categoryKey": "egg",
+  "type": "gain",
+  "mealTime": "breakfast",
+  "name": "Omelette Toast",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781160346/ultrafit_gym/oifvguxg9bovq4hhet3d.jpg",
+  "ingredients": "Eggs, Bread, Onion, Tomato",
+  "quantity": "4 pcs",
+  "calories": 680,
+  "protein": 36,
+  "tags": [
+    "Bulking Breakfast"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db0e849f1a6909cc1cbc"
+  },
+  "categoryKey": "egg",
+  "type": "gain",
+  "mealTime": "breakfast",
+  "name": "Egg Daliya",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781160354/ultrafit_gym/bx3hyr4pzwbmzzof06wc.jpg",
+  "ingredients": "Eggs, Daliya, Milk, Banana,",
+  "quantity": "1 large bowl",
+  "calories": 710,
+  "protein": 32,
+  "tags": [
+    "Recovery Meal",
+    "Mass Gain"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db1a849f1a6909cc1cc1"
+  },
+  "categoryKey": "egg",
+  "type": "gain",
+  "mealTime": "lunch",
+  "name": "Egg Curry Rice",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781160640/ultrafit_gym/a9da8teevdlsjma52za9.jpg",
+  "ingredients": "Eggs, Rice, Onion, Tomato",
+  "quantity": "1 large plate",
+  "calories": 780,
+  "protein": 38,
+  "tags": [
+    "Heavy Lunch",
+    "Muscle Growth"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db1a849f1a6909cc1cc3"
+  },
+  "categoryKey": "egg",
+  "type": "gain",
+  "mealTime": "lunch",
+  "name": "Egg Bhurji Roti",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781160643/ultrafit_gym/d65ivxyqbjso3629qixz.jpg",
+  "ingredients": "Eggs, Roti, Onion, Tomato, Curd",
+  "quantity": "4 pcs",
+  "calories": 760,
+  "protein": 40,
+  "tags": [
+    "High Calorie",
+    "Gym Fuel"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db1a849f1a6909cc1cc5"
+  },
+  "categoryKey": "egg",
+  "type": "gain",
+  "mealTime": "lunch",
+  "name": "Paneer Egg Rice",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781160659/ultrafit_gym/h3zajrmano64qasachht.jpg",
+  "ingredients": "Eggs, Paneer, Rice, Peas, Onion, Tomato",
+  "quantity": "500g",
+  "calories": 720,
+  "protein": 34,
+  "tags": [
+    "Weight Gain"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db1f849f1a6909cc1cca"
+  },
+  "categoryKey": "egg",
+  "type": "gain",
+  "mealTime": "dinner",
+  "name": "Egg Fried Rice",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781160988/ultrafit_gym/e5rpjiehvfvrurx4sean.jpg",
+  "ingredients": "Eggs, Rice, Carrot, Beans, Onion",
+  "quantity": "500g",
+  "calories": 300,
+  "protein": 34,
+  "tags": [
+    "Dinner Bulk"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db20849f1a6909cc1ccc"
+  },
+  "categoryKey": "egg",
+  "type": "gain",
+  "mealTime": "dinner",
+  "name": "Egg Paneer Roti",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781160979/ultrafit_gym/rrywdbps3t7q8wftb6vu.jpg",
+  "ingredients": "Eggs, Paneer, Roti, Onion, Tomato, Salad",
+  "quantity": "3 pcs",
+  "calories": 760,
+  "protein": 46,
+  "tags": [
+    "Muscle Recovery",
+    "High Protein"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db20849f1a6909cc1cce"
+  },
+  "categoryKey": "egg",
+  "type": "gain",
+  "mealTime": "dinner",
+  "name": "Egg Khichdi",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781160972/ultrafit_gym/ljgnvzugysubwskkx8se.jpg",
+  "ingredients": "Eggs, Rice, Moong Dal, Ghee",
+  "quantity": "1 large bowl",
+  "calories": 690,
+  "protein": 31,
+  "tags": [
+    "Recovery Dinner",
+    "Easy Digest"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db25849f1a6909cc1cd3"
+  },
+  "categoryKey": "egg",
+  "type": "loss",
+  "mealTime": "breakfast",
+  "name": "Boiled Egg Oats",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781163553/ultrafit_gym/bqoelf2umug6ph8ivhnn.jpg",
+  "ingredients": "Eggs, Oats, Milk",
+  "quantity": "1 medium bowl",
+  "calories": 380,
+  "protein": 28,
+  "tags": [
+    "Fat Loss"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db25849f1a6909cc1cd5"
+  },
+  "categoryKey": "egg",
+  "type": "loss",
+  "mealTime": "breakfast",
+  "name": "Egg White Veg Scramble",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781163702/ultrafit_gym/avz2re2xg2z3is9syde9.jpg",
+  "ingredients": "Egg whites, Onion, Tomato",
+  "quantity": "350g",
+  "calories": 310,
+  "protein": 30,
+  "tags": [
+    "Low Calorie"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db25849f1a6909cc1cd7"
+  },
+  "categoryKey": "egg",
+  "type": "loss",
+  "mealTime": "breakfast",
+  "name": "Egg Toast",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781163592/ultrafit_gym/zhp4duosgl0xsgwobfzb.jpg",
+  "ingredients": "Eggs, Bread",
+  "quantity": "2 pcs",
+  "calories": 340,
+  "protein": 22,
+  "tags": [
+    "Balanced"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db2a849f1a6909cc1cdc"
+  },
+  "categoryKey": "egg",
+  "type": "loss",
+  "mealTime": "lunch",
+  "name": "Egg Salad",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781163893/ultrafit_gym/eorppxmwihyshedrspwn.jpg",
+  "ingredients": "Eggs, cucumber, tomato, onion",
+  "quantity": "1 plate",
+  "calories": 390,
+  "protein": 30,
+  "tags": [
+    "Fat Burn"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db2a849f1a6909cc1cde"
+  },
+  "categoryKey": "egg",
+  "type": "loss",
+  "mealTime": "lunch",
+  "name": "Egg Curry",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781163894/ultrafit_gym/a7ureck5epucytaruucx.jpg",
+  "ingredients": "Eggs, Tomato gravy, Onion, 2 Roti",
+  "quantity": "2 pCS",
+  "calories": 430,
+  "protein": 28,
+  "tags": [
+    "Controlled Calories"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db2a849f1a6909cc1ce0"
+  },
+  "categoryKey": "egg",
+  "type": "loss",
+  "mealTime": "lunch",
+  "name": "Egg Rice",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781163900/ultrafit_gym/qc3edcl5neth8rkirzxr.jpg",
+  "ingredients": "Eggs, Rice, Beans, Carrot",
+  "quantity": "1 medium bowl",
+  "calories": 450,
+  "protein": 25,
+  "tags": [
+    "Fat Loss"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db2f849f1a6909cc1ce5"
+  },
+  "categoryKey": "egg",
+  "type": "loss",
+  "mealTime": "dinner",
+  "name": "Egg Paneer",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781164249/ultrafit_gym/u3iagvqeuochdtsbqbwq.jpg",
+  "ingredients": "Egg whites, Paneer, Onions, Tomato",
+  "quantity": "300g",
+  "calories": 370,
+  "protein": 36,
+  "tags": [
+    "Lean Muscle"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db2f849f1a6909cc1ce7"
+  },
+  "categoryKey": "egg",
+  "type": "loss",
+  "mealTime": "dinner",
+  "name": "Egg Soup",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781164215/ultrafit_gym/jyez09lcfdnilxrimaun.jpg",
+  "ingredients": "Eggs, carrot, beans, cabbage",
+  "quantity": "1 large soup bowl",
+  "calories": 280,
+  "protein": 24,
+  "tags": [
+    "Cutting Phase"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db2f849f1a6909cc1ce9"
+  },
+  "categoryKey": "egg",
+  "type": "loss",
+  "mealTime": "dinner",
+  "name": "Egg Daliya",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781164233/ultrafit_gym/rpdo6zbruraflt9yvtra.jpg",
+  "ingredients": "Eggs, daliya, peas, carrot",
+  "quantity": "1 medium bowl",
+  "calories": 340,
+  "protein": 26,
+  "tags": [
+    "Low Fat",
+    "Digestive Friendly"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db35849f1a6909cc1cee"
+  },
+  "categoryKey": "nonveg",
+  "type": "gain",
+  "mealTime": "breakfast",
+  "name": "Chicken Sandwich",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168781/ultrafit_gym/bmv0kx1rr1kajb3rw4rw.jpg",
+  "ingredients": "Chicken Breast, Whole Wheat Bread, Onion, Tomato",
+  "quantity": "4 pcs",
+  "calories": 690,
+  "protein": 44,
+  "tags": [
+    "High Protein",
+    "Muscle Gain"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db35849f1a6909cc1cf0"
+  },
+  "categoryKey": "nonveg",
+  "type": "gain",
+  "mealTime": "breakfast",
+  "name": "Chicken Oats",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168805/ultrafit_gym/bxlote1okflsfkibxbtk.jpg",
+  "ingredients": "Chicken Breast, Oats, Onion, Capsicum, Carrot",
+  "quantity": "500g",
+  "calories": 640,
+  "protein": 42,
+  "tags": [
+    "Lean Bulk"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db35849f1a6909cc1cf2"
+  },
+  "categoryKey": "nonveg",
+  "type": "gain",
+  "mealTime": "breakfast",
+  "name": "Chicken Egg Roll",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168810/ultrafit_gym/nzvqvuvwamqjhssayomw.jpg",
+  "ingredients": "Chicken Strips, Eggs, Whole Wheat Roti, Onion",
+  "quantity": "2 Large Rolls",
+  "calories": 720,
+  "protein": 48,
+  "tags": [
+    "Heavy Breakfast"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db39849f1a6909cc1cf7"
+  },
+  "categoryKey": "nonveg",
+  "type": "gain",
+  "mealTime": "lunch",
+  "name": "Chicken Curry Rice",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168828/ultrafit_gym/jlntlgs82cgnoqy5unw4.jpg",
+  "ingredients": "Chicken Breast, Rice, Onion, Tomato",
+  "quantity": "250g",
+  "calories": 820,
+  "protein": 52,
+  "tags": [
+    "Muscle Growth"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db39849f1a6909cc1cf9"
+  },
+  "categoryKey": "nonveg",
+  "type": "gain",
+  "mealTime": "lunch",
+  "name": "Tandoori Chicken Roti",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168833/ultrafit_gym/plntvkloqrjaeqdozn6f.jpg",
+  "ingredients": "Chicken, Whole Wheat Roti",
+  "quantity": "200g Chicken + 4 Rotis",
+  "calories": 790,
+  "protein": 55,
+  "tags": [
+    "Gym Fuel",
+    "High Calorie"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db39849f1a6909cc1cfb"
+  },
+  "categoryKey": "nonveg",
+  "type": "gain",
+  "mealTime": "lunch",
+  "name": "Fish Rice",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168842/ultrafit_gym/xophmrddswsifnyapbfi.jpg",
+  "ingredients": "Fish, Rice, Tomato Gravy, Onion",
+  "quantity": "1 Large Rice Bowl",
+  "calories": 760,
+  "protein": 46,
+  "tags": [
+    "Weight Gain"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db43849f1a6909cc1d00"
+  },
+  "categoryKey": "nonveg",
+  "type": "gain",
+  "mealTime": "dinner",
+  "name": "Grilled Chicken",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168887/ultrafit_gym/pe2ahbxcw9imfiuudsin.jpg",
+  "ingredients": "Chicken Breast, Mixed Vegetables, Roti",
+  "quantity": "200g Chicken + 3 Rotis",
+  "calories": 730,
+  "protein": 58,
+  "tags": [
+    "Muscle Repair"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db44849f1a6909cc1d02"
+  },
+  "categoryKey": "nonveg",
+  "type": "gain",
+  "mealTime": "dinner",
+  "name": "Chicken Khichdi",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168902/ultrafit_gym/gikfmyxnmaun8xot8hz2.jpg",
+  "ingredients": "Chicken Pieces, Rice, Moong Dal, Ghee",
+  "quantity": "500g",
+  "calories": 700,
+  "protein": 43,
+  "tags": [
+    "Easy Digest"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db44849f1a6909cc1d04"
+  },
+  "categoryKey": "nonveg",
+  "type": "gain",
+  "mealTime": "dinner",
+  "name": "Fish Curry Roti",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168916/ultrafit_gym/rlksbq6mgpjdsalanuix.jpg",
+  "ingredients": "Fish, Onion, Tomato, Roti",
+  "quantity": "180g Fish + 3 Rotis",
+  "calories": 710,
+  "protein": 47,
+  "tags": [
+    "High Protein"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db4b849f1a6909cc1d09"
+  },
+  "categoryKey": "nonveg",
+  "type": "loss",
+  "mealTime": "breakfast",
+  "name": "Chicken Veg Scramble",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168935/ultrafit_gym/id5vrrajvjse7dmtnarr.jpg",
+  "ingredients": "Chicken Breast, Egg Whites, Tomato, Onion",
+  "quantity": "350g",
+  "calories": 390,
+  "protein": 42,
+  "tags": [
+    "Lean Protein",
+    "Fat Loss"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db4b849f1a6909cc1d0b"
+  },
+  "categoryKey": "nonveg",
+  "type": "loss",
+  "mealTime": "breakfast",
+  "name": "Chicken Oats",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168946/ultrafit_gym/pdzqvcfcewyqytlqa7tq.jpg",
+  "ingredients": "Chicken Breast, Oats, Carrot. Onions, Tomato",
+  "quantity": "1 Medium Bowl",
+  "calories": 360,
+  "protein": 35,
+  "tags": [
+    "Controlled Calories"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db4b849f1a6909cc1d0d"
+  },
+  "categoryKey": "nonveg",
+  "type": "loss",
+  "mealTime": "breakfast",
+  "name": "Grilled Fish Toast",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168951/ultrafit_gym/br3obhydt2jonjf4aic3.jpg",
+  "ingredients": "Fish Fillet, Brown Bread",
+  "quantity": "2 pcs",
+  "calories": 340,
+  "protein": 30,
+  "tags": [
+    "Light Meal"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db50849f1a6909cc1d12"
+  },
+  "categoryKey": "nonveg",
+  "type": "loss",
+  "mealTime": "lunch",
+  "name": "Chicken Salad",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168972/ultrafit_gym/dxdngelkrsmlqlgtyhx7.jpg",
+  "ingredients": "Chicken Breast, Lettuce, Tomato, Onion",
+  "quantity": "1 Large Salad Plate + 150g Chicken",
+  "calories": 410,
+  "protein": 46,
+  "tags": [
+    "Lean Lunch"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db50849f1a6909cc1d14"
+  },
+  "categoryKey": "nonveg",
+  "type": "loss",
+  "mealTime": "lunch",
+  "name": "Fish Curry",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168989/ultrafit_gym/h8vxz2flrerdkocynkan.jpg",
+  "ingredients": "Fish, Tomato Gravy, Onion, 2 Rotis",
+  "quantity": "150g Fish + 2 Rotis",
+  "calories": 430,
+  "protein": 34,
+  "tags": [
+    "Fat Burn",
+    "Balanced"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db50849f1a6909cc1d16"
+  },
+  "categoryKey": "nonveg",
+  "type": "loss",
+  "mealTime": "lunch",
+  "name": "Chicken Rice",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781168993/ultrafit_gym/o5aecauab58gopw9mlvs.jpg",
+  "ingredients": "Chicken Breast, Brown Rice, Beans, Carrot",
+  "quantity": "400g",
+  "calories": 470,
+  "protein": 40,
+  "tags": [
+    "Weight Loss"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db56849f1a6909cc1d1b"
+  },
+  "categoryKey": "nonveg",
+  "type": "loss",
+  "mealTime": "dinner",
+  "name": "Grilled Chicken",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781169007/ultrafit_gym/clpu4qpp4txxbfn0uze8.jpg",
+  "ingredients": "Chicken Breast, Broccoli, Tomato, Onion",
+  "quantity": "180g Chicken + Vegetables",
+  "calories": 390,
+  "protein": 48,
+  "tags": [
+    "Low Carb"
+  ],
+  "isRecommended": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db56849f1a6909cc1d1d"
+  },
+  "categoryKey": "nonveg",
+  "type": "loss",
+  "mealTime": "dinner",
+  "name": "Fish Soup Meal",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781169011/ultrafit_gym/mwpeny0kir1qbyabmzwt.jpg",
+  "ingredients": "Fish, Carrot, Beans, Tomato, Onions",
+  "quantity": "1 Large Soup Bowl",
+  "calories": 310,
+  "protein": 32,
+  "tags": [
+    "Cutting Phase"
+  ],
+  "isRecommended": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28db56849f1a6909cc1d1f"
+  },
+  "categoryKey": "nonveg",
+  "type": "loss",
+  "mealTime": "dinner",
+  "name": "Chicken Vegetable",
+  "imageUrl": "https://res.cloudinary.com/doogaohul/image/upload/v1781169015/ultrafit_gym/cwyylr39tkwpkpqrhxyw.jpg",
+  "ingredients": "Chicken Breast, Spinach, Carrot, Tomato, Onion",
+  "quantity": "300g",
+  "calories": 350,
+  "protein": 38,
+  "tags": [
+    "Digestive Friendly"
+  ],
+  "isRecommended": false,
+  "__v": 0
+}]

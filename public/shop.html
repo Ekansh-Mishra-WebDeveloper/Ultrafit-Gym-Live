@@ -252,7 +252,307 @@
       transform: scale(1.02);
       box-shadow: 0 0 12px rgba(255,215,0,0.6);
     }
-    /* Footer (same as original) */
+    /* AI Chat Bubble (same as index.html) */
+    .ai-chat-container {
+      position: fixed;
+      bottom: 110px;
+      right: 30px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .chat-bubble {
+      display: flex;
+      align-items: center;
+      gap: 0px;
+      background: linear-gradient(135deg, #1e1e1e, #0a0a0a);
+      border: 1px solid rgba(255,215,0,0.4);
+      border-radius: 60px;
+      padding: 0.7rem;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 15px rgba(255,215,0,0.2);
+      transition: all 0.3s cubic-bezier(0.2,0.9,0.4,1.1);
+      backdrop-filter: blur(8px);
+      width: fit-content;
+    }
+    .chat-bubble:hover {
+      gap: 12px;
+      padding: 0.7rem 1.5rem 0.7rem 1rem;
+    }
+    .ai-icon {
+      background: #FFD700;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      color: #121212;
+      box-shadow: 0 0 12px rgba(255,215,0,0.6);
+      transition: transform 0.2s;
+    }
+    .chat-bubble:hover .ai-icon {
+      transform: scale(1.05);
+    }
+    .ai-text {
+      font-weight: 700;
+      font-size: 0rem;
+      letter-spacing: 1px;
+      background: linear-gradient(120deg, #fff, #FFD700);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      white-space: nowrap;
+      transition: font-size 0.2s ease;
+    }
+    .chat-bubble:hover .ai-text {
+      font-size: 1rem;
+    }
+    .chat-window {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 360px;
+      height: 500px;
+      background: #1a1a1a;
+      border-radius: 28px;
+      border: 1px solid rgba(255,215,0,0.4);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      pointer-events: none;
+    }
+    .chat-window.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .chat-header {
+      background: #FFD700;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #121212;
+      font-weight: 800;
+    }
+    .chat-header h3 {
+      font-size: 1.2rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chat-close {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #121212;
+      transition: transform 0.2s;
+    }
+    .chat-close:hover { transform: scale(1.1); }
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: rgba(0,0,0,0.3);
+    }
+    .message {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .user-message {
+      background: #FFD700;
+      color: #121212;
+      align-self: flex-end;
+      border-bottom-right-radius: 6px;
+    }
+    .bot-message {
+      background: #2a2a2a;
+      color: #eee;
+      align-self: flex-start;
+      border-bottom-left-radius: 6px;
+      border: 1px solid rgba(255,215,0,0.2);
+    }
+    .chat-input-area {
+      display: flex;
+      padding: 12px;
+      background: #0a0a0a;
+      border-top: 1px solid rgba(255,215,0,0.2);
+      gap: 8px;
+    }
+    .chat-input {
+      flex: 1;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 40px;
+      padding: 10px 16px;
+      color: white;
+      font-family: inherit;
+      outline: none;
+    }
+    .chat-input:focus { border-color: #FFD700; }
+    .chat-send {
+      background: #FFD700;
+      border: none;
+      border-radius: 40px;
+      padding: 0 18px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #121212;
+      transition: all 0.2s;
+    }
+    .chat-send:hover {
+      background: #e6c300;
+      transform: scale(1.02);
+    }
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 8px 12px;
+      background: #2a2a2a;
+      border-radius: 20px;
+      width: fit-content;
+    }
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      background: #aaa;
+      border-radius: 50%;
+      animation: blink 1.4s infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+    @media (max-width: 600px) {
+      .ai-chat-container { bottom: 90px; right: 15px; }
+      .chat-window { width: 90vw; right: -5px; bottom: 70px; }
+      .chat-bubble { padding: 0.5rem; }
+      .chat-bubble:hover { padding: 0.5rem 1rem 0.5rem 0.8rem; }
+      .ai-icon { width: 36px; height: 36px; font-size: 1.3rem; }
+      .chat-bubble:hover .ai-text { font-size: 0.85rem; }
+    }
+
+    /* Premium Modal styles (auth modals) */
+    .premium-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.94);
+      backdrop-filter: blur(20px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 5000;
+    }
+    .premium-modal-card {
+      background: #121212;
+      border: 1px solid #FFD700;
+      border-radius: 40px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 2rem;
+      box-shadow: 0 30px 50px rgba(0,0,0,0.5);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      background: transparent;
+      border: none;
+      color: #FFD700;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+    .modal-close-btn:hover { transform: scale(1.1); }
+    .modal-title-center {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #FFD700;
+      font-weight: 700;
+    }
+    .field-group { margin-bottom: 1rem; position: relative; }
+    .field-group label { display: block; font-size: 0.75rem; color: #aaa; margin-bottom: 0.3rem; }
+    .field-group input, .field-group select {
+      width: 100%;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 20px;
+      padding: 0.7rem 1rem;
+      color: white;
+      font-family: inherit;
+    }
+    .password-wrapper { position: relative; }
+    .password-wrapper input { padding-right: 2.5rem; }
+    .toggle-password {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #FFD700;
+      background: transparent;
+      border: none;
+    }
+    .click-to-upload {
+      text-align: center;
+      margin: 0.8rem auto;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #FFD700;
+      cursor: pointer;
+      background: transparent;
+      border: 1.5px solid #FFD700;
+      border-radius: 40px;
+      padding: 0.5rem 1rem;
+      display: inline-block;
+      width: fit-content;
+    }
+    .click-to-upload:hover { background: #FFD700; color: #121212; }
+    .remember-checkbox { display: flex; align-items: center; gap: 0.5rem; margin: 1rem 0; }
+    .remember-checkbox input { width: auto; }
+    .button-group-center { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap; }
+    .btn-solid-gold { background: #FFD700; border: none; color: #121212; padding: 0.7rem 1.8rem; border-radius: 60px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; }
+    .btn-outline-gold { background: transparent; border: 1.5px solid #FFD700; color: #FFD700; padding: 0.7rem 1.8rem; border-radius: 60px; font-weight: 600; cursor: pointer; }
+    .btn-outline-gold:hover { background: rgba(255,215,0,0.1); }
+    .auth-card {
+      cursor: pointer;
+      background: rgba(255,215,0,0.1);
+      padding: 1rem;
+      border-radius: 28px;
+      text-align: center;
+      width: 120px;
+      transition: 0.2s;
+    }
+    .auth-card:hover {
+      background: rgba(255,215,0,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Footer with PWA support */
     footer {
       background: #0a0a0a;
       border-top: 1px solid rgba(255, 215, 0, 0.2);
@@ -294,6 +594,21 @@
       color: #777;
       margin-top: 1rem;
     }
+    @media all and (display-mode: standalone) {
+      .footer-links ul {
+        display: none;
+      }
+      .footer-links h4 {
+        display: none;
+      }
+      .footer-links .credit {
+        display: block;
+        margin-top: 0;
+      }
+      footer {
+        padding: 1rem 0;
+      }
+    }
     @media (max-width: 768px) {
       .hero-content h1 { font-size: 2.5rem; }
       .countdown-box { min-width: 60px; padding: 0.5rem 0.8rem; }
@@ -310,8 +625,9 @@
       <div class="logo"><span class="logo-ultra">ULTRA</span><span class="logo-fit">FIT</span></div>
     </div>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html" class="nav-link join-now-nav">Join Now</a></li>
-      <li><a href="index.html#contact-section" class="nav-link">Contact Us</a></li>
+      <!-- Dynamic button: "Sign Up" or "UltraFit App" -->
+      <li><a href="#" class="nav-link join-now-nav" id="authNavBtn">Sign Up</a></li>
+      <li><a href="index.html" class="nav-link">Home</a></li>
       <li><a href="diet.html" class="nav-link">Diet Plan</a></li>
       <li><a href="workout.html" class="nav-link">Workout Plan</a></li>
       <li><a href="members.html" class="nav-link">Gym Members</a></li>
@@ -368,8 +684,230 @@
   </div>
 </footer>
 
+<!-- AI Chat Bubble -->
+<div class="ai-chat-container">
+  <div class="chat-bubble" id="chatBubble">
+    <div class="ai-icon"><i class="fas fa-comment-dots"></i></div>
+    <span class="ai-text">UltraFit AI Coach</span>
+  </div>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <h3><i class="fas fa-brain"></i> UltraFit AI Coach</h3>
+      <button class="chat-close" id="chatCloseBtn">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot-message">💪 Hey! I'm your UltraFit AI Coach. Ask me anything about workouts, nutrition, or gym plans.</div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Ask your fitness question...">
+      <button class="chat-send" id="chatSendBtn">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== AUTH MODALS ========== -->
+<div id="authChoiceModal" class="premium-modal"><div class="premium-modal-card" id="authChoiceContent"></div></div>
+<div id="signupModal" class="premium-modal"><div class="premium-modal-card" id="signupContent"></div></div>
+<div id="loginModal" class="premium-modal"><div class="premium-modal-card" id="loginContent"></div></div>
+
 <script>
-  // Countdown: launch in 14 days from now
+  // ========== AUTH & UI LOGIC (same as index.html) ==========
+  const API_BASE = '/api';
+  let memberToken = localStorage.getItem('memberToken') || sessionStorage.getItem('memberToken') || null;
+  let currentMember = null;
+
+  function getStoredToken() { return memberToken; }
+  function setStoredToken(token, remember) {
+    if (remember) { localStorage.setItem('memberToken', token); sessionStorage.removeItem('memberToken'); }
+    else { sessionStorage.setItem('memberToken', token); localStorage.removeItem('memberToken'); }
+    memberToken = token;
+  }
+  function clearStoredToken() { localStorage.removeItem('memberToken'); sessionStorage.removeItem('memberToken'); memberToken = null; }
+
+  async function fetchJSON(url, options = {}) {
+    const headers = { 'Content-Type': 'application/json', ...(memberToken ? { 'Authorization': `Bearer ${memberToken}` } : {}), ...options.headers };
+    try {
+      const res = await fetch(url, { ...options, headers });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (err) { console.error(err); return null; }
+  }
+
+  function showPopup(msg, isSuccess = true) {
+    alert(msg);
+  }
+
+  async function loadMemberProfile() {
+    if (!memberToken) { currentMember = null; return; }
+    const profile = await fetchJSON(`${API_BASE}/member/profile`);
+    if (profile) currentMember = profile;
+    else currentMember = null;
+    updateNavButton();
+  }
+
+  function updateNavButton() {
+    const authBtn = document.getElementById('authNavBtn');
+    if (memberToken && currentMember) {
+      authBtn.innerText = 'UltraFit App';
+      authBtn.onclick = (e) => { e.preventDefault(); window.location.href = 'user.html'; };
+    } else {
+      authBtn.innerText = 'Sign Up';
+      authBtn.onclick = (e) => { e.preventDefault(); showAuthChoice(); };
+    }
+  }
+
+  function showAuthChoice() {
+    const modal = document.getElementById('authChoiceModal');
+    document.getElementById('authChoiceContent').innerHTML = `
+      <button class="modal-close-btn" id="closeAuthChoice">&times;</button>
+      <div class="modal-title-center">Welcome to UltraFit</div>
+      <div style="display:flex; gap:1rem; justify-content:center;">
+        <div class="auth-card" id="choiceSignup"><h3>Sign Up</h3><p>New Member</p></div>
+        <div class="auth-card" id="choiceLogin"><h3>Log In</h3><p>Existing</p></div>
+      </div>
+    `;
+    modal.style.display = 'flex';
+    document.getElementById('closeAuthChoice').onclick = () => modal.style.display = 'none';
+    document.getElementById('choiceSignup').onclick = () => { modal.style.display = 'none'; showSignupModal(); };
+    document.getElementById('choiceLogin').onclick = () => { modal.style.display = 'none'; showLoginModal(); };
+  }
+
+  async function uploadSignupImage(file) {
+    const fd = new FormData(); fd.append('image', file);
+    const res = await fetch('/api/upload-signup', { method:'POST', body:fd });
+    const data = await res.json();
+    return res.ok && data.url ? data.url : null;
+  }
+
+  function showSignupModal() {
+    const modal = document.getElementById('signupModal');
+    document.getElementById('signupContent').innerHTML = `
+      <button class="modal-close-btn" id="closeSignup">&times;</button>
+      <div class="modal-title-center">Create Account</div>
+      <div style="text-align:center;"><img id="signupAvatarPreview" src="defaultpfp.png" style="width:80px;height:80px;border-radius:50%;border:2px solid #FFD700;margin-bottom:0.5rem;"><div class="click-to-upload" id="signupUploadBtn">📸 Upload Profile Photo</div><input type="file" id="signupPhotoFile" accept="image/*" style="display:none;"></div>
+      <div class="field-group"><label>Full Name *</label><input type="text" id="signupName" placeholder="First and last name"></div>
+      <div class="field-group"><label>Email *</label><input type="email" id="signupEmail" placeholder="Email"></div>
+      <div class="field-group"><label>Password *</label><div class="password-wrapper"><input type="password" id="signupPassword"><button type="button" class="toggle-password" data-target="signupPassword"><i class="fas fa-eye-slash"></i></button></div></div>
+      <div class="field-group"><label>Confirm Password *</label><div class="password-wrapper"><input type="password" id="signupConfirmPassword"><button type="button" class="toggle-password" data-target="signupConfirmPassword"><i class="fas fa-eye-slash"></i></button></div></div>
+      <div class="field-group"><label>Age *</label><input type="number" id="signupAge" placeholder="Age"></div>
+      <div class="field-group"><label>Phone *</label><input type="tel" id="signupPhone" placeholder="Phone number"></div>
+      <div class="field-group"><label>Gender</label><select id="signupGender"><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option></select></div>
+      <div class="field-group"><label>Fitness Goal</label><select id="signupGoal"><option value="musclegain">💪 Muscle Gain</option><option value="weightloss">🔥 Weight Loss</option></select></div>
+      <div class="button-group-center"><button class="btn-solid-gold" id="doSignupBtn">Sign Up</button><button class="btn-outline-gold" id="cancelSignupBtn">Cancel</button></div>
+    `;
+    modal.style.display = 'flex';
+    document.getElementById('closeSignup').onclick = () => modal.style.display = 'none';
+    document.getElementById('cancelSignupBtn').onclick = () => modal.style.display = 'none';
+    document.querySelectorAll('.toggle-password').forEach(btn => btn.addEventListener('click', function(){ let inp=document.getElementById(this.getAttribute('data-target')); inp.type=inp.type==='password'?'text':'password'; this.innerHTML=inp.type==='password'?'<i class="fas fa-eye-slash"></i>':'<i class="fas fa-eye"></i>'; }));
+    let selectedPhoto = null;
+    document.getElementById('signupUploadBtn').onclick = () => document.getElementById('signupPhotoFile').click();
+    document.getElementById('signupPhotoFile').onchange = (e) => { const f=e.target.files[0]; if(f){ selectedPhoto=f; const reader=new FileReader(); reader.onload=ev=>document.getElementById('signupAvatarPreview').src=ev.target.result; reader.readAsDataURL(f); } };
+    document.getElementById('doSignupBtn').onclick = async () => {
+      const fullName = document.getElementById('signupName').value.trim(), email=document.getElementById('signupEmail').value.trim(), pass=document.getElementById('signupPassword').value, confirm=document.getElementById('signupConfirmPassword').value, age=parseInt(document.getElementById('signupAge').value), phone=document.getElementById('signupPhone').value.trim(), gender=document.getElementById('signupGender').value, goal=document.getElementById('signupGoal').value;
+      if(!fullName||!email||!pass||!confirm||!age||!phone){ showPopup('Please fill all required fields',false); return; }
+      if(pass!==confirm){ showPopup('Passwords do not match',false); return; }
+      if(age<12||age>120){ showPopup('Enter valid age',false); return; }
+      let photoUrl='defaultpfp.png';
+      if(selectedPhoto){ const up=await uploadSignupImage(selectedPhoto); if(up) photoUrl=up; }
+      const parts=fullName.split(' '), firstName=parts[0], lastName=parts.slice(1).join(' ')||'';
+      const payload={firstName,lastName,email,password:pass,age,phone,gender,goal,photoUrl};
+      const res=await fetch(`${API_BASE}/auth/member-register`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const data=await res.json();
+      if(res.ok&&data.token){ setStoredToken(data.token,true); await loadMemberProfile(); modal.style.display='none'; showPopup('Account created! Welcome.'); location.reload(); }
+      else showPopup(data.error||'Registration failed',false);
+    };
+  }
+
+  function showLoginModal() {
+    const modal = document.getElementById('loginModal');
+    document.getElementById('loginContent').innerHTML = `
+      <button class="modal-close-btn" id="closeLogin">&times;</button>
+      <div class="modal-title-center">Log In</div>
+      <div class="field-group"><label>Email or Phone</label><input type="text" id="loginIdentifier" placeholder="Email or phone number"></div>
+      <div class="field-group"><label>Password</label><div class="password-wrapper"><input type="password" id="loginPassword"><button type="button" class="toggle-password" data-target="loginPassword"><i class="fas fa-eye-slash"></i></button></div></div>
+      <div class="remember-checkbox"><input type="checkbox" id="rememberMeCheckbox" checked> <label>Remember Me</label></div>
+      <div class="button-group-center"><button class="btn-solid-gold" id="doLoginBtn">Log In</button><button class="btn-outline-gold" id="cancelLoginBtn">Cancel</button></div>
+    `;
+    modal.style.display = 'flex';
+    document.getElementById('closeLogin').onclick = () => modal.style.display = 'none';
+    document.getElementById('cancelLoginBtn').onclick = () => modal.style.display = 'none';
+    document.querySelectorAll('.toggle-password').forEach(btn=>btn.addEventListener('click',function(){let inp=document.getElementById(this.getAttribute('data-target')); inp.type=inp.type==='password'?'text':'password'; this.innerHTML=inp.type==='password'?'<i class="fas fa-eye-slash"></i>':'<i class="fas fa-eye"></i>';}));
+    document.getElementById('doLoginBtn').onclick = async () => {
+      const id=document.getElementById('loginIdentifier').value.trim(), pwd=document.getElementById('loginPassword').value, remember=document.getElementById('rememberMeCheckbox').checked;
+      if(!id||!pwd){ showPopup('Please fill both fields',false); return; }
+      const isEmail=id.includes('@');
+      const body=isEmail?{email:id,password:pwd}:{phone:id,password:pwd};
+      const res=await fetch(`${API_BASE}/auth/member-login`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      const data=await res.json();
+      if(res.ok&&data.token){ setStoredToken(data.token,remember); await loadMemberProfile(); modal.style.display='none'; showPopup('Login successful'); location.reload(); }
+      else showPopup(data.error||'Invalid credentials',false);
+    };
+  }
+
+  // ========== AI CHAT FUNCTIONALITY ==========
+  const chatBubble = document.getElementById('chatBubble');
+  const chatWindow = document.getElementById('chatWindow');
+  const chatClose = document.getElementById('chatCloseBtn');
+  const chatMessages = document.getElementById('chatMessages');
+  const chatInput = document.getElementById('chatInput');
+  const chatSend = document.getElementById('chatSendBtn');
+
+  function toggleChatWindow(open) {
+    if (open) chatWindow.classList.add('open');
+    else chatWindow.classList.remove('open');
+  }
+  chatBubble.addEventListener('click', () => toggleChatWindow(true));
+  chatClose.addEventListener('click', () => toggleChatWindow(false));
+
+  async function sendChatMessage() {
+    const message = chatInput.value.trim();
+    if (!message) return;
+    const token = getStoredToken();
+    if (!token) {
+      showPopup('Please login to use chat.', false);
+      return;
+    }
+    const userMsgDiv = document.createElement('div');
+    userMsgDiv.className = 'message user-message';
+    userMsgDiv.textContent = message;
+    chatMessages.appendChild(userMsgDiv);
+    chatInput.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    const typingDiv = document.createElement('div');
+    typingDiv.classList.add('typing-indicator');
+    typingDiv.innerHTML = '<span></span><span></span><span></span>';
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    try {
+      const response = await fetch(`${API_BASE}/chat-groq`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ message })
+      });
+      if (typingDiv && typingDiv.parentNode === chatMessages) chatMessages.removeChild(typingDiv);
+      if (response.status === 401) { showPopup('Session expired. Please login again.', false); return; }
+      const data = await response.json();
+      if (response.ok && data.reply) {
+        const botMsgDiv = document.createElement('div');
+        botMsgDiv.className = 'message bot-message';
+        botMsgDiv.textContent = data.reply;
+        chatMessages.appendChild(botMsgDiv);
+      } else throw new Error(data.error || 'No response');
+    } catch (err) {
+      if (typingDiv && typingDiv.parentNode === chatMessages) chatMessages.removeChild(typingDiv);
+      const errorMsgDiv = document.createElement('div');
+      errorMsgDiv.className = 'message bot-message';
+      errorMsgDiv.textContent = '🏋️ Sorry, I’m having trouble connecting. Please try again later.';
+      chatMessages.appendChild(errorMsgDiv);
+    }
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+  chatSend.addEventListener('click', sendChatMessage);
+  chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendChatMessage(); });
+
+  // ========== COUNTDOWN & NOTIFY (unchanged) ==========
   function getNextLaunchDate() {
     let target = new Date();
     target.setDate(target.getDate() + 14);
@@ -400,7 +938,6 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // Notify button (simple alert for demo, can be extended with real email capture)
   const notifyBtn = document.getElementById("notifyBtn");
   if (notifyBtn) {
     notifyBtn.addEventListener("click", () => {
@@ -417,6 +954,9 @@
   const hamburger = document.getElementById('hamburger');
   const navLinksEl = document.getElementById('navLinks');
   if (hamburger) hamburger.addEventListener('click', () => navLinksEl.classList.toggle('active'));
+
+  // Load member profile to update navbar button
+  loadMemberProfile();
 </script>
 
 </body>

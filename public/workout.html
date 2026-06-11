@@ -4,45 +4,629 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#121212" />
-  <title>UltraFit Gym | Workout Plans – Coming Soon</title>
-  <!-- Fonts & Icons -->
+  <title>UltraFit Gym | Elite Workout Plans</title>
+  <!-- Google Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- html2pdf bundle -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Global stylesheet (shared across all pages) -->
+  <link rel="stylesheet" href="index.css" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background-color: #121212;
-      font-family: 'Montserrat', 'Archivo', sans-serif;
-      color: #eaeaea;
-      overflow-x: hidden;
-    }
+    /* ===== WORKOUT PAGE SPECIFIC ENHANCEMENTS (LUXURY, MATCHES DIET PAGE) ===== */
     :root {
       --gold: #FFD700;
+      --gold-glow: 0 0 12px rgba(255,215,0,0.4);
       --card-bg: rgba(28,28,32,0.88);
+      --glass-edge: 1px solid rgba(255,215,0,0.2);
     }
-    .container {
-      max-width: 1300px;
+
+    /* Hero Premium – fixed background opacity (same as diet.html) */
+    .workout-hero {
+      position: relative;
+      min-height: 65vh;
+      background: linear-gradient(115deg, #000000d0 0%, #0a0a0a 100%), url('https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=1600');
+      background-size: cover;
+      background-position: center 35%;
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: 0;
+      border-bottom: 2px solid rgba(255,215,0,0.3);
+    }
+    .hero-content-center {
+      position: relative;
+      z-index: 2;
+      animation: heroZoomFade 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    @keyframes heroZoomFade {
+      0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .hero-content-center h1 {
+      font-size: 4.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFD700 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 15px rgba(0,0,0,0.3);
+    }
+    .hero-sub {
+      font-size: 1.2rem;
+      color: #e0e0e0;
+      max-width: 650px;
+      margin: 1rem auto 0;
+      font-weight: 500;
+    }
+
+    /* Category Headers */
+    .category-luxury {
+      text-align: center;
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin: 3rem 0 1rem;
+      color: #fff;
+      position: relative;
+      width: 100%;
+    }
+    .category-luxury span {
+      background: linear-gradient(120deg, #FFD700, #FFE55C);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+    }
+    .category-luxury::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 3px;
+      background: #FFD700;
+      margin: 0.8rem auto 0;
+      border-radius: 4px;
+      box-shadow: 0 0 8px #FFD700;
+    }
+    .category-sub {
+      text-align: center;
+      font-size: 1rem;
+      color: #FFD700;
+      letter-spacing: 1px;
+      margin-top: 0.2rem;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    /* Premium Workout Cards Grid - centered like diet.html */
+    .workout-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 2rem;
+      margin: 2rem auto;
+      justify-items: center;
+    }
+
+    .workout-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      border-radius: 32px;
+      border: 1px solid rgba(255,215,0,0.25);
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      box-shadow: 0 12px 30px -8px rgba(0,0,0,0.4);
+      width: 100%;
+      max-width: 380px;
       margin: 0 auto;
-      padding: 0 2rem;
     }
-    /* ===== NAVBAR (same as shop.html) ===== */
+    .workout-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,215,0,0.5);
+      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.2);
+    }
+
+    .card-header {
+      padding: 1.2rem 1.5rem 0.5rem;
+      border-bottom: 1px solid rgba(255,215,0,0.2);
+    }
+    .card-header h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #FFD700;
+      margin-bottom: 0.2rem;
+    }
+
+    /* Exercise list inside card */
+    .exercise-list {
+      padding: 1rem 1.5rem;
+      background: rgba(0,0,0,0.3);
+    }
+    .exercise-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px dashed rgba(255,215,0,0.15);
+      color: #eaeaea;
+    }
+    .exercise-name {
+      font-weight: 500;
+    }
+    .exercise-reps {
+      color: #FFD700;
+      font-weight: 600;
+    }
+
+    /* Carousel inside card */
+    .card-carousel-container {
+      padding: 1rem 1rem 0.5rem;
+    }
+    .workout-carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background: #0a0a0a;
+      touch-action: pan-y pinch-zoom;
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.4, 1);
+      cursor: grab;
+    }
+    .carousel-track:active {
+      cursor: grabbing;
+    }
+    .carousel-slide {
+      flex: 0 0 100%;
+      position: relative;
+    }
+    .carousel-slide img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .image-label {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #FFD700;
+      border-left: 2px solid #FFD700;
+      letter-spacing: 0.5px;
+    }
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 0.6rem 0 0.4rem;
+    }
+    .carousel-btn {
+      background: #1e1e1e;
+      border: 1px solid #FFD700;
+      color: #FFD700;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .carousel-btn:hover {
+      background: #FFD700;
+      color: #000;
+      transform: scale(1.05);
+    }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin: 8px 0 10px;
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: #555;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .dot.active {
+      background: #FFD700;
+      transform: scale(1.4);
+      box-shadow: 0 0 6px gold;
+    }
+
+    /* PDF Button Group */
+    .pdf-group {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+    }
+    .btn-pdf {
+      background: transparent;
+      border: 1px solid #FFD700;
+      padding: 0.5rem 1.4rem;
+      border-radius: 60px;
+      color: #FFD700;
+      font-weight: 600;
+      transition: all 0.25s;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .btn-pdf:hover {
+      background: #FFD700;
+      color: #121212;
+      box-shadow: 0 0 12px gold;
+    }
+
+    /* Body Mass Calculator */
+    .calculator-luxury {
+      background: rgba(20,20,28,0.85);
+      backdrop-filter: blur(12px);
+      border-radius: 48px;
+      padding: 2rem;
+      max-width: 750px;
+      margin: 2rem auto 4rem;
+      border: 1px solid rgba(255,215,0,0.3);
+      transition: all 0.3s;
+    }
+    .input-group-custom {
+      margin-bottom: 1.2rem;
+    }
+    .input-group-custom label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+      color: #ccc;
+    }
+    .input-group-custom input, .input-group-custom select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 40px;
+      color: white;
+      transition: 0.2s;
+    }
+    .input-group-custom input:focus {
+      border-color: #FFD700;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255,215,0,0.3);
+    }
+    .calc-result {
+      background: #00000066;
+      border-radius: 40px;
+      padding: 1rem;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    .hidden {
+      display: none;
+    }
+
+    /* AI Chat Bubble (same as index.html) */
+    .ai-chat-container {
+      position: fixed;
+      bottom: 110px;
+      right: 30px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .chat-bubble {
+      display: flex;
+      align-items: center;
+      gap: 0px;
+      background: linear-gradient(135deg, #1e1e1e, #0a0a0a);
+      border: 1px solid rgba(255,215,0,0.4);
+      border-radius: 60px;
+      padding: 0.7rem;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 15px rgba(255,215,0,0.2);
+      transition: all 0.3s cubic-bezier(0.2,0.9,0.4,1.1);
+      backdrop-filter: blur(8px);
+      width: fit-content;
+    }
+    .chat-bubble:hover {
+      gap: 12px;
+      padding: 0.7rem 1.5rem 0.7rem 1rem;
+    }
+    .ai-icon {
+      background: #FFD700;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      color: #121212;
+      box-shadow: 0 0 12px rgba(255,215,0,0.6);
+      transition: transform 0.2s;
+    }
+    .chat-bubble:hover .ai-icon {
+      transform: scale(1.05);
+    }
+    .ai-text {
+      font-weight: 700;
+      font-size: 0rem;
+      letter-spacing: 1px;
+      background: linear-gradient(120deg, #fff, #FFD700);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      white-space: nowrap;
+      transition: font-size 0.2s ease;
+    }
+    .chat-bubble:hover .ai-text {
+      font-size: 1rem;
+    }
+    .chat-window {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 360px;
+      height: 500px;
+      background: #1a1a1a;
+      border-radius: 28px;
+      border: 1px solid rgba(255,215,0,0.4);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      pointer-events: none;
+    }
+    .chat-window.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .chat-header {
+      background: #FFD700;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #121212;
+      font-weight: 800;
+    }
+    .chat-header h3 {
+      font-size: 1.2rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chat-close {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #121212;
+      transition: transform 0.2s;
+    }
+    .chat-close:hover { transform: scale(1.1); }
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: rgba(0,0,0,0.3);
+    }
+    .message {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .user-message {
+      background: #FFD700;
+      color: #121212;
+      align-self: flex-end;
+      border-bottom-right-radius: 6px;
+    }
+    .bot-message {
+      background: #2a2a2a;
+      color: #eee;
+      align-self: flex-start;
+      border-bottom-left-radius: 6px;
+      border: 1px solid rgba(255,215,0,0.2);
+    }
+    .chat-input-area {
+      display: flex;
+      padding: 12px;
+      background: #0a0a0a;
+      border-top: 1px solid rgba(255,215,0,0.2);
+      gap: 8px;
+    }
+    .chat-input {
+      flex: 1;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 40px;
+      padding: 10px 16px;
+      color: white;
+      font-family: inherit;
+      outline: none;
+    }
+    .chat-input:focus { border-color: #FFD700; }
+    .chat-send {
+      background: #FFD700;
+      border: none;
+      border-radius: 40px;
+      padding: 0 18px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #121212;
+      transition: all 0.2s;
+    }
+    .chat-send:hover {
+      background: #e6c300;
+      transform: scale(1.02);
+    }
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 8px 12px;
+      background: #2a2a2a;
+      border-radius: 20px;
+      width: fit-content;
+    }
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      background: #aaa;
+      border-radius: 50%;
+      animation: blink 1.4s infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+    @media (max-width: 600px) {
+      .ai-chat-container { bottom: 90px; right: 15px; }
+      .chat-window { width: 90vw; right: -5px; bottom: 70px; }
+      .chat-bubble { padding: 0.5rem; }
+      .chat-bubble:hover { padding: 0.5rem 1rem 0.5rem 0.8rem; }
+      .ai-icon { width: 36px; height: 36px; font-size: 1.3rem; }
+      .chat-bubble:hover .ai-text { font-size: 0.85rem; }
+    }
+
+    /* Premium Modal styles (auth modals) */
+    .premium-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.94);
+      backdrop-filter: blur(20px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 5000;
+    }
+    .premium-modal-card {
+      background: #121212;
+      border: 1px solid #FFD700;
+      border-radius: 40px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 2rem;
+      box-shadow: 0 30px 50px rgba(0,0,0,0.5);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      background: transparent;
+      border: none;
+      color: #FFD700;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+    .modal-close-btn:hover { transform: scale(1.1); }
+    .modal-title-center {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #FFD700;
+      font-weight: 700;
+    }
+    .field-group { margin-bottom: 1rem; position: relative; }
+    .field-group label { display: block; font-size: 0.75rem; color: #aaa; margin-bottom: 0.3rem; }
+    .field-group input, .field-group select {
+      width: 100%;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 20px;
+      padding: 0.7rem 1rem;
+      color: white;
+      font-family: inherit;
+    }
+    .password-wrapper { position: relative; }
+    .password-wrapper input { padding-right: 2.5rem; }
+    .toggle-password {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #FFD700;
+      background: transparent;
+      border: none;
+    }
+    .click-to-upload {
+      text-align: center;
+      margin: 0.8rem auto;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #FFD700;
+      cursor: pointer;
+      background: transparent;
+      border: 1.5px solid #FFD700;
+      border-radius: 40px;
+      padding: 0.5rem 1rem;
+      display: inline-block;
+      width: fit-content;
+    }
+    .click-to-upload:hover { background: #FFD700; color: #121212; }
+    .remember-checkbox { display: flex; align-items: center; gap: 0.5rem; margin: 1rem 0; }
+    .remember-checkbox input { width: auto; }
+    .button-group-center { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap; }
+    .btn-solid-gold { background: #FFD700; border: none; color: #121212; padding: 0.7rem 1.8rem; border-radius: 60px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; }
+    .btn-outline-gold { background: transparent; border: 1.5px solid #FFD700; color: #FFD700; padding: 0.7rem 1.8rem; border-radius: 60px; font-weight: 600; cursor: pointer; }
+    .btn-outline-gold:hover { background: rgba(255,215,0,0.1); }
+    .auth-card {
+      cursor: pointer;
+      background: rgba(255,215,0,0.1);
+      padding: 1rem;
+      border-radius: 28px;
+      text-align: center;
+      width: 120px;
+      transition: 0.2s;
+    }
+    .auth-card:hover {
+      background: rgba(255,215,0,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Navbar - solid background */
     .navbar {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       z-index: 1000;
-      background: transparent;
+      background: #0a0a0a;
+      backdrop-filter: blur(4px);
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(255,215,0,0.2);
     }
     .navbar.scrolled {
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(12px);
+      background: #000000;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
       padding: 0.7rem 0;
     }
@@ -50,6 +634,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem;
     }
     .logo-wrapper {
       display: flex;
@@ -61,14 +648,14 @@
       height: 38px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1px solid rgba(255, 215, 0, 0.4);
+      border: 1px solid rgba(255,215,0,0.4);
     }
     .logo {
       font-size: 1.8rem;
       font-weight: 800;
       letter-spacing: 2px;
     }
-    .logo-ultra { color: #ffffff; }
+    .logo-ultra { color: #fff; }
     .logo-fit { color: #FFD700; }
     .nav-links {
       display: flex;
@@ -80,44 +667,21 @@
       color: #f0f0f0;
       text-decoration: none;
       font-weight: 500;
-      font-size: 0.95rem;
-      transition: all 0.2s ease;
-      padding: 0.5rem 0;
-      position: relative;
+      transition: 0.2s;
     }
-    .nav-link:not(.join-now-nav):hover { color: #FFD700; }
-    .nav-link:not(.join-now-nav)::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: #FFD700;
-      transform: scaleX(0);
-      transition: transform 0.2s ease;
-    }
-    .nav-link:not(.join-now-nav):hover::after { transform: scaleX(1); }
+    .nav-link:hover { color: #FFD700; }
     .join-now-nav {
       background: #FFD700;
       color: #121212 !important;
-      padding: 0.6rem 1.6rem !important;
+      padding: 0.6rem 1.6rem;
       border-radius: 40px;
       font-weight: 700;
-      transition: all 0.3s ease;
-      display: inline-block;
-    }
-    .join-now-nav:hover {
-      background: #e6c300;
-      transform: translateY(-2px);
     }
     .hamburger {
       display: none;
       font-size: 1.8rem;
       cursor: pointer;
       color: #FFD700;
-      min-width: 44px;
-      text-align: center;
     }
     @media (max-width: 900px) {
       .nav-links {
@@ -127,121 +691,25 @@
         top: 70px;
         left: 0;
         width: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(12px);
+        background: rgba(0,0,0,0.95);
         padding: 1.5rem;
-        gap: 1.2rem;
-        text-align: center;
       }
       .nav-links.active { display: flex; }
       .hamburger { display: block; }
-      .container { padding: 0 1.5rem; }
+      .nav-container { padding: 0 1.5rem; }
     }
-    /* Hero */
-    .workout-hero {
-      position: relative;
-      min-height: 60vh;
-      background: linear-gradient(115deg, #000000d0 0%, #0a0a0a 100%), url('https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=1600');
-      background-size: cover;
-      background-position: center 35%;
-      background-attachment: fixed;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      border-bottom: 2px solid rgba(255,215,0,0.3);
-    }
-    .hero-content h1 {
-      font-size: 4.2rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #FFFFFF 0%, #FFD700 80%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .hero-sub {
-      font-size: 1.2rem;
-      color: #e0e0e0;
-      max-width: 600px;
-      margin: 1rem auto 0;
-    }
-    /* Coming Soon Card */
-    .coming-soon-section {
-      min-height: 60vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 4rem 2rem;
-      background: radial-gradient(circle at 20% 30%, rgba(255,215,0,0.05) 0%, #121212 90%);
-    }
-    .coming-card {
-      background: rgba(20,20,25,0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,215,0,0.3);
-      border-radius: 60px;
-      padding: 3rem 2rem;
-      max-width: 700px;
-      margin: 0 auto;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    }
-    .coming-icon {
-      font-size: 5rem;
-      color: #FFD700;
-      margin-bottom: 1rem;
-    }
-    .coming-card h2 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #fff, #FFD700);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 1rem;
-    }
-    .coming-card p {
-      font-size: 1.1rem;
-      color: #ccc;
-      margin-bottom: 2rem;
-    }
-    .notify-btn {
-      background: #FFD700;
-      border: none;
-      padding: 0.8rem 2rem;
-      border-radius: 60px;
-      font-weight: 800;
-      color: #121212;
-      cursor: pointer;
-      transition: 0.2s;
-      font-size: 1rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .notify-btn:hover {
-      background: #e6c300;
-      transform: scale(1.02);
-      box-shadow: 0 0 12px rgba(255,215,0,0.6);
-    }
-    /* Footer */
+
+    /* PWA mode: hide footer links except credit line */
     footer {
-      background: #0a0a0a;
-      border-top: 1px solid rgba(255, 215, 0, 0.2);
-      padding: 3rem 0 2rem;
-      margin-top: 2rem;
+      background: #000;
+      padding: 3rem 0;
+      border-top: 1px solid rgba(255,215,0,0.3);
+      text-align: center;
     }
     .footer-grid {
       max-width: 1300px;
       margin: 0 auto;
       padding: 0 2rem;
-    }
-    .footer-links {
-      text-align: center;
-    }
-    .footer-links h4 {
-      font-size: 1.2rem;
-      color: #FFD700;
-      margin-bottom: 1rem;
     }
     .footer-links ul {
       display: flex;
@@ -249,30 +717,97 @@
       gap: 2rem;
       list-style: none;
       flex-wrap: wrap;
-      margin-bottom: 1rem;
     }
-    .footer-links a {
-      color: #ccc;
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: 0.2s;
+    .footer-links a { color: #ccc; text-decoration: none; }
+    .footer-links a:hover { color: var(--gold); }
+    @media all and (display-mode: standalone) {
+      .footer-links ul {
+        display: none;
+      }
+      .footer-links h4 {
+        display: none;
+      }
+      .footer-links .credit {
+        display: block;
+        margin-top: 0;
+      }
+      footer {
+        padding: 1rem 0;
+      }
     }
-    .footer-links a:hover {
-      color: #FFD700;
-    }
-    .footer-links .credit {
-      font-size: 0.75rem;
-      color: #777;
-      margin-top: 1rem;
-    }
+
+    /* Mobile & responsive (keep original) */
     @media (max-width: 768px) {
-      .hero-content h1 { font-size: 2.5rem; }
-      .coming-card { padding: 2rem 1.5rem; }
+      .hero-content-center h1 { font-size: 2.5rem; }
+      .category-luxury { font-size: 2rem; }
+      .workout-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        justify-items: center;
+      }
+      .workout-card {
+        max-width: 100%;
+        width: 100%;
+      }
+      .card-header h3 { font-size: 1.3rem; }
+      .container {
+        padding: 0 1rem;
+        width: 100%;
+        overflow-x: hidden;
+      }
+      body {
+        overflow-x: hidden;
+      }
+      .card-carousel-container {
+        padding: 0.5rem;
+      }
+      .carousel-slide img {
+        aspect-ratio: 4/3;
+        width: 100%;
+      }
+      .carousel-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+      }
+      .dot {
+        width: 6px;
+        height: 6px;
+      }
+      .pdf-group {
+        justify-content: center;
+        margin: 0.5rem 0 1rem;
+      }
+      .btn-pdf {
+        font-size: 0.75rem;
+        padding: 0.4rem 1rem;
+      }
+      .calculator-luxury {
+        padding: 1.2rem;
+        margin: 1rem auto 2rem;
+      }
+      .input-group-custom input, .input-group-custom select {
+        padding: 0.6rem 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content-center h1 { font-size: 2rem; }
+      .category-luxury { font-size: 1.6rem; }
+      .card-header h3 { font-size: 1.2rem; }
+      .exercise-item {
+        font-size: 0.75rem;
+        padding: 0.3rem 0;
+      }
+      .btn-pdf {
+        font-size: 0.7rem;
+      }
     }
   </style>
 </head>
 <body>
 
+<!-- Navbar -->
 <header class="navbar" id="navbar">
   <div class="container nav-container">
     <div class="logo-wrapper">
@@ -280,8 +815,9 @@
       <div class="logo"><span class="logo-ultra">ULTRA</span><span class="logo-fit">FIT</span></div>
     </div>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html" class="nav-link join-now-nav">Join Now</a></li>
-      <li><a href="index.html#contact-section" class="nav-link">Contact Us</a></li>
+      <!-- Dynamic button: "Sign Up" or "UltraFit App" -->
+      <li><a href="#" class="nav-link join-now-nav" id="authNavBtn">Sign Up</a></li>
+      <li><a href="index.html" class="nav-link">Home</a></li>
       <li><a href="diet.html" class="nav-link">Diet Plan</a></li>
       <li><a href="workout.html" class="nav-link">Workout Plan</a></li>
       <li><a href="members.html" class="nav-link">Gym Members</a></li>
@@ -292,23 +828,26 @@
 </header>
 
 <main>
-  <section class="workout-hero">
-    <div class="hero-content">
-      <h1>Workout Plans</h1>
-      <p class="hero-sub">Elite programming · Science‑backed · Your transformation starts here</p>
+  <div class="workout-hero">
+    <div class="hero-content-center">
+      <h1>Weekly Workout Plan</h1>
+      <p class="hero-sub">Periodized programming · Elite coaching · Unlock your athletic ceiling</p>
     </div>
-  </section>
+  </div>
 
-  <div class="coming-soon-section">
-    <div class="coming-card">
-      <div class="coming-icon">
-        <i class="fas fa-dumbbell"></i>
+  <div class="container">
+    <div id="workoutRoot"></div>
+
+    <!-- Body Mass Calculator (no download button) -->
+    <div class="category-luxury" style="margin-top: 2rem;"><span>⚖️ Body Mass Index</span></div>
+    <div class="calculator-luxury" id="bmiCalculatorCard">
+      <div class="input-group-custom"><label>Height (cm)</label><input type="number" id="bmiHeight" value="175" placeholder="cm"></div>
+      <div class="input-group-custom"><label>Weight (kg)</label><input type="number" id="bmiWeight" value="72" placeholder="kg"></div>
+      <button id="calculateBmiBtn" class="btn-pdf" style="width:100%; background:#FFD700; color:#000; font-weight:800;">Calculate Body Mass Index</button>
+      <div id="bmiOutput" class="calc-result hidden">
+        <div><span id="bmiValue" style="font-size:2rem; font-weight:800; color:#FFD700;">0</span> <span style="color:#FFD700;">BMI</span></div>
+        <p id="bmiCategoryText" style="color:#ccc; margin:0.5rem 0;">—</p>
       </div>
-      <h2>Under Development</h2>
-      <p>Our periodized workout plans are being curated by world‑class coaches. <br>Get ready for structured training – at the gym or at home.</p>
-      <button class="notify-btn" id="notifyBtn">
-        <i class="fas fa-bell"></i> Notify me when ready
-      </button>
     </div>
   </div>
 </main>
@@ -327,20 +866,393 @@
   </div>
 </footer>
 
+<!-- AI Chat Bubble -->
+<div class="ai-chat-container">
+  <div class="chat-bubble" id="chatBubble">
+    <div class="ai-icon"><i class="fas fa-comment-dots"></i></div>
+    <span class="ai-text">UltraFit AI Coach</span>
+  </div>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <h3><i class="fas fa-brain"></i> UltraFit AI Coach</h3>
+      <button class="chat-close" id="chatCloseBtn">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot-message">💪 Hey! I'm your UltraFit AI Coach. Ask me anything about workouts, nutrition, or gym plans.</div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Ask your fitness question...">
+      <button class="chat-send" id="chatSendBtn">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== AUTH MODALS ========== -->
+<div id="authChoiceModal" class="premium-modal"><div class="premium-modal-card" id="authChoiceContent"></div></div>
+<div id="signupModal" class="premium-modal"><div class="premium-modal-card" id="signupContent"></div></div>
+<div id="loginModal" class="premium-modal"><div class="premium-modal-card" id="loginContent"></div></div>
+
 <script>
-  document.getElementById('notifyBtn')?.addEventListener('click', () => {
-    alert("📧 We'll let you know as soon as our workout plans go live. Stay strong!");
+  // ========== AUTH & UI LOGIC (same as index.html) ==========
+  const API_BASE = '/api';
+  let memberToken = localStorage.getItem('memberToken') || sessionStorage.getItem('memberToken') || null;
+  let currentMember = null;
+
+  function getStoredToken() { return memberToken; }
+  function setStoredToken(token, remember) {
+    if (remember) { localStorage.setItem('memberToken', token); sessionStorage.removeItem('memberToken'); }
+    else { sessionStorage.setItem('memberToken', token); localStorage.removeItem('memberToken'); }
+    memberToken = token;
+  }
+  function clearStoredToken() { localStorage.removeItem('memberToken'); sessionStorage.removeItem('memberToken'); memberToken = null; }
+
+  async function fetchJSON(url, options = {}) {
+    const headers = { 'Content-Type': 'application/json', ...(memberToken ? { 'Authorization': `Bearer ${memberToken}` } : {}), ...options.headers };
+    try {
+      const res = await fetch(url, { ...options, headers });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (err) { console.error(err); return null; }
+  }
+
+  function showPopup(msg, isSuccess = true) {
+    alert(msg);
+  }
+
+  async function loadMemberProfile() {
+    if (!memberToken) { currentMember = null; return; }
+    const profile = await fetchJSON(`${API_BASE}/member/profile`);
+    if (profile) currentMember = profile;
+    else currentMember = null;
+    updateNavButton();
+  }
+
+  function updateNavButton() {
+    const authBtn = document.getElementById('authNavBtn');
+    if (memberToken && currentMember) {
+      authBtn.innerText = 'UltraFit App';
+      authBtn.onclick = (e) => { e.preventDefault(); window.location.href = 'user.html'; };
+    } else {
+      authBtn.innerText = 'Sign Up';
+      authBtn.onclick = (e) => { e.preventDefault(); showAuthChoice(); };
+    }
+  }
+
+  function showAuthChoice() {
+    const modal = document.getElementById('authChoiceModal');
+    document.getElementById('authChoiceContent').innerHTML = `
+      <button class="modal-close-btn" id="closeAuthChoice">&times;</button>
+      <div class="modal-title-center">Welcome to UltraFit</div>
+      <div style="display:flex; gap:1rem; justify-content:center;">
+        <div class="auth-card" id="choiceSignup"><h3>Sign Up</h3><p>New Member</p></div>
+        <div class="auth-card" id="choiceLogin"><h3>Log In</h3><p>Existing</p></div>
+      </div>
+    `;
+    modal.style.display = 'flex';
+    document.getElementById('closeAuthChoice').onclick = () => modal.style.display = 'none';
+    document.getElementById('choiceSignup').onclick = () => { modal.style.display = 'none'; showSignupModal(); };
+    document.getElementById('choiceLogin').onclick = () => { modal.style.display = 'none'; showLoginModal(); };
+  }
+
+  async function uploadSignupImage(file) {
+    const fd = new FormData(); fd.append('image', file);
+    const res = await fetch('/api/upload-signup', { method:'POST', body:fd });
+    const data = await res.json();
+    return res.ok && data.url ? data.url : null;
+  }
+
+  function showSignupModal() {
+    const modal = document.getElementById('signupModal');
+    document.getElementById('signupContent').innerHTML = `
+      <button class="modal-close-btn" id="closeSignup">&times;</button>
+      <div class="modal-title-center">Create Account</div>
+      <div style="text-align:center;"><img id="signupAvatarPreview" src="defaultpfp.png" style="width:80px;height:80px;border-radius:50%;border:2px solid #FFD700;margin-bottom:0.5rem;"><div class="click-to-upload" id="signupUploadBtn">📸 Upload Profile Photo</div><input type="file" id="signupPhotoFile" accept="image/*" style="display:none;"></div>
+      <div class="field-group"><label>Full Name *</label><input type="text" id="signupName" placeholder="First and last name"></div>
+      <div class="field-group"><label>Email *</label><input type="email" id="signupEmail" placeholder="Email"></div>
+      <div class="field-group"><label>Password *</label><div class="password-wrapper"><input type="password" id="signupPassword"><button type="button" class="toggle-password" data-target="signupPassword"><i class="fas fa-eye-slash"></i></button></div></div>
+      <div class="field-group"><label>Confirm Password *</label><div class="password-wrapper"><input type="password" id="signupConfirmPassword"><button type="button" class="toggle-password" data-target="signupConfirmPassword"><i class="fas fa-eye-slash"></i></button></div></div>
+      <div class="field-group"><label>Age *</label><input type="number" id="signupAge" placeholder="Age"></div>
+      <div class="field-group"><label>Phone *</label><input type="tel" id="signupPhone" placeholder="Phone number"></div>
+      <div class="field-group"><label>Gender</label><select id="signupGender"><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option></select></div>
+      <div class="field-group"><label>Fitness Goal</label><select id="signupGoal"><option value="musclegain">💪 Muscle Gain</option><option value="weightloss">🔥 Weight Loss</option></select></div>
+      <div class="button-group-center"><button class="btn-solid-gold" id="doSignupBtn">Sign Up</button><button class="btn-outline-gold" id="cancelSignupBtn">Cancel</button></div>
+    `;
+    modal.style.display = 'flex';
+    document.getElementById('closeSignup').onclick = () => modal.style.display = 'none';
+    document.getElementById('cancelSignupBtn').onclick = () => modal.style.display = 'none';
+    document.querySelectorAll('.toggle-password').forEach(btn => btn.addEventListener('click', function(){ let inp=document.getElementById(this.getAttribute('data-target')); inp.type=inp.type==='password'?'text':'password'; this.innerHTML=inp.type==='password'?'<i class="fas fa-eye-slash"></i>':'<i class="fas fa-eye"></i>'; }));
+    let selectedPhoto = null;
+    document.getElementById('signupUploadBtn').onclick = () => document.getElementById('signupPhotoFile').click();
+    document.getElementById('signupPhotoFile').onchange = (e) => { const f=e.target.files[0]; if(f){ selectedPhoto=f; const reader=new FileReader(); reader.onload=ev=>document.getElementById('signupAvatarPreview').src=ev.target.result; reader.readAsDataURL(f); } };
+    document.getElementById('doSignupBtn').onclick = async () => {
+      const fullName = document.getElementById('signupName').value.trim(), email=document.getElementById('signupEmail').value.trim(), pass=document.getElementById('signupPassword').value, confirm=document.getElementById('signupConfirmPassword').value, age=parseInt(document.getElementById('signupAge').value), phone=document.getElementById('signupPhone').value.trim(), gender=document.getElementById('signupGender').value, goal=document.getElementById('signupGoal').value;
+      if(!fullName||!email||!pass||!confirm||!age||!phone){ showPopup('Please fill all required fields',false); return; }
+      if(pass!==confirm){ showPopup('Passwords do not match',false); return; }
+      if(age<12||age>120){ showPopup('Enter valid age',false); return; }
+      let photoUrl='defaultpfp.png';
+      if(selectedPhoto){ const up=await uploadSignupImage(selectedPhoto); if(up) photoUrl=up; }
+      const parts=fullName.split(' '), firstName=parts[0], lastName=parts.slice(1).join(' ')||'';
+      const payload={firstName,lastName,email,password:pass,age,phone,gender,goal,photoUrl};
+      const res=await fetch(`${API_BASE}/auth/member-register`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const data=await res.json();
+      if(res.ok&&data.token){ setStoredToken(data.token,true); await loadMemberProfile(); modal.style.display='none'; showPopup('Account created! Welcome.'); location.reload(); }
+      else showPopup(data.error||'Registration failed',false);
+    };
+  }
+
+  function showLoginModal() {
+    const modal = document.getElementById('loginModal');
+    document.getElementById('loginContent').innerHTML = `
+      <button class="modal-close-btn" id="closeLogin">&times;</button>
+      <div class="modal-title-center">Log In</div>
+      <div class="field-group"><label>Email or Phone</label><input type="text" id="loginIdentifier" placeholder="Email or phone number"></div>
+      <div class="field-group"><label>Password</label><div class="password-wrapper"><input type="password" id="loginPassword"><button type="button" class="toggle-password" data-target="loginPassword"><i class="fas fa-eye-slash"></i></button></div></div>
+      <div class="remember-checkbox"><input type="checkbox" id="rememberMeCheckbox" checked> <label>Remember Me</label></div>
+      <div class="button-group-center"><button class="btn-solid-gold" id="doLoginBtn">Log In</button><button class="btn-outline-gold" id="cancelLoginBtn">Cancel</button></div>
+    `;
+    modal.style.display = 'flex';
+    document.getElementById('closeLogin').onclick = () => modal.style.display = 'none';
+    document.getElementById('cancelLoginBtn').onclick = () => modal.style.display = 'none';
+    document.querySelectorAll('.toggle-password').forEach(btn=>btn.addEventListener('click',function(){let inp=document.getElementById(this.getAttribute('data-target')); inp.type=inp.type==='password'?'text':'password'; this.innerHTML=inp.type==='password'?'<i class="fas fa-eye-slash"></i>':'<i class="fas fa-eye"></i>';}));
+    document.getElementById('doLoginBtn').onclick = async () => {
+      const id=document.getElementById('loginIdentifier').value.trim(), pwd=document.getElementById('loginPassword').value, remember=document.getElementById('rememberMeCheckbox').checked;
+      if(!id||!pwd){ showPopup('Please fill both fields',false); return; }
+      const isEmail=id.includes('@');
+      const body=isEmail?{email:id,password:pwd}:{phone:id,password:pwd};
+      const res=await fetch(`${API_BASE}/auth/member-login`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      const data=await res.json();
+      if(res.ok&&data.token){ setStoredToken(data.token,remember); await loadMemberProfile(); modal.style.display='none'; showPopup('Login successful'); location.reload(); }
+      else showPopup(data.error||'Invalid credentials',false);
+    };
+  }
+
+  // ========== AI CHAT FUNCTIONALITY ==========
+  const chatBubble = document.getElementById('chatBubble');
+  const chatWindow = document.getElementById('chatWindow');
+  const chatClose = document.getElementById('chatCloseBtn');
+  const chatMessages = document.getElementById('chatMessages');
+  const chatInput = document.getElementById('chatInput');
+  const chatSend = document.getElementById('chatSendBtn');
+
+  function toggleChatWindow(open) {
+    if (open) chatWindow.classList.add('open');
+    else chatWindow.classList.remove('open');
+  }
+  chatBubble.addEventListener('click', () => toggleChatWindow(true));
+  chatClose.addEventListener('click', () => toggleChatWindow(false));
+
+  async function sendChatMessage() {
+    const message = chatInput.value.trim();
+    if (!message) return;
+    const token = getStoredToken();
+    if (!token) {
+      showPopup('Please login to use chat.', false);
+      return;
+    }
+    const userMsgDiv = document.createElement('div');
+    userMsgDiv.className = 'message user-message';
+    userMsgDiv.textContent = message;
+    chatMessages.appendChild(userMsgDiv);
+    chatInput.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    const typingDiv = document.createElement('div');
+    typingDiv.classList.add('typing-indicator');
+    typingDiv.innerHTML = '<span></span><span></span><span></span>';
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    try {
+      const response = await fetch(`${API_BASE}/chat-groq`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ message })
+      });
+      if (typingDiv && typingDiv.parentNode === chatMessages) chatMessages.removeChild(typingDiv);
+      if (response.status === 401) { showPopup('Session expired. Please login again.', false); return; }
+      const data = await response.json();
+      if (response.ok && data.reply) {
+        const botMsgDiv = document.createElement('div');
+        botMsgDiv.className = 'message bot-message';
+        botMsgDiv.textContent = data.reply;
+        chatMessages.appendChild(botMsgDiv);
+      } else throw new Error(data.error || 'No response');
+    } catch (err) {
+      if (typingDiv && typingDiv.parentNode === chatMessages) chatMessages.removeChild(typingDiv);
+      const errorMsgDiv = document.createElement('div');
+      errorMsgDiv.className = 'message bot-message';
+      errorMsgDiv.textContent = '🏋️ Sorry, I’m having trouble connecting. Please try again later.';
+      chatMessages.appendChild(errorMsgDiv);
+    }
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+  chatSend.addEventListener('click', sendChatMessage);
+  chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendChatMessage(); });
+
+  // ========== ORIGINAL WORKOUT PAGE SCRIPT (unchanged) ==========
+  const workoutAPI_BASE = '/api';
+  let siteSettings = {};
+  let categories = [];
+  let allDays = [];
+
+  async function fetchJSONWorkout(url) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (err) {
+      console.error(`Fetch error ${url}:`, err);
+      return null;
+    }
+  }
+
+  async function loadData() {
+    const [settings, cats, days] = await Promise.all([
+      fetchJSONWorkout(`${workoutAPI_BASE}/sitesettings`),
+      fetchJSONWorkout(`${workoutAPI_BASE}/workoutcategories`),
+      fetchJSONWorkout(`${workoutAPI_BASE}/workoutdays`)
+    ]);
+    if (settings) siteSettings = settings;
+    if (cats) categories = cats;
+    if (days) allDays = days;
+  }
+
+  function renderHero() {
+    const heroTitle = document.querySelector('.workout-hero .hero-content-center h1');
+    const heroSub = document.querySelector('.workout-hero .hero-sub');
+    const heroBg = document.querySelector('.workout-hero');
+    if (heroTitle && siteSettings.workoutHeroHeading) heroTitle.innerText = siteSettings.workoutHeroHeading;
+    if (heroSub && siteSettings.workoutHeroSubheading) heroSub.innerText = siteSettings.workoutHeroSubheading;
+    if (heroBg && siteSettings.workoutHeroImage) {
+      heroBg.style.backgroundImage = `linear-gradient(115deg, #000000d0 0%, #0a0a0a 100%), url('${siteSettings.workoutHeroImage}')`;
+    }
+    const bmiHeading = document.querySelector('.category-luxury:last-of-type span');
+    if (bmiHeading && siteSettings.bmiCalculatorHeading) bmiHeading.innerText = siteSettings.bmiCalculatorHeading;
+  }
+
+  function createCarousel(cardElement, imagesArray) {
+    if (!imagesArray.length) return;
+    const carouselDiv = document.createElement('div');
+    carouselDiv.className = 'workout-carousel';
+    const track = document.createElement('div');
+    track.className = 'carousel-track';
+    imagesArray.forEach(img => {
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide';
+      slide.innerHTML = `<img src="${img.url}" alt="exercise" loading="lazy"><div class="image-label">${escapeHtml(img.label)}</div>`;
+      track.appendChild(slide);
+    });
+    carouselDiv.appendChild(track);
+    const controls = document.createElement('div');
+    controls.className = 'carousel-controls';
+    const prevBtn = document.createElement('button'); prevBtn.className = 'carousel-btn'; prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    const nextBtn = document.createElement('button'); nextBtn.className = 'carousel-btn'; nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    controls.append(prevBtn, nextBtn);
+    const dotsDiv = document.createElement('div'); dotsDiv.className = 'carousel-dots';
+    carouselDiv.append(controls, dotsDiv);
+    cardElement.querySelector('.card-carousel-container')?.appendChild(carouselDiv);
+
+    let current = 0, autoTimer, pauseTimer;
+    const update = () => {
+      track.style.transform = `translateX(-${current * 100}%)`;
+      Array.from(dotsDiv.children).forEach((dot, i) => dot.classList.toggle('active', i === current));
+    };
+    for (let i = 0; i < imagesArray.length; i++) {
+      const dot = document.createElement('div'); dot.classList.add('dot');
+      dot.addEventListener('click', () => { current = i; update(); resetAutoTimer(); });
+      dotsDiv.appendChild(dot);
+    }
+    prevBtn.addEventListener('click', () => { current = (current - 1 + imagesArray.length) % imagesArray.length; update(); resetAutoTimer(); });
+    nextBtn.addEventListener('click', () => { current = (current + 1) % imagesArray.length; update(); resetAutoTimer(); });
+    function startAuto() { if (autoTimer) clearInterval(autoTimer); autoTimer = setInterval(() => { current = (current + 1) % imagesArray.length; update(); }, 3000); }
+    function resetAutoTimer() { if (pauseTimer) clearTimeout(pauseTimer); if (autoTimer) clearInterval(autoTimer); pauseTimer = setTimeout(startAuto, 6000); }
+    startAuto();
+    update();
+
+    let startX = 0, isDragging = false;
+    track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; isDragging = true; });
+    track.addEventListener('touchmove', (e) => { if (!isDragging) return; const diff = e.touches[0].clientX - startX; if (Math.abs(diff) > 40) { if (diff > 0) prevBtn.click(); else nextBtn.click(); isDragging = false; } });
+    track.addEventListener('touchend', () => isDragging = false);
+  }
+
+  function renderWorkoutSections() {
+    const root = document.getElementById('workoutRoot');
+    root.innerHTML = '';
+    categories.forEach(cat => {
+      const catDays = allDays.filter(d => d.categoryKey === cat.key).sort((a,b) => a.order - b.order);
+      if (!catDays.length) return;
+      const sectionDiv = document.createElement('div');
+      sectionDiv.innerHTML = `
+        <div class="category-luxury"><span>${escapeHtml(cat.displayName)}</span></div>
+        <div class="category-sub">${escapeHtml(cat.subheading || '')}</div>
+        <div class="pdf-group"><button class="btn-pdf" data-pdf-category="${cat.key}">📄 Download Plan PDF</button></div>
+        <div class="workout-cards-grid" id="grid-${cat.key}"></div>
+      `;
+      root.appendChild(sectionDiv);
+      const grid = document.getElementById(`grid-${cat.key}`);
+      catDays.forEach(day => {
+        const card = document.createElement('div');
+        card.className = 'workout-card';
+        const exercisesHtml = day.exercises.map(ex => `<div class="exercise-item"><span class="exercise-name">${escapeHtml(ex.name)}</span><span class="exercise-reps">${escapeHtml(ex.reps)}</span></div>`).join('');
+        card.innerHTML = `
+          <div class="card-header"><h3>${escapeHtml(day.dayTitle)}</h3></div>
+          <div class="exercise-list">${exercisesHtml}</div>
+          <div class="card-carousel-container"></div>
+        `;
+        grid.appendChild(card);
+        createCarousel(card, day.images);
+      });
+    });
+
+    document.querySelectorAll('[data-pdf-category]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const catKey = btn.getAttribute('data-pdf-category');
+        window.open(`pdf-workout.html?category=${catKey}`, '_blank');
+      });
+    });
+  }
+
+  // BMI Calculator
+  document.getElementById('calculateBmiBtn').addEventListener('click', () => {
+    const heightCm = parseFloat(document.getElementById('bmiHeight').value);
+    const weightKg = parseFloat(document.getElementById('bmiWeight').value);
+    if (isNaN(heightCm) || isNaN(weightKg) || heightCm <= 0) { alert('Enter valid height and weight'); return; }
+    const heightM = heightCm / 100;
+    const bmi = (weightKg / (heightM * heightM)).toFixed(1);
+    let category = '';
+    if (bmi < 18.5) category = 'Underweight';
+    else if (bmi < 25) category = 'Normal weight';
+    else if (bmi < 30) category = 'Overweight';
+    else category = 'Obese';
+    document.getElementById('bmiValue').innerText = bmi;
+    document.getElementById('bmiCategoryText').innerHTML = `<strong>${category}</strong> · BMI ${bmi}`;
+    document.getElementById('bmiOutput').classList.remove('hidden');
   });
 
-  // Navbar scroll effect
-  window.addEventListener('scroll', () => {
-    const nav = document.getElementById('navbar');
-    if (window.scrollY > 50) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-  });
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, (m) => {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  (async function init() {
+    await loadMemberProfile();
+    await loadData();
+    renderHero();
+    renderWorkoutSections();
+  })();
+
   const hamburger = document.getElementById('hamburger');
   const navLinksEl = document.getElementById('navLinks');
-  if (hamburger) hamburger.addEventListener('click', () => navLinksEl.classList.toggle('active'));
+  if(hamburger) hamburger.addEventListener('click', () => navLinksEl.classList.toggle('active'));
+  window.addEventListener('scroll', () => { const nav = document.getElementById('navbar'); if(window.scrollY>50) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
+  const fadeElements = document.querySelectorAll('.workout-card, .category-luxury, .calculator-luxury');
+  const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('appear'); }); }, { threshold: 0.15 });
+  fadeElements.forEach(el => { el.classList.add('fade-up'); observer.observe(el); });
 </script>
 </body>
 </html>

@@ -1590,3 +1590,314 @@ footer {
   .contact-card-title, .visit-map-title { font-size: 1.5rem; }
   .floating-trial-btn { padding: 0.6rem 1.2rem; font-size: 0.8rem; }
 }
+
+/* ========== ADDITIONAL STYLES FOR AUTH, PROFILE & REVIEW MODALS ========== */
+
+/* Premium Modal (auth, profile, review) */
+.premium-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.94);
+  backdrop-filter: blur(20px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.premium-modal-card {
+  background: #121212;
+  border: 1px solid #FFD700;
+  border-radius: 40px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2rem;
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5);
+  animation: scaleUp 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: transparent;
+  border: none;
+  color: #FFD700;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.modal-close-btn:hover {
+  transform: scale(1.1);
+  color: #e6c300;
+}
+.modal-title-center {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #FFD700;
+  font-weight: 700;
+}
+
+/* Form groups */
+.field-group {
+  margin-bottom: 1rem;
+  position: relative;
+}
+.field-group label {
+  display: block;
+  font-size: 0.75rem;
+  color: #aaa;
+  margin-bottom: 0.3rem;
+}
+.field-group input,
+.field-group select {
+  width: 100%;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 20px;
+  padding: 0.7rem 1rem;
+  color: white;
+  font-family: inherit;
+}
+.field-group input:focus {
+  border-color: #FFD700;
+  outline: none;
+}
+
+/* Password toggle */
+.password-wrapper {
+  position: relative;
+}
+.password-wrapper input {
+  padding-right: 2.5rem;
+}
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #FFD700;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.click-to-upload {
+  text-align: center;
+  margin: 0.8rem auto;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #FFD700;
+  cursor: pointer;
+  background: transparent;
+  border: 1.5px solid #FFD700;
+  border-radius: 40px;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+  transition: all 0.2s ease;
+  width: fit-content;
+}
+.click-to-upload:hover {
+  background: #FFD700;
+  color: #121212;
+}
+
+/* Remember me checkbox */
+.remember-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+.remember-checkbox input {
+  width: auto;
+}
+
+/* Solid gold button */
+.btn-solid-gold {
+  background: #FFD700;
+  border: none;
+  color: #121212;
+  padding: 0.7rem 1.8rem;
+  border-radius: 60px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-solid-gold:hover {
+  background: #e6c300;
+  transform: scale(1.02);
+}
+.btn-outline-gold {
+  background: transparent;
+  border: 1.5px solid #FFD700;
+  color: #FFD700;
+  padding: 0.7rem 1.8rem;
+  border-radius: 60px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-outline-gold:hover {
+  background: rgba(255, 215, 0, 0.1);
+}
+.button-group-center {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Profile modal specific */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-field {
+  width: 100%;
+  margin: 0.8rem 0;
+  text-align: left;
+}
+.profile-field .value {
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem;
+  background: #1e1e1e;
+  border-radius: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.profile-field .edit-btn {
+  background: transparent;
+  border: none;
+  color: #FFD700;
+  cursor: pointer;
+}
+.profile-avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #FFD700;
+  object-fit: cover;
+}
+.profile-edit-icon {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: #FFD700;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #121212;
+}
+
+/* Auth choice cards */
+.auth-card {
+  cursor: pointer;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 1rem;
+  border-radius: 28px;
+  text-align: center;
+  width: 120px;
+  transition: 0.2s;
+}
+.auth-card:hover {
+  background: rgba(255, 215, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Star rating for reviews */
+.star-rating {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  gap: 0.3rem;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.star-rating i {
+  color: #555;
+  transition: 0.2s;
+}
+.star-rating i.active,
+.star-rating i:hover,
+.star-rating i:hover ~ i {
+  color: #FFD700;
+  text-shadow: 0 0 4px gold;
+}
+.review-textarea {
+  width: 100%;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 20px;
+  padding: 0.8rem;
+  color: white;
+  margin: 1rem 0;
+  font-family: inherit;
+  resize: vertical;
+}
+.review-submit-btn {
+  background: #FFD700;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 40px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.2s;
+}
+.review-submit-btn:hover {
+  background: #e6c300;
+  transform: scale(1.02);
+}
+
+/* Responsive adjustments for modals */
+@media (max-width: 768px) {
+  .premium-modal-card {
+    padding: 1.5rem;
+    width: 95%;
+  }
+  .modal-title-center {
+    font-size: 1.4rem;
+  }
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+  }
+  .star-rating {
+    font-size: 1.5rem;
+  }
+  .button-group-center {
+    gap: 0.8rem;
+  }
+  .btn-solid-gold, .btn-outline-gold {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}

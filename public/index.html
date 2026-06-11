@@ -33,8 +33,8 @@
       gap: 8px !important;
     }
 
-    /* ===== UNDER DEVELOPMENT STYLES (for Shop, Diet, Workout) ===== */
-    .under-dev-card {
+    /* ===== SHOP UNDER DEVELOPMENT STYLES ===== */
+    .shop-coming-soon {
       background: rgba(20,20,25,0.6);
       backdrop-filter: blur(8px);
       border-radius: 48px;
@@ -44,12 +44,12 @@
       max-width: 600px;
       margin: 1rem auto;
     }
-    .under-dev-card i {
+    .shop-coming-soon i {
       font-size: 3.5rem;
       color: #FFD700;
       margin-bottom: 1rem;
     }
-    .under-dev-card h3 {
+    .shop-coming-soon h3 {
       font-size: 1.8rem;
       font-weight: 700;
       background: linear-gradient(135deg, #fff, #FFD700);
@@ -58,7 +58,7 @@
       color: transparent;
       margin-bottom: 0.5rem;
     }
-    .under-dev-card p {
+    .shop-coming-soon p {
       color: #ccc;
       margin-bottom: 1.5rem;
     }
@@ -78,6 +78,44 @@
       color: #121212;
       transform: scale(1.02);
     }
+
+    /* Star rating CSS */
+    .star-rating {
+      display: inline-flex;
+      flex-direction: row-reverse;
+      gap: 0.3rem;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    .star-rating i {
+      color: #555;
+      transition: 0.2s;
+    }
+    .star-rating i.active,
+    .star-rating i:hover,
+    .star-rating i:hover ~ i {
+      color: #FFD700;
+      text-shadow: 0 0 4px gold;
+    }
+    .review-textarea {
+      width: 100%;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 20px;
+      padding: 0.8rem;
+      color: white;
+      margin: 1rem 0;
+      font-family: inherit;
+    }
+    .review-submit-btn {
+      background: #FFD700;
+      border: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+    }
   </style>
 </head>
 <body>
@@ -90,7 +128,8 @@
       <div class="logo"><span class="logo-ultra">ULTRA</span><span class="logo-fit">FIT</span></div>
     </div>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html" class="nav-link join-now-nav">Join Now</a></li>
+      <!-- This button text will change dynamically -->
+      <li><a href="#" class="nav-link join-now-nav" id="authNavBtn">Sign Up</a></li>
       <li><a href="#contact-section" class="nav-link">Contact Us</a></li>
       <li><a href="diet.html" class="nav-link">Diet Plan</a></li>
       <li><a href="workout.html" class="nav-link">Workout Plan</a></li>
@@ -183,29 +222,19 @@
     </div>
   </section>
 
-  <!-- ===== DIET PLANS – UNDER DEVELOPMENT ===== -->
+  <!-- DIET PLANS -->
   <section class="diet-plans-section">
     <div class="container">
       <h2 class="section-title" id="dietHeading">Diet Plans</h2>
-      <div class="under-dev-card">
-        <i class="fas fa-leaf"></i>
-        <h3>Coming Soon</h3>
-        <p>Our expert nutritionists are crafting personalised diet plans tailored to your goals – weight loss, muscle gain, or balanced living.</p>
-        <a href="diet.html" class="btn-outline-gold">Get Notified →</a>
-      </div>
+      <div class="diet-plans-grid" id="dietGrid"></div>
     </div>
   </section>
 
-  <!-- ===== WORKOUT PLANS – UNDER DEVELOPMENT ===== -->
+  <!-- WORKOUT PLANS -->
   <section class="workout-plan-section" id="workout-plan">
     <div class="container">
       <h2 class="section-title" id="workoutHeading">Workout Plan</h2>
-      <div class="under-dev-card">
-        <i class="fas fa-dumbbell"></i>
-        <h3>Coming Soon</h3>
-        <p>Periodized training programs designed by elite coaches – from beginner to advanced, at home or in the gym.</p>
-        <a href="workout.html" class="btn-outline-gold">Get Notified →</a>
-      </div>
+      <div class="workout-plans-grid" id="workoutGrid"></div>
     </div>
   </section>
 
@@ -218,13 +247,13 @@
     </div>
   </section>
 
-  <!-- ===== SHOP – UNDER DEVELOPMENT ===== -->
+  <!-- ========== SHOP SECTION – UNDER DEVELOPMENT ========== -->
   <section class="proshop-preview" id="proshop-preview">
     <div class="container">
       <h2 class="section-title" id="shopHeading"><span class="ultra-white">ULTRA</span><span class="fit-gold">FIT</span> Shop</h2>
-      <div class="under-dev-card">
+      <div class="shop-coming-soon">
         <i class="fas fa-store"></i>
-        <h3>Under Development</h3>
+        <h3>Shop Under Development</h3>
         <p>Our premium store is coming soon with authentic supplements, gym wear, and accessories. Get ready to fuel your gains.</p>
         <a href="shop.html" class="btn-outline-gold">View Launch Details →</a>
       </div>
@@ -263,6 +292,10 @@
       <div class="review-carousel-container">
         <div class="review-carousel-main"><div class="review-carousel-items" id="reviewCarouselItems"></div><button class="carousel-arrow review-prev" id="reviewPrevBtn"><i class="fas fa-chevron-left"></i></button><button class="carousel-arrow review-next" id="reviewNextBtn"><i class="fas fa-chevron-right"></i></button></div>
         <div class="review-dots" id="reviewDots"></div>
+      </div>
+      <!-- Submit Review Button -->
+      <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn-solid-gold" id="submitReviewBtn">Submit Review</button>
       </div>
     </div>
   </section>
@@ -334,6 +367,39 @@
   </div>
 </div>
 
+<!-- ========== AUTH MODALS ========== -->
+<div id="authChoiceModal" class="premium-modal"><div class="premium-modal-card" id="authChoiceContent"></div></div>
+<div id="signupModal" class="premium-modal"><div class="premium-modal-card" id="signupContent"></div></div>
+<div id="loginModal" class="premium-modal"><div class="premium-modal-card" id="loginContent"></div></div>
+
+<!-- Trainer Profile Modal (separate) -->
+<div id="trainerProfileModal" class="premium-modal">
+  <div class="premium-modal-card">
+    <button class="modal-close-btn" id="closeTrainerProfileModal">&times;</button>
+    <div style="text-align:center;" id="trainerProfileContent"></div>
+  </div>
+</div>
+
+<!-- Review Submission Modal -->
+<div id="reviewModal" class="premium-modal">
+  <div class="premium-modal-card">
+    <button class="modal-close-btn" id="closeReviewModal">&times;</button>
+    <div class="modal-title-center">Submit Your Review</div>
+    <div style="text-align:center; margin-bottom: 1rem;">
+      <div class="star-rating" id="starRating">
+        <i class="fas fa-star" data-value="5"></i>
+        <i class="fas fa-star" data-value="4"></i>
+        <i class="fas fa-star" data-value="3"></i>
+        <i class="fas fa-star" data-value="2"></i>
+        <i class="fas fa-star" data-value="1"></i>
+      </div>
+      <input type="hidden" id="selectedRating" value="5">
+    </div>
+    <textarea id="reviewText" class="review-textarea" rows="4" placeholder="Write your experience..."></textarea>
+    <button class="review-submit-btn" id="submitReviewNowBtn">Post Review</button>
+  </div>
+</div>
+
 <!-- AI CHAT BUBBLE -->
 <div class="ai-chat-container">
   <div class="chat-bubble" id="chatBubble">
@@ -355,66 +421,302 @@
   </div>
 </div>
 
-<div class="floating-cta"><button class="floating-trial-btn" id="floatingTrialBtn">Book 3-Day Free Trial</button></div>
+<div class="floating-cta" id="floatingCtaContainer"><button class="floating-trial-btn" id="floatingTrialBtn">Book 3-Day Free Trial</button></div>
 
-<!-- External JavaScript (unchanged) -->
+<!-- External JavaScript (original index.js) -->
 <script src="index.js"></script>
 
-<!-- Override: Replace any dynamic content from index.js for diet/workout/shop with our placeholders -->
+<!-- Custom JavaScript for auth, review, trainer modal, and UI updates -->
+<script>
+  // ========== AUTH & REVIEW LOGIC (based on user.html) ==========
+  const API_BASE = '/api';
+  let memberToken = localStorage.getItem('memberToken') || sessionStorage.getItem('memberToken') || null;
+  let currentMember = null;
+
+  // Helper functions from user.html (simplified)
+  function getStoredToken() { return memberToken; }
+  function setStoredToken(token, remember) {
+    if (remember) { localStorage.setItem('memberToken', token); sessionStorage.removeItem('memberToken'); }
+    else { sessionStorage.setItem('memberToken', token); localStorage.removeItem('memberToken'); }
+    memberToken = token;
+  }
+  function clearStoredToken() { localStorage.removeItem('memberToken'); sessionStorage.removeItem('memberToken'); memberToken = null; }
+
+  async function fetchJSON(url, options = {}) {
+    const headers = { 'Content-Type': 'application/json', ...(memberToken ? { 'Authorization': `Bearer ${memberToken}` } : {}), ...options.headers };
+    try {
+      const res = await fetch(url, { ...options, headers });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (err) { console.error(err); return null; }
+  }
+
+  function showPopup(msg, isSuccess = true) {
+    alert(msg); // simple alert for demo; can be replaced with toast
+  }
+
+  async function loadMemberProfile() {
+    if (!memberToken) { currentMember = null; return; }
+    const profile = await fetchJSON(`${API_BASE}/member/profile`);
+    if (profile) currentMember = profile;
+    else currentMember = null;
+    updateUIForAuth();
+  }
+
+  function updateUIForAuth() {
+    const authBtn = document.getElementById('authNavBtn');
+    const floatingCta = document.getElementById('floatingCtaContainer');
+    if (memberToken && currentMember) {
+      // Changed: rename to "UltraFit App" and link to user.html
+      authBtn.innerText = 'UltraFit App';
+      authBtn.onclick = (e) => { e.preventDefault(); window.location.href = 'user.html'; };
+      if (floatingCta) floatingCta.style.display = 'none';
+    } else {
+      authBtn.innerText = 'Sign Up';
+      authBtn.onclick = (e) => { e.preventDefault(); showAuthChoice(); };
+      if (floatingCta) floatingCta.style.display = 'block';
+    }
+  }
+
+  // ========== AUTH MODALS (same as user.html, but no profile modal) ==========
+  function showAuthChoice() {
+    const modal = document.getElementById('authChoiceModal');
+    document.getElementById('authChoiceContent').innerHTML = `
+      <button class="modal-close-btn" id="closeAuthChoice">&times;</button>
+      <div class="modal-title-center">Welcome to UltraFit</div>
+      <div style="display:flex; gap:1rem; justify-content:center;">
+        <div class="auth-card" style="cursor:pointer; background:rgba(255,215,0,0.1); padding:1rem; border-radius:28px; text-align:center; width:120px;" id="choiceSignup"><h3>Sign Up</h3><p>New Member</p></div>
+        <div class="auth-card" style="cursor:pointer; background:rgba(255,215,0,0.1); padding:1rem; border-radius:28px; text-align:center; width:120px;" id="choiceLogin"><h3>Log In</h3><p>Existing</p></div>
+      </div>
+    `;
+    modal.style.display = 'flex';
+    document.getElementById('closeAuthChoice').onclick = () => modal.style.display = 'none';
+    document.getElementById('choiceSignup').onclick = () => { modal.style.display = 'none'; showSignupModal(); };
+    document.getElementById('choiceLogin').onclick = () => { modal.style.display = 'none'; showLoginModal(); };
+  }
+
+  async function uploadSignupImage(file) {
+    const fd = new FormData(); fd.append('image', file);
+    const res = await fetch('/api/upload-signup', { method:'POST', body:fd });
+    const data = await res.json();
+    return res.ok && data.url ? data.url : null;
+  }
+
+  function showSignupModal() {
+    const modal = document.getElementById('signupModal');
+    document.getElementById('signupContent').innerHTML = `
+      <button class="modal-close-btn" id="closeSignup">&times;</button>
+      <div class="modal-title-center">Create Account</div>
+      <div style="text-align:center;"><img id="signupAvatarPreview" src="defaultpfp.png" style="width:80px;height:80px;border-radius:50%;border:2px solid #FFD700;margin-bottom:0.5rem;"><div class="click-to-upload" id="signupUploadBtn">📸 Upload Profile Photo</div><input type="file" id="signupPhotoFile" accept="image/*" style="display:none;"></div>
+      <div class="field-group"><label>Full Name *</label><input type="text" id="signupName" placeholder="First and last name"></div>
+      <div class="field-group"><label>Email *</label><input type="email" id="signupEmail" placeholder="Email"></div>
+      <div class="field-group"><label>Password *</label><div class="password-wrapper"><input type="password" id="signupPassword"><button type="button" class="toggle-password" data-target="signupPassword"><i class="fas fa-eye-slash"></i></button></div></div>
+      <div class="field-group"><label>Confirm Password *</label><div class="password-wrapper"><input type="password" id="signupConfirmPassword"><button type="button" class="toggle-password" data-target="signupConfirmPassword"><i class="fas fa-eye-slash"></i></button></div></div>
+      <div class="field-group"><label>Age *</label><input type="number" id="signupAge" placeholder="Age"></div>
+      <div class="field-group"><label>Phone *</label><input type="tel" id="signupPhone" placeholder="Phone number"></div>
+      <div class="field-group"><label>Gender</label><select id="signupGender"><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option></select></div>
+      <div class="field-group"><label>Fitness Goal</label><select id="signupGoal"><option value="musclegain">💪 Muscle Gain</option><option value="weightloss">🔥 Weight Loss</option></select></div>
+      <div class="button-group-center"><button class="btn-solid-gold" id="doSignupBtn">Sign Up</button><button class="btn-outline-gold" id="cancelSignupBtn">Cancel</button></div>
+    `;
+    modal.style.display = 'flex';
+    document.getElementById('closeSignup').onclick = () => modal.style.display = 'none';
+    document.getElementById('cancelSignupBtn').onclick = () => modal.style.display = 'none';
+    document.querySelectorAll('.toggle-password').forEach(btn => btn.addEventListener('click', function(){ let inp=document.getElementById(this.getAttribute('data-target')); inp.type=inp.type==='password'?'text':'password'; this.innerHTML=inp.type==='password'?'<i class="fas fa-eye-slash"></i>':'<i class="fas fa-eye"></i>'; }));
+    let selectedPhoto = null;
+    document.getElementById('signupUploadBtn').onclick = () => document.getElementById('signupPhotoFile').click();
+    document.getElementById('signupPhotoFile').onchange = (e) => { const f=e.target.files[0]; if(f){ selectedPhoto=f; const reader=new FileReader(); reader.onload=ev=>document.getElementById('signupAvatarPreview').src=ev.target.result; reader.readAsDataURL(f); } };
+    document.getElementById('doSignupBtn').onclick = async () => {
+      const fullName = document.getElementById('signupName').value.trim(), email=document.getElementById('signupEmail').value.trim(), pass=document.getElementById('signupPassword').value, confirm=document.getElementById('signupConfirmPassword').value, age=parseInt(document.getElementById('signupAge').value), phone=document.getElementById('signupPhone').value.trim(), gender=document.getElementById('signupGender').value, goal=document.getElementById('signupGoal').value;
+      if(!fullName||!email||!pass||!confirm||!age||!phone){ showPopup('Please fill all required fields',false); return; }
+      if(pass!==confirm){ showPopup('Passwords do not match',false); return; }
+      if(age<12||age>120){ showPopup('Enter valid age',false); return; }
+      let photoUrl='defaultpfp.png';
+      if(selectedPhoto){ const up=await uploadSignupImage(selectedPhoto); if(up) photoUrl=up; }
+      const parts=fullName.split(' '), firstName=parts[0], lastName=parts.slice(1).join(' ')||'';
+      const payload={firstName,lastName,email,password:pass,age,phone,gender,goal,photoUrl};
+      const res=await fetch(`${API_BASE}/auth/member-register`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const data=await res.json();
+      if(res.ok&&data.token){ setStoredToken(data.token,true); await loadMemberProfile(); modal.style.display='none'; showPopup('Account created! Welcome.'); location.reload(); }
+      else showPopup(data.error||'Registration failed',false);
+    };
+  }
+
+  function showLoginModal() {
+    const modal = document.getElementById('loginModal');
+    document.getElementById('loginContent').innerHTML = `
+      <button class="modal-close-btn" id="closeLogin">&times;</button>
+      <div class="modal-title-center">Log In</div>
+      <div class="field-group"><label>Email or Phone</label><input type="text" id="loginIdentifier" placeholder="Email or phone number"></div>
+      <div class="field-group"><label>Password</label><div class="password-wrapper"><input type="password" id="loginPassword"><button type="button" class="toggle-password" data-target="loginPassword"><i class="fas fa-eye-slash"></i></button></div></div>
+      <div class="remember-checkbox"><input type="checkbox" id="rememberMeCheckbox" checked> <label>Remember Me</label></div>
+      <div class="button-group-center"><button class="btn-solid-gold" id="doLoginBtn">Log In</button><button class="btn-outline-gold" id="cancelLoginBtn">Cancel</button></div>
+    `;
+    modal.style.display = 'flex';
+    document.getElementById('closeLogin').onclick = () => modal.style.display = 'none';
+    document.getElementById('cancelLoginBtn').onclick = () => modal.style.display = 'none';
+    document.querySelectorAll('.toggle-password').forEach(btn=>btn.addEventListener('click',function(){let inp=document.getElementById(this.getAttribute('data-target')); inp.type=inp.type==='password'?'text':'password'; this.innerHTML=inp.type==='password'?'<i class="fas fa-eye-slash"></i>':'<i class="fas fa-eye"></i>';}));
+    document.getElementById('doLoginBtn').onclick = async () => {
+      const id=document.getElementById('loginIdentifier').value.trim(), pwd=document.getElementById('loginPassword').value, remember=document.getElementById('rememberMeCheckbox').checked;
+      if(!id||!pwd){ showPopup('Please fill both fields',false); return; }
+      const isEmail=id.includes('@');
+      const body=isEmail?{email:id,password:pwd}:{phone:id,password:pwd};
+      const res=await fetch(`${API_BASE}/auth/member-login`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      const data=await res.json();
+      if(res.ok&&data.token){ setStoredToken(data.token,remember); await loadMemberProfile(); modal.style.display='none'; showPopup('Login successful'); location.reload(); }
+      else showPopup(data.error||'Invalid credentials',false);
+    };
+  }
+
+  function escapeHtml(str) { return String(str).replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m] || m)); }
+
+  // ========== TRAINER PROFILE MODAL ==========
+  function attachTrainerProfileHandlers() {
+    const viewButtons = document.querySelectorAll('.leader-card .view-profile-btn');
+    viewButtons.forEach(btn => {
+      btn.removeEventListener('click', trainerProfileHandler);
+      btn.addEventListener('click', trainerProfileHandler);
+    });
+  }
+
+  function trainerProfileHandler(e) {
+    e.stopPropagation();
+    const card = e.currentTarget.closest('.leader-card');
+    const trainerId = card.getAttribute('data-trainer-id');
+    // Find trainer data – since trainers array is not globally exposed, we need to fetch from API or use global variable.
+    // We'll fetch from API dynamically.
+    fetch(`${API_BASE}/trainers`)
+      .then(res => res.json())
+      .then(trainers => {
+        const trainer = trainers.find(t => t._id === trainerId);
+        if (!trainer) return;
+        const modal = document.getElementById('trainerProfileModal');
+        const content = document.getElementById('trainerProfileContent');
+        content.innerHTML = `
+          <img src="${trainer.photoUrl}" style="width:120px;height:120px;border-radius:50%;border:2px solid #FFD700;margin-bottom:1rem;">
+          <h2 style="color:#FFD700;">${escapeHtml(trainer.name)}</h2>
+          <p style="color:#bbb;">${escapeHtml(trainer.position)}</p>
+          <p style="line-height:1.5;margin:1rem 0;">${escapeHtml(trainer.bio || 'No bio available.')}</p>
+          <div style="display:flex; gap:1rem; justify-content:center; margin-top:1rem;">
+            <a href="https://wa.me/${trainer.whatsappNumber}" target="_blank" class="social-icon whatsapp" style="background:#25D366; color:white; padding:0.5rem 1rem; border-radius:40px; text-decoration:none;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="${trainer.instagramUrl}" target="_blank" class="social-icon instagram" style="background:#E4405F; color:white; padding:0.5rem 1rem; border-radius:40px; text-decoration:none;"><i class="fab fa-instagram"></i> Instagram</a>
+          </div>
+        `;
+        modal.style.display = 'flex';
+      })
+      .catch(err => console.error('Failed to fetch trainer details', err));
+  }
+
+  // Override the original trainer rendering to ensure our custom modal works
+  // We'll wait for the DOM to be ready and then observe for trainer container changes
+  function initTrainerModalOverride() {
+    // Observe the trainersContainer for dynamic content added by index.js
+    const container = document.getElementById('trainersContainer');
+    if (!container) return;
+    const observer = new MutationObserver(() => {
+      attachTrainerProfileHandlers();
+    });
+    observer.observe(container, { childList: true, subtree: true });
+    // Also try to attach immediately
+    attachTrainerProfileHandlers();
+  }
+
+  // ========== REVIEW SUBMISSION ==========
+  document.getElementById('submitReviewBtn').addEventListener('click', () => {
+    if (!memberToken || !currentMember) {
+      const confirmSignup = confirm('You need to sign in to submit a review.\nClick OK to sign up, Cancel to dismiss.');
+      if (confirmSignup) showAuthChoice();
+      return;
+    }
+    document.getElementById('reviewModal').style.display = 'flex';
+    const stars = document.querySelectorAll('#starRating i');
+    stars.forEach(star => star.classList.remove('active'));
+    stars[0].classList.add('active');
+    document.getElementById('selectedRating').value = 5;
+    document.getElementById('reviewText').value = '';
+    stars.forEach(star => {
+      star.onclick = () => {
+        const val = parseInt(star.getAttribute('data-value'));
+        document.getElementById('selectedRating').value = val;
+        stars.forEach(s => {
+          if (parseInt(s.getAttribute('data-value')) <= val) s.classList.add('active');
+          else s.classList.remove('active');
+        });
+      };
+      if (parseInt(star.getAttribute('data-value')) <= 5) star.classList.add('active');
+    });
+  });
+
+  document.getElementById('closeReviewModal').addEventListener('click', () => {
+    document.getElementById('reviewModal').style.display = 'none';
+  });
+  document.getElementById('reviewModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('reviewModal')) document.getElementById('reviewModal').style.display = 'none';
+  });
+
+  document.getElementById('submitReviewNowBtn').addEventListener('click', async () => {
+    const rating = parseInt(document.getElementById('selectedRating').value);
+    const reviewText = document.getElementById('reviewText').value.trim();
+    if (!reviewText) {
+      alert('Please write a review.');
+      return;
+    }
+    if (rating < 1 || rating > 5) {
+      alert('Please select a rating.');
+      return;
+    }
+    const payload = {
+      name: currentMember.firstName + ' ' + currentMember.lastName,
+      photoUrl: currentMember.photoUrl || 'ultrafit_logo.png',
+      review: reviewText,
+      rating: rating
+    };
+    const res = await fetch(`${API_BASE}/reviews`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${memberToken}` },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) {
+      alert('Thank you for your review!');
+      document.getElementById('reviewModal').style.display = 'none';
+      location.reload();
+    } else {
+      alert('Failed to submit review. Please try again later.');
+    }
+  });
+
+  // ========== CLOSE TRAINER MODAL ==========
+  document.getElementById('closeTrainerProfileModal').addEventListener('click', () => {
+    document.getElementById('trainerProfileModal').style.display = 'none';
+  });
+  document.getElementById('trainerProfileModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('trainerProfileModal')) document.getElementById('trainerProfileModal').style.display = 'none';
+  });
+
+  // ========== INITIALIZE ==========
+  (async () => {
+    await loadMemberProfile();
+    updateUIForAuth();
+    // Initialize trainer modal override after index.js has rendered trainers
+    setTimeout(() => initTrainerModalOverride(), 1000);
+    const floatingBtn = document.getElementById('floatingTrialBtn');
+    if (floatingBtn) {
+      floatingBtn.onclick = () => {
+        document.getElementById('modalOverlay').style.display = 'flex';
+      };
+    }
+    const closeModal = document.querySelector('#modalOverlay .close-modal');
+    if (closeModal) closeModal.onclick = () => document.getElementById('modalOverlay').style.display = 'none';
+    window.onclick = function(e) {
+      if (e.target === document.getElementById('modalOverlay')) document.getElementById('modalOverlay').style.display = 'none';
+    };
+  })();
+</script>
+
+<!-- Override to ensure product-grid is hidden (shop under development) -->
 <script>
   (function() {
-    // Wait for the page to be fully loaded and the JS to run
-    window.addEventListener('load', function() {
-      // Find and replace the diet grid content if it was overwritten by JS
-      const dietGrid = document.getElementById('dietGrid');
-      if (dietGrid) {
-        // If the original grid still exists (the JS might have removed it), we replace it.
-        // But we already replaced the whole section; ensure that the placeholder is visible.
-        // If the JS reinserted a grid, we hide it.
-        const parent = dietGrid.parentNode;
-        const existingPlaceholder = parent.querySelector('.under-dev-card');
-        if (!existingPlaceholder && dietGrid) {
-          dietGrid.style.display = 'none';
-          // Add placeholder after the heading
-          const heading = parent.querySelector('.section-title');
-          if (heading && !parent.querySelector('.under-dev-card')) {
-            const newPlaceholder = document.createElement('div');
-            newPlaceholder.className = 'under-dev-card';
-            newPlaceholder.innerHTML = `
-              <i class="fas fa-leaf"></i>
-              <h3>Coming Soon</h3>
-              <p>Our expert nutritionists are crafting personalised diet plans tailored to your goals – weight loss, muscle gain, or balanced living.</p>
-              <a href="diet.html" class="btn-outline-gold">Get Notified →</a>
-            `;
-            parent.insertBefore(newPlaceholder, dietGrid.nextSibling);
-          }
-        }
-      }
-
-      const workoutGrid = document.getElementById('workoutGrid');
-      if (workoutGrid) {
-        const parent = workoutGrid.parentNode;
-        const existingPlaceholder = parent.querySelector('.under-dev-card');
-        if (!existingPlaceholder && workoutGrid) {
-          workoutGrid.style.display = 'none';
-          const heading = parent.querySelector('.section-title');
-          if (heading && !parent.querySelector('.under-dev-card')) {
-            const newPlaceholder = document.createElement('div');
-            newPlaceholder.className = 'under-dev-card';
-            newPlaceholder.innerHTML = `
-              <i class="fas fa-dumbbell"></i>
-              <h3>Coming Soon</h3>
-              <p>Periodized training programs designed by elite coaches – from beginner to advanced, at home or in the gym.</p>
-              <a href="workout.html" class="btn-outline-gold">Get Notified →</a>
-            `;
-            parent.insertBefore(newPlaceholder, workoutGrid.nextSibling);
-          }
-        }
-      }
-
-      const productGrid = document.querySelector('.product-grid');
-      if (productGrid) productGrid.style.display = 'none';
-    });
+    const oldProductGrid = document.querySelector('.product-grid');
+    if (oldProductGrid) oldProductGrid.style.display = 'none';
   })();
 </script>
 </body>

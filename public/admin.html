@@ -1014,7 +1014,8 @@
         <div class="logo"><span class="logo-ultra">ULTRA</span><span class="logo-fit">FIT</span></div>
       </div>
       <ul class="nav-links" id="navLinks">
-        <li><a href="admin.html" class="nav-link join-now-nav">Join Now</a></li>
+        <!-- Changed: "Join Now" -> "Admin Panel" and href to admin-panel.html -->
+        <li><a href="admin-panel.html" class="nav-link join-now-nav">Admin App</a></li>
         <li><a href="admin.html#contact-section" class="nav-link">Contact Us</a></li>
         <li><a href="admin-diet.html" class="nav-link">Diet Plan</a></li>
         <li><a href="admin-workout.html" class="nav-link">Workout Plan</a></li>
@@ -1498,7 +1499,7 @@
       workoutPlan: { title: "New Workout Plan", imageUrl: DEFAULT_IMAGE, shortDescription: "Full body workout", targets: ["Strength"] },
       membership: { planName: "New Plan", price: 1999, duration: "month", description: "Full access" },
       product: { name: "New Product", imageUrl: DEFAULT_IMAGE, price: 499, shortDescription: "High quality", category: "supplements", inStock: true },
-      reel: { videoUrl: "https://videos.pexels.com/video-files/4349242/4349242-uhd_2560_1440_25fps.mp4", thumbnail: DEFAULT_IMAGE },
+      // Reel default removed – we'll handle via upload
       review: { name: "New Review", photoUrl: DEFAULT_PROFILE, review: "Amazing experience!", rating: 5 }
     };
 
@@ -2067,6 +2068,7 @@
       setPos(50);
     }
 
+    // Modified addItem: for 'reel' we now open file picker, upload video, then create reel
     async function addItem(type) {
       if (type === 'gallery') {
         const input = document.createElement('input');
@@ -2084,10 +2086,7 @@
               body: formData
             });
             if (res.status === 401) {
-              localStorage.removeItem('adminToken');
-              adminToken = null;
-              isAuthenticated = false;
-              showLoginModal();
+              showToast('Authentication failed – please refresh the page and log in again.', true);
               return;
             }
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -2108,7 +2107,47 @@
         };
         input.click();
         return;
+      } else if (type === 'reel') {
+        // Open file picker for video
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'video/*';
+        input.onchange = async (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          const formData = new FormData();
+          formData.append('image', file); // Using same upload endpoint for video (Cloudinary accepts video)
+          try {
+            const res = await fetch('/api/upload', {
+              method: 'POST',
+              headers: getAuthHeaders(),
+              body: formData
+            });
+            if (res.status === 401) {
+              showToast('Authentication failed – please refresh the page and log in again.', true);
+              return;
+            }
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            if (data.url) {
+              // Create new reel with the uploaded video URL and a default thumbnail (same URL or placeholder)
+              const payload = { videoUrl: data.url, thumbnail: data.url };
+              const createRes = await fetchJSON(`${API_BASE}/admin/reels`, { method: 'POST', body: JSON.stringify(payload) });
+              if (createRes) {
+                showToast('Reel added successfully');
+                reels = await fetchJSON(`${API_BASE}/admin/reels`) || [];
+                renderReelsCarousel();
+              } else showToast('Failed to create reel', true);
+            } else showToast('Upload failed', true);
+          } catch (err) {
+            console.error(err);
+            showToast('Upload error: ' + err.message, true);
+          }
+        };
+        input.click();
+        return;
       }
+      // For all other types, use default payloads
       const payload = defaultPayloads[type];
       if (!payload) return;
       const confirmed = await confirmAction(`Add a new ${type} with default values?`);
@@ -2123,7 +2162,6 @@
         else if (type === 'workoutPlan') { workoutPlans = await fetchJSON(`${API_BASE}/admin/workoutplans`) || []; renderWorkoutPlans(); }
         else if (type === 'membership') { memberships = await fetchJSON(`${API_BASE}/admin/memberships`) || []; renderMemberships(); }
         else if (type === 'product') { products = await fetchJSON(`${API_BASE}/admin/products`) || []; renderProducts(); }
-        else if (type === 'reel') { reels = await fetchJSON(`${API_BASE}/admin/reels`) || []; renderReelsCarousel(); }
         else if (type === 'review') { reviews = await fetchJSON(`${API_BASE}/admin/reviews`) || []; renderReviewsCarousel(); }
       } else showToast(`Failed to add ${type}`, true);
     }
@@ -2189,10 +2227,7 @@
                 body: formData
               });
               if (res.status === 401) {
-                localStorage.removeItem('adminToken');
-                adminToken = null;
-                isAuthenticated = false;
-                showLoginModal();
+                showToast('Authentication failed – please refresh the page and log in again.', true);
                 return;
               }
               if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -2318,10 +2353,7 @@
                 body: formData
               });
               if (res.status === 401) {
-                localStorage.removeItem('adminToken');
-                adminToken = null;
-                isAuthenticated = false;
-                showLoginModal();
+                showToast('Authentication failed – please refresh the page and log in again.', true);
                 return;
               }
               if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -2356,10 +2388,7 @@
                 body: formData
               });
               if (res.status === 401) {
-                localStorage.removeItem('adminToken');
-                adminToken = null;
-                isAuthenticated = false;
-                showLoginModal();
+                showToast('Authentication failed – please refresh the page and log in again.', true);
                 return;
               }
               if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -2391,10 +2420,7 @@
                 body: formData
               });
               if (res.status === 401) {
-                localStorage.removeItem('adminToken');
-                adminToken = null;
-                isAuthenticated = false;
-                showLoginModal();
+                showToast('Authentication failed – please refresh the page and log in again.', true);
                 return;
               }
               if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -2588,10 +2614,7 @@
               body: formData
             });
             if (res.status === 401) {
-              localStorage.removeItem('adminToken');
-              adminToken = null;
-              isAuthenticated = false;
-              showLoginModal();
+              showToast('Authentication failed – please refresh the page and log in again.', true);
               return;
             }
             if (!res.ok) throw new Error(`Upload failed: HTTP ${res.status}`);
@@ -2666,10 +2689,7 @@
               body: formData
             });
             if (res.status === 401) {
-              localStorage.removeItem('adminToken');
-              adminToken = null;
-              isAuthenticated = false;
-              showLoginModal();
+              showToast('Authentication failed – please refresh the page and log in again.', true);
               return;
             }
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -2938,7 +2958,7 @@
       document.getElementById('addMembershipBtn').onclick = () => addItem('membership');
       document.getElementById('addProductBtn').onclick = () => addItem('product');
       document.getElementById('addGalleryBtn').onclick = () => addItem('gallery');
-      document.getElementById('addReelBtn').onclick = () => addItem('reel');
+      document.getElementById('addReelBtn').onclick = () => addItem('reel'); // custom handler inside addItem
       document.getElementById('addReviewBtn').onclick = () => addItem('review');
 
       document.getElementById('openHeroModalBtn').onclick = openHeroModal;

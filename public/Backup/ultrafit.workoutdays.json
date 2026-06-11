@@ -1,0 +1,1578 @@
+[{
+  "_id": {
+    "$oid": "6a28e1d9e6779184a4ba3929"
+  },
+  "categoryKey": "beginner",
+  "dayTitle": "Day 1",
+  "order": 1,
+  "exercises": [
+    {
+      "name": "DB Press",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a338e6fb428e4952ef064"
+      }
+    },
+    {
+      "name": "Push-ups",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a338e6fb428e4952ef065"
+      }
+    },
+    {
+      "name": "Chest Fly",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a338e6fb428e4952ef066"
+      }
+    },
+    {
+      "name": "Triceps Ext",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a338e6fb428e4952ef067"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781148898/ultrafit_gym/uy6tzkqlkl6jpjlzwiud.jpg",
+      "label": "DB Press",
+      "_id": {
+        "$oid": "6a2a338e6fb428e4952ef068"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781148904/ultrafit_gym/n3qksh9lczhzlbo1cavx.gif",
+      "label": "Push-ups",
+      "_id": {
+        "$oid": "6a2a338e6fb428e4952ef069"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781148909/ultrafit_gym/joptt9athr2g51mhrqle.jpg",
+      "label": "Chest Fly",
+      "_id": {
+        "$oid": "6a2a338e6fb428e4952ef06a"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781148919/ultrafit_gym/lkm6itubvw4amez4fpnl.jpg",
+      "label": "Triceps Ext",
+      "_id": {
+        "$oid": "6a2a338e6fb428e4952ef06b"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1d9e6779184a4ba3931"
+  },
+  "categoryKey": "beginner",
+  "dayTitle": "Day 2",
+  "order": 2,
+  "exercises": [
+    {
+      "name": "Lat Pulldown",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a33b96fb428e4952ef0dd"
+      }
+    },
+    {
+      "name": "Cable Row",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a33b96fb428e4952ef0de"
+      }
+    },
+    {
+      "name": "Pushdown",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a33b96fb428e4952ef0df"
+      }
+    },
+    {
+      "name": "Barbell Curl",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a33b96fb428e4952ef0e0"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781149034/ultrafit_gym/gdddpyegjpu2eoran9ig.gif",
+      "label": "Lat Pulldown",
+      "_id": {
+        "$oid": "6a2a33b96fb428e4952ef0e1"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781149052/ultrafit_gym/mhqkdg0yliridiomxmkz.gif",
+      "label": "Cable Row",
+      "_id": {
+        "$oid": "6a2a33b96fb428e4952ef0e2"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781149056/ultrafit_gym/jzzypdbgtraf8hj6thzr.gif",
+      "label": "Pushdown",
+      "_id": {
+        "$oid": "6a2a33b96fb428e4952ef0e3"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781149068/ultrafit_gym/ya5e2ho6ats7gqzvctbs.gif",
+      "label": "Barbell Curl",
+      "_id": {
+        "$oid": "6a2a33b96fb428e4952ef0e4"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1d9e6779184a4ba3938"
+  },
+  "categoryKey": "beginner",
+  "dayTitle": "Day 3",
+  "order": 3,
+  "exercises": [
+    {
+      "name": "Goblet Squat",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a33d76fb428e4952ef156"
+      }
+    },
+    {
+      "name": "Leg Press",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a33d76fb428e4952ef157"
+      }
+    },
+    {
+      "name": "Leg Curl",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a33d76fb428e4952ef158"
+      }
+    },
+    {
+      "name": "Plank",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a33d76fb428e4952ef159"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150414/ultrafit_gym/sqb5h1stu3c05bklnoo7.gif",
+      "label": "Goblet Squat",
+      "_id": {
+        "$oid": "6a2a33d76fb428e4952ef15a"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150426/ultrafit_gym/hvyix4doclfob43l9lld.gif",
+      "label": "Leg Press",
+      "_id": {
+        "$oid": "6a2a33d76fb428e4952ef15b"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150437/ultrafit_gym/mu4yks8ubv6if4kdbdec.gif",
+      "label": "Leg Curl",
+      "_id": {
+        "$oid": "6a2a33d76fb428e4952ef15c"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150440/ultrafit_gym/naljqpiq0lkb0vihlex5.gif",
+      "label": "Plank",
+      "_id": {
+        "$oid": "6a2a33d76fb428e4952ef15d"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1d9e6779184a4ba393f"
+  },
+  "categoryKey": "beginner",
+  "dayTitle": "Day 4",
+  "order": 4,
+  "exercises": [
+    {
+      "name": "OHP",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a33f36fb428e4952ef1cf"
+      }
+    },
+    {
+      "name": "Lat Raise",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a33f36fb428e4952ef1d0"
+      }
+    },
+    {
+      "name": "Face Pull",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a33f36fb428e4952ef1d1"
+      }
+    },
+    {
+      "name": "Front Raise",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a33f36fb428e4952ef1d2"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150516/ultrafit_gym/fdedbyjobvnz3papxycm.gif",
+      "label": "OHP",
+      "_id": {
+        "$oid": "6a2a33f36fb428e4952ef1d3"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150538/ultrafit_gym/kypiom8qvvtrtuwrokcj.gif",
+      "label": "Lat Raise",
+      "_id": {
+        "$oid": "6a2a33f36fb428e4952ef1d4"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150542/ultrafit_gym/xmve3a3axviet3crgbma.gif",
+      "label": "Face Pull",
+      "_id": {
+        "$oid": "6a2a33f36fb428e4952ef1d5"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150550/ultrafit_gym/bmrhdha3tzwj9apxzwc3.gif",
+      "label": "Front Raise",
+      "_id": {
+        "$oid": "6a2a33f36fb428e4952ef1d6"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1d9e6779184a4ba3946"
+  },
+  "categoryKey": "beginner",
+  "dayTitle": "Day 5",
+  "order": 5,
+  "exercises": [
+    {
+      "name": "Deadlift",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a346b6fb428e4952ef24c"
+      }
+    },
+    {
+      "name": "Push Press",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a346b6fb428e4952ef24d"
+      }
+    },
+    {
+      "name": "Pull ups",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a346b6fb428e4952ef24e"
+      }
+    },
+    {
+      "name": "Leg Raises",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a346b6fb428e4952ef24f"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150802/ultrafit_gym/yclmkfymucw1hwiu7wae.gif",
+      "label": "Deadlift",
+      "_id": {
+        "$oid": "6a2a346b6fb428e4952ef250"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150807/ultrafit_gym/tc8o9zyzkmpksj638kjo.gif",
+      "label": "Push Press",
+      "_id": {
+        "$oid": "6a2a346b6fb428e4952ef251"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150816/ultrafit_gym/aho2rlb2c5vvxnbzkoge.gif",
+      "label": "Pull ups",
+      "_id": {
+        "$oid": "6a2a346b6fb428e4952ef252"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150824/ultrafit_gym/hqavqhqmtzgxw7kcd2cn.gif",
+      "label": "Leg Raises",
+      "_id": {
+        "$oid": "6a2a346b6fb428e4952ef253"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1d9e6779184a4ba394d"
+  },
+  "categoryKey": "beginner",
+  "dayTitle": "Day 6",
+  "order": 6,
+  "exercises": [
+    {
+      "name": "KB Swings",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a34f86fb428e4952ef2cc"
+      }
+    },
+    {
+      "name": "Burpees",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a34f86fb428e4952ef2cd"
+      }
+    },
+    {
+      "name": "Rowing",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a34f86fb428e4952ef2ce"
+      }
+    },
+    {
+      "name": "Stretch",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a34f86fb428e4952ef2cf"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150939/ultrafit_gym/zhpjqj0l8wogg0cdj1bm.gif",
+      "label": "KB Swings",
+      "_id": {
+        "$oid": "6a2a34f86fb428e4952ef2d0"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150948/ultrafit_gym/bxx7vebioucmtcpqfca4.gif",
+      "label": "Burpees",
+      "_id": {
+        "$oid": "6a2a34f86fb428e4952ef2d1"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150957/ultrafit_gym/aeowxwwbqnrw4msajjnu.gif",
+      "label": "Rowing",
+      "_id": {
+        "$oid": "6a2a34f86fb428e4952ef2d2"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781150963/ultrafit_gym/phudapugmwxyj1gxvfq6.gif",
+      "label": "Stretch",
+      "_id": {
+        "$oid": "6a2a34f86fb428e4952ef2d3"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1d9e6779184a4ba3973"
+  },
+  "categoryKey": "intermediate",
+  "dayTitle": "Day 1 – Chest & Triceps",
+  "order": 1,
+  "exercises": [
+    {
+      "name": "Bench Press",
+      "reps": "4×8-10",
+      "_id": {
+        "$oid": "6a2a40f340ac2f52f1c62d30"
+      }
+    },
+    {
+      "name": "Incline DB Press",
+      "reps": "4×10",
+      "_id": {
+        "$oid": "6a2a40f340ac2f52f1c62d31"
+      }
+    },
+    {
+      "name": "Cable Fly",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a40f340ac2f52f1c62d32"
+      }
+    },
+    {
+      "name": "Weighted Dips",
+      "reps": "3×10",
+      "_id": {
+        "$oid": "6a2a40f340ac2f52f1c62d33"
+      }
+    },
+    {
+      "name": "Rope Pushdown",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a40f340ac2f52f1c62d34"
+      }
+    },
+    {
+      "name": "Overhead Tricep Extension",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a40f340ac2f52f1c62d35"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781153904/ultrafit_gym/lehfwyr96jvzeacpq2sr.gif",
+      "label": "Bench Press",
+      "_id": {
+        "$oid": "6a2a40f340ac2f52f1c62d36"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781153925/ultrafit_gym/dgqnc6r3rd79q26luh5h.gif",
+      "label": "Incline DB Press",
+      "_id": {
+        "$oid": "6a2a40f340ac2f52f1c62d37"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781153931/ultrafit_gym/ukoqiglgnz45tcwjehiz.gif",
+      "label": "Cable Fly",
+      "_id": {
+        "$oid": "6a2a40f340ac2f52f1c62d38"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781153955/ultrafit_gym/vcrjxvtxu4kuddbxolcn.gif",
+      "label": "Weighted Dips",
+      "_id": {
+        "$oid": "6a2a40f340ac2f52f1c62d39"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781153965/ultrafit_gym/py2qhuzujeda3pyfaolb.gif",
+      "label": "Rope Pushdown",
+      "_id": {
+        "$oid": "6a2a40f340ac2f52f1c62d3a"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154031/ultrafit_gym/nxptbjpdstbw0biuj5gn.jpg",
+      "label": "Overhead Tricep Extension",
+      "_id": {
+        "$oid": "6a2a40f340ac2f52f1c62d3b"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1d9e6779184a4ba397a"
+  },
+  "categoryKey": "intermediate",
+  "dayTitle": "Day 2 – Back & Biceps",
+  "order": 2,
+  "exercises": [
+    {
+      "name": "Deadlift",
+      "reps": "4×6",
+      "_id": {
+        "$oid": "6a2a41b740ac2f52f1c62e11"
+      }
+    },
+    {
+      "name": "Pull-Ups",
+      "reps": "4×8",
+      "_id": {
+        "$oid": "6a2a41b740ac2f52f1c62e12"
+      }
+    },
+    {
+      "name": "Barbell Row",
+      "reps": "4×10",
+      "_id": {
+        "$oid": "6a2a41b740ac2f52f1c62e13"
+      }
+    },
+    {
+      "name": "Seated Cable Row",
+      "reps": "3×12",
+      "_id": {
+        "$oid": "6a2a41b740ac2f52f1c62e14"
+      }
+    },
+    {
+      "name": "EZ Bar Curl",
+      "reps": "3×10",
+      "_id": {
+        "$oid": "6a2a41b740ac2f52f1c62e15"
+      }
+    },
+    {
+      "name": "Hammer Curl",
+      "reps": "3×12",
+      "_id": {
+        "$oid": "6a2a41b740ac2f52f1c62e16"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154068/ultrafit_gym/wn5hifxfc6okrddv4uge.gif",
+      "label": "Deadlift",
+      "_id": {
+        "$oid": "6a2a41b740ac2f52f1c62e17"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154082/ultrafit_gym/bw2sonlst8ribvfjm118.gif",
+      "label": "Pull-Ups",
+      "_id": {
+        "$oid": "6a2a41b740ac2f52f1c62e18"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154089/ultrafit_gym/qmhvxvkqohg50kp68tlv.gif",
+      "label": "Barbell Row",
+      "_id": {
+        "$oid": "6a2a41b740ac2f52f1c62e19"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154109/ultrafit_gym/guaik6l1zy9gajzk1d2v.gif",
+      "label": "Seated Cable Row",
+      "_id": {
+        "$oid": "6a2a41b740ac2f52f1c62e1a"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154184/ultrafit_gym/rrejl3urjvdqaruhad1n.gif",
+      "label": "EZ Bar Curl",
+      "_id": {
+        "$oid": "6a2a41b740ac2f52f1c62e1b"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154193/ultrafit_gym/bndqcqprevkzjoiwnwet.gif",
+      "label": "Hammer Curl",
+      "_id": {
+        "$oid": "6a2a41b740ac2f52f1c62e1c"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1d9e6779184a4ba3981"
+  },
+  "categoryKey": "intermediate",
+  "dayTitle": "Day 3 – Legs",
+  "order": 3,
+  "exercises": [
+    {
+      "name": "Barbell Squat",
+      "reps": "4×8",
+      "_id": {
+        "$oid": "6a2a433b40ac2f52f1c62ef3"
+      }
+    },
+    {
+      "name": "Leg Press",
+      "reps": "4×12",
+      "_id": {
+        "$oid": "6a2a433b40ac2f52f1c62ef4"
+      }
+    },
+    {
+      "name": "Romanian Deadlift",
+      "reps": "3×10",
+      "_id": {
+        "$oid": "6a2a433b40ac2f52f1c62ef5"
+      }
+    },
+    {
+      "name": "Walking Lunges",
+      "reps": "3×12",
+      "_id": {
+        "$oid": "6a2a433b40ac2f52f1c62ef6"
+      }
+    },
+    {
+      "name": "Leg Curl",
+      "reps": "3×12",
+      "_id": {
+        "$oid": "6a2a433b40ac2f52f1c62ef7"
+      }
+    },
+    {
+      "name": "Standing Calf Raise",
+      "reps": "4×15",
+      "_id": {
+        "$oid": "6a2a433b40ac2f52f1c62ef8"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154341/ultrafit_gym/tixaeeogrgnvtgsoa31m.gif",
+      "label": "Barbell Squat",
+      "_id": {
+        "$oid": "6a2a433b40ac2f52f1c62ef9"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154388/ultrafit_gym/luurorssthxq9l1gtkhc.gif",
+      "label": "Leg Press",
+      "_id": {
+        "$oid": "6a2a433b40ac2f52f1c62efa"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154458/ultrafit_gym/xty0nwfwtzylgyozxfhb.gif",
+      "label": "Romanian Deadlift",
+      "_id": {
+        "$oid": "6a2a433b40ac2f52f1c62efb"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154523/ultrafit_gym/kfa34yiyym3vnu61mtn4.gif",
+      "label": "Walking Lunges",
+      "_id": {
+        "$oid": "6a2a433b40ac2f52f1c62efc"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154564/ultrafit_gym/uw7dvjzjt1qd9ymwaveo.gif",
+      "label": "Leg Curl",
+      "_id": {
+        "$oid": "6a2a433b40ac2f52f1c62efd"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154616/ultrafit_gym/ols8vghclw8yanmebpdj.gif",
+      "label": "Standing Calf Raise",
+      "_id": {
+        "$oid": "6a2a433b40ac2f52f1c62efe"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1d9e6779184a4ba3988"
+  },
+  "categoryKey": "intermediate",
+  "dayTitle": "Day 4 – Shoulders",
+  "order": 4,
+  "exercises": [
+    {
+      "name": "Barbell Overhead Press",
+      "reps": "4×8",
+      "_id": {
+        "$oid": "6a2a44de40ac2f52f1c630b0"
+      }
+    },
+    {
+      "name": "Dumbbell Lateral Raise",
+      "reps": "4×12",
+      "_id": {
+        "$oid": "6a2a44de40ac2f52f1c630b1"
+      }
+    },
+    {
+      "name": "Rear Delt Fly",
+      "reps": "3×15",
+      "_id": {
+        "$oid": "6a2a44de40ac2f52f1c630b2"
+      }
+    },
+    {
+      "name": "Face Pull",
+      "reps": "3×15",
+      "_id": {
+        "$oid": "6a2a44de40ac2f52f1c630b3"
+      }
+    },
+    {
+      "name": "Front Raise",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a44de40ac2f52f1c630b4"
+      }
+    },
+    {
+      "name": "Shrugs",
+      "reps": "4×12",
+      "_id": {
+        "$oid": "6a2a44de40ac2f52f1c630b5"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155032/ultrafit_gym/iptjhals4x9j5ilyogv3.gif",
+      "label": "Barbell Overhead Press",
+      "_id": {
+        "$oid": "6a2a44de40ac2f52f1c630b6"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154714/ultrafit_gym/vykrw8mjcr7l9attpakx.gif",
+      "label": "Dumbbell Lateral Raise",
+      "_id": {
+        "$oid": "6a2a44de40ac2f52f1c630b7"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154759/ultrafit_gym/qdlxuj7xpcuv8ty1mxaq.gif",
+      "label": "Rear Delt Fly",
+      "_id": {
+        "$oid": "6a2a44de40ac2f52f1c630b8"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154772/ultrafit_gym/yzt0srojzxbejpmbahti.gif",
+      "label": "Face Pull",
+      "_id": {
+        "$oid": "6a2a44de40ac2f52f1c630b9"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154792/ultrafit_gym/vog66ovuldonymcoicxn.gif",
+      "label": "Front Raise",
+      "_id": {
+        "$oid": "6a2a44de40ac2f52f1c630ba"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781154987/ultrafit_gym/g9nuleiq695c0wxfmr0j.gif",
+      "label": "Shrugs",
+      "_id": {
+        "$oid": "6a2a44de40ac2f52f1c630bb"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1d9e6779184a4ba398f"
+  },
+  "categoryKey": "intermediate",
+  "dayTitle": "Day 5 – Upper Body",
+  "order": 5,
+  "exercises": [
+    {
+      "name": "Incline Bench Press",
+      "reps": "4×8",
+      "_id": {
+        "$oid": "6a2a463540ac2f52f1c63192"
+      }
+    },
+    {
+      "name": "Weighted Pull-Ups",
+      "reps": "4×8",
+      "_id": {
+        "$oid": "6a2a463540ac2f52f1c63193"
+      }
+    },
+    {
+      "name": "Dumbbell Shoulder Press",
+      "reps": "3×10",
+      "_id": {
+        "$oid": "6a2a463540ac2f52f1c63194"
+      }
+    },
+    {
+      "name": "T-Bar Row",
+      "reps": "3×10",
+      "_id": {
+        "$oid": "6a2a463540ac2f52f1c63195"
+      }
+    },
+    {
+      "name": "Close Grip Bench Press",
+      "reps": "3×10",
+      "_id": {
+        "$oid": "6a2a463540ac2f52f1c63196"
+      }
+    },
+    {
+      "name": "Barbell Curl",
+      "reps": "3×10",
+      "_id": {
+        "$oid": "6a2a463540ac2f52f1c63197"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155283/ultrafit_gym/ink4h1meddgnvr4maujh.gif",
+      "label": "Incline Bench Press",
+      "_id": {
+        "$oid": "6a2a463540ac2f52f1c63198"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155099/ultrafit_gym/gbeycsf77j1so8ihhddy.gif",
+      "label": "Weighted Pull-Ups",
+      "_id": {
+        "$oid": "6a2a463540ac2f52f1c63199"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155312/ultrafit_gym/zwsennexgnp6yymj1zb1.gif",
+      "label": "Dumbbell Shoulder Press",
+      "_id": {
+        "$oid": "6a2a463540ac2f52f1c6319a"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155340/ultrafit_gym/fvdwjdilfttqflsiw155.gif",
+      "label": "T-Bar Row",
+      "_id": {
+        "$oid": "6a2a463540ac2f52f1c6319b"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155365/ultrafit_gym/wine2h0wzio5yiwmqxnl.gif",
+      "label": "Close Grip Bench Press",
+      "_id": {
+        "$oid": "6a2a463540ac2f52f1c6319c"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155374/ultrafit_gym/aeqv05yldzmglsh6v9wx.gif",
+      "label": "Barbell Curl",
+      "_id": {
+        "$oid": "6a2a463540ac2f52f1c6319d"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1d9e6779184a4ba3996"
+  },
+  "categoryKey": "intermediate",
+  "dayTitle": "Day 6 – Conditioning & Core",
+  "order": 6,
+  "exercises": [
+    {
+      "name": "Kettlebell Swings",
+      "reps": "4×15",
+      "_id": {
+        "$oid": "6a2a46c240ac2f52f1c63273"
+      }
+    },
+    {
+      "name": "Battle Ropes",
+      "reps": "4×30 sec",
+      "_id": {
+        "$oid": "6a2a46c240ac2f52f1c63274"
+      }
+    },
+    {
+      "name": "Burpees",
+      "reps": "4×12",
+      "_id": {
+        "$oid": "6a2a46c240ac2f52f1c63275"
+      }
+    },
+    {
+      "name": "Hanging Leg Raises",
+      "reps": "4×12",
+      "_id": {
+        "$oid": "6a2a46c240ac2f52f1c63276"
+      }
+    },
+    {
+      "name": "Russian Twists",
+      "reps": "3×20",
+      "_id": {
+        "$oid": "6a2a46c240ac2f52f1c63277"
+      }
+    },
+    {
+      "name": "Plank",
+      "reps": "3×60 sec",
+      "_id": {
+        "$oid": "6a2a46c240ac2f52f1c63278"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155420/ultrafit_gym/nowecqevu3f5zmibnlgc.gif",
+      "label": "Kettlebell Swings",
+      "_id": {
+        "$oid": "6a2a46c240ac2f52f1c63279"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155424/ultrafit_gym/eodoiaajrrippvzrwtfk.gif",
+      "label": "Battle Ropes",
+      "_id": {
+        "$oid": "6a2a46c240ac2f52f1c6327a"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155442/ultrafit_gym/q7bmiga7fpcqiys2elo3.gif",
+      "label": "Burpees",
+      "_id": {
+        "$oid": "6a2a46c240ac2f52f1c6327b"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155477/ultrafit_gym/pkwbcu3nk3tcgltu3ec1.gif",
+      "label": "Hanging Leg Raises",
+      "_id": {
+        "$oid": "6a2a46c240ac2f52f1c6327c"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155504/ultrafit_gym/xo9sdd69fqucrt7tlwqz.gif",
+      "label": "Twists",
+      "_id": {
+        "$oid": "6a2a46c240ac2f52f1c6327d"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155518/ultrafit_gym/yq3w3w7hdwbadplvutgu.gif",
+      "label": "Plank",
+      "_id": {
+        "$oid": "6a2a46c240ac2f52f1c6327e"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1d9e6779184a4ba39da"
+  },
+  "categoryKey": "expert",
+  "dayTitle": "Day 1 – Chest Power",
+  "order": 1,
+  "exercises": [
+    {
+      "name": "Barbell Bench Press",
+      "reps": "5×5",
+      "_id": {
+        "$oid": "6a2a48a340ac2f52f1c6343d"
+      }
+    },
+    {
+      "name": "Incline Barbell Press",
+      "reps": "4×8",
+      "_id": {
+        "$oid": "6a2a48a340ac2f52f1c6343e"
+      }
+    },
+    {
+      "name": "Weighted Dips",
+      "reps": "4×10",
+      "_id": {
+        "$oid": "6a2a48a340ac2f52f1c6343f"
+      }
+    },
+    {
+      "name": "Cable Crossover",
+      "reps": "4×12",
+      "_id": {
+        "$oid": "6a2a48a340ac2f52f1c63440"
+      }
+    },
+    {
+      "name": "Pec Deck Fly",
+      "reps": "3×15",
+      "_id": {
+        "$oid": "6a2a48a340ac2f52f1c63441"
+      }
+    },
+    {
+      "name": "Push-Ups Burnout",
+      "reps": "2 Sets Failure",
+      "_id": {
+        "$oid": "6a2a48a340ac2f52f1c63442"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155999/ultrafit_gym/hi0niwypodw4ws0yc1cb.gif",
+      "label": "Barbell Bench Press",
+      "_id": {
+        "$oid": "6a2a48a340ac2f52f1c63443"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155770/ultrafit_gym/whgajgvvwqfoapy1q1ne.gif",
+      "label": "Incline Barbell Press",
+      "_id": {
+        "$oid": "6a2a48a340ac2f52f1c63444"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155805/ultrafit_gym/rd2z3ylyftk1fepuxuza.gif",
+      "label": "Weighted Dips",
+      "_id": {
+        "$oid": "6a2a48a340ac2f52f1c63445"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155837/ultrafit_gym/y9uefhll3oxdwy9b3n5q.gif",
+      "label": "Cable Crossover",
+      "_id": {
+        "$oid": "6a2a48a340ac2f52f1c63446"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155942/ultrafit_gym/v7gedpldwislos51b2bv.jpg",
+      "label": "Pec Deck Fly",
+      "_id": {
+        "$oid": "6a2a48a340ac2f52f1c63447"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781155956/ultrafit_gym/rgwihfsv2gjigxgd8auz.gif",
+      "label": "Push-Ups",
+      "_id": {
+        "$oid": "6a2a48a340ac2f52f1c63448"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1dae6779184a4ba39e1"
+  },
+  "categoryKey": "expert",
+  "dayTitle": "Day 2 – Back Thickness & Width",
+  "order": 2,
+  "exercises": [
+    {
+      "name": "Conventional Deadlift",
+      "reps": "5×5",
+      "_id": {
+        "$oid": "6a2a498140ac2f52f1c6351e"
+      }
+    },
+    {
+      "name": "Weighted Pull-Ups",
+      "reps": "4×8",
+      "_id": {
+        "$oid": "6a2a498140ac2f52f1c6351f"
+      }
+    },
+    {
+      "name": "Pendlay Row",
+      "reps": "4×8",
+      "_id": {
+        "$oid": "6a2a498140ac2f52f1c63520"
+      }
+    },
+    {
+      "name": "T-Bar Row",
+      "reps": "4×10",
+      "_id": {
+        "$oid": "6a2a498140ac2f52f1c63521"
+      }
+    },
+    {
+      "name": "Single Arm Lat Pulldown",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a498140ac2f52f1c63522"
+      }
+    },
+    {
+      "name": "Straight Arm Pulldown",
+      "reps": "3×15",
+      "_id": {
+        "$oid": "6a2a498140ac2f52f1c63523"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156048/ultrafit_gym/snbieco7qeymiptb9fcz.gif",
+      "label": "Deadlift",
+      "_id": {
+        "$oid": "6a2a498140ac2f52f1c63524"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156060/ultrafit_gym/navizifkwsrzx4kcoaji.gif",
+      "label": "Weighted Pull-Ups",
+      "_id": {
+        "$oid": "6a2a498140ac2f52f1c63525"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156088/ultrafit_gym/fzunr9pj0lmhczn3p44f.gif",
+      "label": "Pendlay Row",
+      "_id": {
+        "$oid": "6a2a498140ac2f52f1c63526"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156094/ultrafit_gym/faigko8yxftuiksrwvby.gif",
+      "label": "T-Bar Row",
+      "_id": {
+        "$oid": "6a2a498140ac2f52f1c63527"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156164/ultrafit_gym/mtihawapfgg0m5psxosq.gif",
+      "label": "Single Arm Lat Pulldown",
+      "_id": {
+        "$oid": "6a2a498140ac2f52f1c63528"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156222/ultrafit_gym/vvlqoh4eowfmogyblmeu.gif",
+      "label": "Straight Arm Pulldown",
+      "_id": {
+        "$oid": "6a2a498140ac2f52f1c63529"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1dae6779184a4ba39e8"
+  },
+  "categoryKey": "expert",
+  "dayTitle": "Day 3",
+  "order": 3,
+  "exercises": [
+    {
+      "name": "Back Squat",
+      "reps": "5×5",
+      "_id": {
+        "$oid": "6a2a4bc440ac2f52f1c635ff"
+      }
+    },
+    {
+      "name": "Front Squat",
+      "reps": "4×8",
+      "_id": {
+        "$oid": "6a2a4bc440ac2f52f1c63600"
+      }
+    },
+    {
+      "name": "Romanian Deadlift",
+      "reps": "4×8",
+      "_id": {
+        "$oid": "6a2a4bc440ac2f52f1c63601"
+      }
+    },
+    {
+      "name": "Bulgarian Split Squat",
+      "reps": "3×10",
+      "_id": {
+        "$oid": "6a2a4bc440ac2f52f1c63602"
+      }
+    },
+    {
+      "name": "Leg Extension",
+      "reps": "3×15",
+      "_id": {
+        "$oid": "6a2a4bc440ac2f52f1c63603"
+      }
+    },
+    {
+      "name": "Standing Calf Raise",
+      "reps": "5×20",
+      "_id": {
+        "$oid": "6a2a4bc440ac2f52f1c63604"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156548/ultrafit_gym/bieabsjtxqv8eryucyyx.gif",
+      "label": "Squat",
+      "_id": {
+        "$oid": "6a2a4bc440ac2f52f1c63605"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156587/ultrafit_gym/be12eks7xul3dw0mo0yf.gif",
+      "label": "Front Squat",
+      "_id": {
+        "$oid": "6a2a4bc440ac2f52f1c63606"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156623/ultrafit_gym/ocugddrniryzynbpktbs.gif",
+      "label": "Deadlift",
+      "_id": {
+        "$oid": "6a2a4bc440ac2f52f1c63607"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156669/ultrafit_gym/uoqq4gktjmias1f7u0p4.gif",
+      "label": "Bulgarian Split Squat",
+      "_id": {
+        "$oid": "6a2a4bc440ac2f52f1c63608"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156762/ultrafit_gym/dghm47heauok9nxyffye.gif",
+      "label": "Leg Extension",
+      "_id": {
+        "$oid": "6a2a4bc440ac2f52f1c63609"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156792/ultrafit_gym/gz5oh86ykibpnj0n2szo.gif",
+      "label": "Standing Calf Raise",
+      "_id": {
+        "$oid": "6a2a4bc440ac2f52f1c6360a"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1dae6779184a4ba39ef"
+  },
+  "categoryKey": "expert",
+  "dayTitle": "Day 4 – Shoulders & Traps",
+  "order": 4,
+  "exercises": [
+    {
+      "name": "Military Press",
+      "reps": "5×5",
+      "_id": {
+        "$oid": "6a2a4cd531b29e177f046769"
+      }
+    },
+    {
+      "name": "Dumbbell Shoulder Press",
+      "reps": "4×10",
+      "_id": {
+        "$oid": "6a2a4cd531b29e177f04676a"
+      }
+    },
+    {
+      "name": "Lateral Raise",
+      "reps": "4×15",
+      "_id": {
+        "$oid": "6a2a4cd531b29e177f04676b"
+      }
+    },
+    {
+      "name": "Rear Delt Fly",
+      "reps": "4×15",
+      "_id": {
+        "$oid": "6a2a4cd531b29e177f04676c"
+      }
+    },
+    {
+      "name": "Upright Row",
+      "reps": "3×12",
+      "_id": {
+        "$oid": "6a2a4cd531b29e177f04676d"
+      }
+    },
+    {
+      "name": "New Exercise",
+      "reps": "5×12",
+      "_id": {
+        "$oid": "6a2a4cd531b29e177f04676e"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156858/ultrafit_gym/zdg5xkbp7zmj7o8u9xti.gif",
+      "label": "Shoulder Press",
+      "_id": {
+        "$oid": "6a2a4cd531b29e177f04676f"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156883/ultrafit_gym/psevfkp6xfhdnqskhdzq.gif",
+      "label": "Dumbbell Shoulder Press",
+      "_id": {
+        "$oid": "6a2a4cd531b29e177f046770"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156893/ultrafit_gym/lsqjqqse8lndhwztg7z7.gif",
+      "label": "Lateral Raise",
+      "_id": {
+        "$oid": "6a2a4cd531b29e177f046771"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781156980/ultrafit_gym/d6hcydqzcabffedsh6wh.gif",
+      "label": "Rear Delt Fly",
+      "_id": {
+        "$oid": "6a2a4cd531b29e177f046772"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157028/ultrafit_gym/hiifujupehfn5pkh7fbt.gif",
+      "label": "Upright Row",
+      "_id": {
+        "$oid": "6a2a4cd531b29e177f046773"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157058/ultrafit_gym/f6fno9xcxcvrnejym22h.gif",
+      "label": "Shrugs",
+      "_id": {
+        "$oid": "6a2a4cd531b29e177f046774"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1dae6779184a4ba39f6"
+  },
+  "categoryKey": "expert",
+  "dayTitle": "Day 5 – Arms Specialization",
+  "order": 5,
+  "exercises": [
+    {
+      "name": "Close Grip Bench Press",
+      "reps": "4×8",
+      "_id": {
+        "$oid": "6a2a4df431b29e177f04684a"
+      }
+    },
+    {
+      "name": "Skull Crushers",
+      "reps": "4×10",
+      "_id": {
+        "$oid": "6a2a4df431b29e177f04684b"
+      }
+    },
+    {
+      "name": "Rope Pushdown",
+      "reps": "3×15",
+      "_id": {
+        "$oid": "6a2a4df431b29e177f04684c"
+      }
+    },
+    {
+      "name": "Barbell Curl",
+      "reps": "4×8",
+      "_id": {
+        "$oid": "6a2a4df431b29e177f04684d"
+      }
+    },
+    {
+      "name": "Incline Dumbbell Curl",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a4df431b29e177f04684e"
+      }
+    },
+    {
+      "name": "Hammer Curl",
+      "reps": "3x12",
+      "_id": {
+        "$oid": "6a2a4df431b29e177f04684f"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157096/ultrafit_gym/ahnn3qbahx8rhyvgsfcg.gif",
+      "label": "Close Grip Bench Press",
+      "_id": {
+        "$oid": "6a2a4df431b29e177f046850"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157135/ultrafit_gym/n3aapndncn3mg8k562c0.gif",
+      "label": "Skull Crushers",
+      "_id": {
+        "$oid": "6a2a4df431b29e177f046851"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157177/ultrafit_gym/tctb4t0oicuatzx7r2ov.gif",
+      "label": "Rope Pushdown",
+      "_id": {
+        "$oid": "6a2a4df431b29e177f046852"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157216/ultrafit_gym/kjjvgea32eqeds3fphjp.gif",
+      "label": "Barbell Curl",
+      "_id": {
+        "$oid": "6a2a4df431b29e177f046853"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157313/ultrafit_gym/dhap8uvt9l1rch54hm7c.gif",
+      "label": "Incline Dumbbell Curl",
+      "_id": {
+        "$oid": "6a2a4df431b29e177f046854"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157324/ultrafit_gym/q4h3yqr7rhuylei0l2nd.gif",
+      "label": "Hammer Curl",
+      "_id": {
+        "$oid": "6a2a4df431b29e177f046855"
+      }
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a28e1dae6779184a4ba39fd"
+  },
+  "categoryKey": "expert",
+  "dayTitle": "Day 6 – Athletic Performance & Core",
+  "order": 6,
+  "exercises": [
+    {
+      "name": "Sled Push",
+      "reps": "5×20m",
+      "_id": {
+        "$oid": "6a2a4ea531b29e177f04692b"
+      }
+    },
+    {
+      "name": "Farmer's Carry",
+      "reps": "4×30m",
+      "_id": {
+        "$oid": "6a2a4ea531b29e177f04692c"
+      }
+    },
+    {
+      "name": "Box Jumps",
+      "reps": "4×10",
+      "_id": {
+        "$oid": "6a2a4ea531b29e177f04692d"
+      }
+    },
+    {
+      "name": "Hanging Leg Raises",
+      "reps": "4×15",
+      "_id": {
+        "$oid": "6a2a4ea531b29e177f04692e"
+      }
+    },
+    {
+      "name": "Ab Wheel Rollout",
+      "reps": "4×12",
+      "_id": {
+        "$oid": "6a2a4ea531b29e177f04692f"
+      }
+    },
+    {
+      "name": "Plank",
+      "reps": "3×90 sec",
+      "_id": {
+        "$oid": "6a2a4ea531b29e177f046930"
+      }
+    }
+  ],
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157389/ultrafit_gym/q2l6yfgiihbvlrsuh60j.gif",
+      "label": "Sled Push",
+      "_id": {
+        "$oid": "6a2a4ea531b29e177f046931"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157460/ultrafit_gym/vctyfvtbxxubmfezgwuz.gif",
+      "label": "Farmer's Walk",
+      "_id": {
+        "$oid": "6a2a4ea531b29e177f046932"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157417/ultrafit_gym/zufcffsll7alhjkino7f.gif",
+      "label": "Box Jumps",
+      "_id": {
+        "$oid": "6a2a4ea531b29e177f046933"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157502/ultrafit_gym/jzjxa0kdhtyuxznhhuzq.gif",
+      "label": "Hanging Leg Raises",
+      "_id": {
+        "$oid": "6a2a4ea531b29e177f046934"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157528/ultrafit_gym/enlnxko3pkekxxmladm5.gif",
+      "label": "Ab Wheel Rollout",
+      "_id": {
+        "$oid": "6a2a4ea531b29e177f046935"
+      }
+    },
+    {
+      "url": "https://res.cloudinary.com/doogaohul/image/upload/v1781157537/ultrafit_gym/ou30m60jmpjpompnipyh.gif",
+      "label": "Plank",
+      "_id": {
+        "$oid": "6a2a4ea531b29e177f046936"
+      }
+    }
+  ],
+  "__v": 0
+}]
